@@ -193,6 +193,7 @@ ModSupport.init = function () {
 		ModSupport.currentMods = JSON.parse(enabledMods);
 	}
 
+	/*
 	if (!PlatformShim.ISWIN8 && require) {
 		var path = require('path');
 		var cwd = path.dirname(process.execPath);
@@ -317,11 +318,12 @@ ModSupport.init = function () {
 
 		ModSupport.loadMods();
 	}
+		*/
 
 	function compareVersions(a, b) {
 		var v1 = a.split('.');
 		var v2 = b.split('.');
-		for (var i = 0; i < Math.min(v1.length, v2.length) ; i++) {
+		for (var i = 0; i < Math.min(v1.length, v2.length); i++) {
 			var res = v1[i] - v2[i];
 			if (res != 0)
 				return res;
