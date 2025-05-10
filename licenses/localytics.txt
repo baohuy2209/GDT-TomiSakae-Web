@@ -1,0 +1,10 @@
+﻿/*!
+ * Localytics HTML5/JavaScript Library
+ * Copyright (C) 2013 Char Software Inc., DBA Localytics
+ * 
+ * This code is provided under the Localytics Modified BSD License.
+ * A copy of this license is available at
+ * http://www.localytics.com/docs/opensourceinfo/#license-documentation
+ * 
+ * Please visit www.localytics.com for more information.
+ */
