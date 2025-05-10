@@ -7,6 +7,9 @@
     <meta name="viewport"
         content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
     <title>Game Dev Tycoon</title>
+    <link rel="icon" href="./icon-full.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./icon-full.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./icon-full.ico">
     <link href="./css/font-awesome.css" rel="stylesheet" />
     <!--NuGet References-->
     <script src="./Scripts/jquery-1.7.2.js"></script>
@@ -311,38 +314,6 @@
             run with a minimum resolution of 1024x768.}</h2>
     </div>
     <div id="resources" style="display: none" data-win-design-hidden="true">
-
-        <div id="modMismatchResources">
-            <div id="modMismatchTextMissingMods"><strong id="modMismatchTitleMissingMods">ll:{Missing Mod(s)}</strong>
-            </div>
-            <div id="modMismatchTextAdditionalMods"><strong id="modMismatchTitleAdditionalMods">ll:{Additional
-                    Mod(s):}</strong></div>
-            <span class="modMismatchModItem" title=""></span>
-        </div>
-
-        <div id="modMismatchDialog" class="windowBorder">
-            <span class="icon-warning-sign icon-3x" style="top: 24px; position: absolute; float: left;"></span>
-            <div id="modMismatchContent">
-                <div id="modMismatchTextIntro">ll:{There is a mismatch between the mods used in this save game and the
-                    mods you currently have active:}</div>
-                <br />
-                <div id="modMismatchModPrintout"></div>
-                <br />
-                <div id="modMismatchTextWarning">ll:{This mismatch may cause unwanted issues such as save game
-                    corruption making your save unplayable.}</div>
-                <div id="modMismatchTextSuggestion">ll:{To correct this, activate the same mod(s) that have been used
-                    with the save game and deactive any extra mods. If this is intentional however you may wish to
-                    continue loading the game.}</div>
-            </div>
-            <div class="centeredButtonWrapper">
-                <span id="modMismatchTextProceed">ll:{How would you like to proceed?}</span>
-                <br />
-                <div class="confirmActionButton selectorButton deleteButton" style="width: 150px;">ll:{Load Anyway}
-                </div>
-                <div class="cancelActionButton selectorButton orangeButton" style="width: 150px;">ll:{Abort Loading}
-                </div>
-            </div>
-        </div>
 
         <div id="consoleMainCardTemplate" class="consoleMainCard">
             <div class="consoleMainCardGroup title"></div>
@@ -670,204 +641,6 @@
         <div id="loadView" class="tallWindow windowBorder">
             <div class="windowTitle">ll:{Load Game}</div>
             <div id="loadViewContent">
-            </div>
-        </div>
-        <div id="modsButtonTemplate" class="modsSelectionButton">
-            <div class="modsButtonContent">
-                <div class="table">
-                    <div class="table-row">
-                        <div class="table-cell" style="width:120px">
-                            <div class="modImage"></div>
-                        </div>
-                        <div class="table-cell">
-                            <div style="width:10px;">&nbsp;</div>
-                        </div>
-                        <div class="table-cell" style="width:560px">
-                            <div class="modName"></div>
-                            <div class="modVersion float-right"></div>
-                            <div class="description"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-row">
-                    <div class="table-cell" style="width: 120px">
-                        <div class="website"></div>
-                    </div>
-                    <div class="table-cell">
-                        <div style="width:10px;">&nbsp;</div>
-                    </div>
-                    <div class="table-cell" style="width:400px">
-                        ll:{Author}: <div class="author"></div>
-                    </div>
-                    <div class="table-cell" style="width:160px">
-                        <div class="modopts float-right"></div>
-                    </div>
-                </div>
-                <div class="selectionPip"></div>
-            </div>
-        </div>
-        <div id="modsPanel" class="wideWindow windowBorder">
-            <div id="modsPanelActions">
-                <div id="modsPanelButtonMods" class="modsPanelWorkshopButton">
-                    ll:{Mods}
-                </div>
-                <div id="modsPanelButtonWorkshop" class="modsPanelWorkshopButton">
-                    ll:{Steam Workshop}
-                </div>
-                <div id="modsPanelButtonUpload" class="modsPanelWorkshopButton">
-                    ll:{Publish Mod}
-                </div>
-                <div id="modsPanelButtonUpdate" class="modsPanelWorkshopButton">
-                    ll:{Update Mod}
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div id="modsPanelMods" class="modsPanelItem">
-                <div class="windowTitle">ll:{Mods}</div>
-                <div class="modsWarning">ll:{Enabling and disabling mods requires a restart.}</div>
-                <div class="modsDisclaimer"><span style="font-weight: bold">ll:{Use mods at your own risk!}</span>
-                    ll:{Greenheart Games is not responsible for the contents of mods. Mods may corrupt your save files
-                    or do other harm. Use them at your own risk! Since mods can introduce severe bugs or data corruption
-                    we cannot offer user support when mods are in use.}</div>
-                <div id="modsPanelContent" class="modsPanelContainer">
-                </div>
-            </div>
-            <div id="modsPanelUpload" class="modsPanelItem">
-                <div class="windowTitle">ll:{Publish Mod}</div>
-                <div id="modsPanelUploadContent" class="modsPanelContainerWorkshop">
-                    <br />
-                    <div class="table">
-                        <div class="table-row">
-                            <div class="table-cell">
-                                <h3>ll:{Title*}</h3>
-                                <input id="ugcModTitle" class="ugcModUploadInputFieldR" type="text" value=""
-                                    maxlength="128" style="font-size: 12pt; width: 350px;" required />
-                                <br />
-                                <div style="height: 10px;"></div>
-                                <h3>ll:{Description}</h3>
-                                <textarea id="ugcModDesc" maxlength="8000"
-                                    style="font-size: 12pt; width: 348px; height: 284px; max-width: 348px; max-height: 284px; margin-top: 2px; "></textarea>
-                            </div>
-                            <div class="table-cell">
-                                <div class="float-left" style="width: 10px">&nbsp;</div>
-                            </div>
-                            <div class="table-cell">
-                                <h3>ll:{Mod Source Folder*}</h3>
-                                <input id="ugcModFolderName" type="text" value="" title="ll:{Choose Folder}"
-                                    style="font-size: 12pt; width: 340px;" readonly="true" />
-                                <div class="browseForButtonWrapper">
-                                    <input id="ugcModFolder" class="browseForButton ugcModUploadInputFieldR" type="file"
-                                        value="" style="font-size: 12pt;" nwdirectory required />
-                                    <div id="browseForButtonUpload" class="browseForButton icon-folder-open"
-                                        title="ll:{Choose Folder}" style="margin-top: -1px"></div>
-                                </div>
-                                <br />
-                                <div style="height: 10px;"></div>
-                                <h3>ll:{Choose Image}</h3>
-                                <input id="ugcModImageName" type="text" value="" style="font-size: 12pt; width: 340px; "
-                                    readonly="true" />
-                                <div class="browseForButtonWrapper">
-                                    <input id="ugcModImage" class="browseForButton" type="file" value=""
-                                        style="font-size: 12pt;" />
-                                    <div id="browseForImageButtonUpload" class="browseForImageButton icon-file"
-                                        title="ll:{Choose Image}" style="margin-top: -1px"></div>
-                                </div>
-                                <div style="height: 10px;"></div>
-                                <h3>ll:{Image Preview}</h3>
-                                <div class="imagePreviewContainer" style="margin-top:2px;"><img id="ugcModImagePreview"
-                                        class="browseForImageFilePreview" src="" /></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table">
-                        <div class="table-row">
-                            <div class="table-cell mod_agreement">
-                                By submitting this item, you agree to our <a href="#"
-                                    class="moddinglegalagreement">Modding Agreement</a> and to the <a href="#"
-                                    class="workshoplegalagreement">workshop terms of service</a>.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modsPanelStatus"><strong>ll:{Status}</strong>:<div class="line" style="width:100%"></div>
-                    <div id="modsPanelUploadStatus" style="padding-top:2px">ll:{Idle}</div>
-                </div>
-                <div id="modsPanelButtonPublishNow" class="modsPanelWorkshopButton modsPanelWorkshopButtonSubmit">
-                    ll:{Publish}
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div id="modsPanelUpdate" class="modsPanelItem">
-                <div class="windowTitle">ll:{Update Mod}</div>
-                <div id="modsPanelUpdateContent" class="modsPanelContainerWorkshop">
-                    <div class="float-left" style="width:300px;">
-                        <br />
-                        <h3>ll:{Your Mods}</h3>
-                        <ul id="ugcMods" class="listContainerWorkshop ugcModUpdateInputFieldR" style="height:341px">
-                            <li>ll:{Loading data...}</li>
-                        </ul>
-                    </div>
-                    <div class="float-left" style="width:20px">&nbsp;</div>
-                    <div id="modsPanelWorkshopUpdateInputFields" style="opacity: 0;" class="float-left">
-                        <br />
-                        <h3>ll:{Title}</h3>
-                        <input id="ugcModTitleUpd" class="ugcModUpdateInputFieldR" type="text" value="" maxlength="128"
-                            style="font-size: 12pt; width: 389px; margin-top: 2px" />
-                        <br />
-                        <div style="height: 10px;"></div>
-                        <h3>ll:{Description}</h3>
-                        <textarea id="ugcModDescUpd" class="ugcModUpdateInputFieldR" maxlength="8000"
-                            style="font-size: 12pt; width: 387px; height: 84px; max-width: 399px; max-height: 84px; margin-top: 2px; "></textarea>
-                        <br />
-                        <div style="height: 10px;"></div>
-                        <h3>ll:{Your Mod Folder}</h3>
-                        <input id="ugcModFolderNameUpd" type="text" value="" title="ll:{Choose Folder}"
-                            style="font-size: 12pt; width: 389px;" readonly="true" />
-                        <div class="browseForButtonWrapper">
-                            <input id="ugcModFolderUpd" class="browseForButton ugcModUpdateInputFieldR" type="file"
-                                value="" style="font-size: 12pt;" nwdirectory />
-                            <div id="browseForButtonUpdate" class="browseForButton icon-folder-open"
-                                title="ll:{Choose Folder}" style="margin-top: -1px"></div>
-                        </div>
-                        <br />
-                        <div style="height: 10px;"></div>
-                        <h3>ll:{Image Preview}</h3>
-                        <div style="height:4px;width:10px">&nbsp;</div>
-                        <div class="float-left">
-                            <img id="ugcModImagePreviewUpd" class="browseForImageFilePreview"
-                                style="width: 130px; height: 100px; " src="" />
-                        </div>
-                        <div class="float-left" style="width:10px">&nbsp;</div>
-                        <div class="float-left">
-                            <input id="ugcModImageNameUpd" type="text" value=""
-                                style="font-size: 12pt; width: 249px; margin:0" readonly="true" />
-                        </div>
-                        <div class="float-left">
-                            <div class="browseForButtonWrapper">
-                                <input id="ugcModImageUpd" class="browseForButton ugcModUpdateInputFieldR" type="file"
-                                    value="" style="font-size: 12pt;" required />
-                                <div id="browseForImageButtonUpdate" class="browseForImageButton icon-file"
-                                    title="ll:{Choose Image}" style="margin-top: -4px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="float-left  mod_agreement" style="position:relative; top:-29px">
-                        By submitting this item, you agree to our <a href="#" class="moddinglegalagreement">Modding
-                            Agreement</a> and to the <a href="#" class="workshoplegalagreement">workshop terms of
-                            service</a>.
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="modsPanelStatus" style="width:310px"><strong>ll:{Status}</strong>:<div class="line"
-                        style="width:100%"></div>
-                    <div id="modsPanelUploadStatusUpd" style="padding-top:2px">ll:{Idle}</div>
-                </div>
-                <div id="modsPanelButtonUpdateNow" class="modsPanelWorkshopButton modsPanelWorkshopButtonSubmit">
-                    ll:{Update}
-                </div>
-                <div class="clear"></div>
-
             </div>
         </div>
         <div id="saveView" class="tallWindow windowBorder">
@@ -1656,11 +1429,6 @@
                 </div>
                 <div class="settingsButton selectorButton orangeButton windowLargeOkButton mainMenuButton">
                     ll:{Settings}
-                </div>
-                <div>
-                    <div class="modsButton selectorButton orangeButton windowLargeOkButton mainMenuButton">
-                        ll:{Mods}
-                    </div>
                 </div>
                 <hr />
                 <div class="highscoreButton selectorButton orangeButton windowLargeOkButton mainMenuButton">

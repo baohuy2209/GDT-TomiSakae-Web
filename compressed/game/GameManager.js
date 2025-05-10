@@ -701,7 +701,7 @@ var GameManager = {
     gameManagerInstance.getPreferredLanguage = function () {
         if (preferredLanguage == void 0) { // Nếu chưa có, đọc từ DataStore
             preferredLanguage = DataStore.getValue("language");
-            if (preferredLanguage == void 0) gameManagerInstance.setPreferredLanguage("en"); // Mặc định là tiếng Anh
+            if (preferredLanguage == void 0) gameManagerInstance.setPreferredLanguage("vi"); // Mặc định là tiếng Anh
         }
         return preferredLanguage;
     };

@@ -1,7 +1,0 @@
-﻿/*
- * SimpleModal 1.4.2 - jQuery Plugin
- * http://simplemodal.com/
- * Copyright (c) 2011 Eric Martin
- * Licensed under MIT and GPL
- * Date: Sat, Dec 17 2011 15:35:38 -0800
- */
