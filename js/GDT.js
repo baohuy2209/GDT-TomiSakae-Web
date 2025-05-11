@@ -1,6 +1,6 @@
 ﻿var GDT = {};
 (function () {
-	var fs = typeof require != 'undefined' ? require('fs') : null;
+	//var fs = typeof require != 'undefined' ? require('fs') : null;
 
 	//dont' go more than one level deep.
 	GDT.eventKeys = {
@@ -61,7 +61,7 @@
 
 	GDT.fire = function (obj, key, data) {
 		var subs = getSubscribers(key).slice();
-		for (var i = 0; i < subs.length ; i++) {
+		for (var i = 0; i < subs.length; i++) {
 			if (subs[i] != null) {
 				try {
 					subs[i].call(obj, data);
@@ -72,117 +72,79 @@
 		}
 	};
 
-	var _scriptsToLoad = 0;
+	var _scriptsCurrentlyLoading = 0; // Theo dõi số lượng script đang tải
 
 	GDT.loadJs = function (scriptFiles, ready, error) {
-		if (PlatformShim.ISWIN8)
+		// if (PlatformShim.ISWIN8) // Có thể không cần kiểm tra này nữa nếu chỉ chạy web
+		//     return;
+
+		if (!Array.isArray(scriptFiles)) {
+			scriptFiles = [scriptFiles];
+		}
+
+		var scriptsToLoadCount = scriptFiles.length;
+		if (scriptsToLoadCount === 0) {
+			if (ready) ready();
 			return;
-		function acquireProperJsFileLocation(f, b) {
-			var curScript = f.replace('/./', '/');
-			var curPath = '';
+		}
 
-			if (fs.existsSync(f)) {
-				return f;
+		_scriptsCurrentlyLoading += scriptsToLoadCount;
+
+		var loadedCount = 0;
+		var errorOccurred = false;
+
+		function onScriptLoadOrError(isSuccess, scriptUrl) {
+			loadedCount++;
+			_scriptsCurrentlyLoading--;
+
+			if (!isSuccess && !errorOccurred) {
+				errorOccurred = true; // Chỉ gọi hàm error một lần
+				var errorMessage = 'Không thể tải script {0}'.format(scriptUrl);
+				Logger.LogModError(errorMessage, null, errorMessage); // Sử dụng Logger
+				if (error) error({ message: "Lỗi tải script", script: scriptUrl });
 			}
 
-			if (curScript.startsWith('./mods/') || curScript.startsWith('/mods/') || curScript.startsWith('mods/')) {
-				curScript = curScript.replace(/^((.\/mods\/)|(\/mods\/)|(mods\/))(.*?)\//mg, "$5/");
-
-				if (curScript.startsWith('./')) {
-					curScript = curScript.substring(2);
+			if (loadedCount === scriptsToLoadCount) { // Tất cả script trong batch này đã được xử lý
+				if (!errorOccurred && ready) {
+					ready();
 				}
-
-				curPath = b + '/mods_ws/' + curScript;
-
-				if (!fs.existsSync(curPath)) {
-					curPath = b + '/mods/' + curScript;
-
-					if (!fs.existsSync(curPath)) {
-						curPath = b + '/' + curScript;
-
-						if (!fs.existsSync(curPath)) {
-							curScript = f.replace('/./', '/');
-							curScript = curScript.replace(/^((.\/mods\/)|(\/mods\/)|(mods\/))(.*?)\//mg, "");
-
-							curPath = b + '/' + curScript;
-						}
-					}
+				// Kiểm tra xem tất cả các batch script đã tải xong chưa
+				if (_scriptsCurrentlyLoading === 0) {
+					// Chỉ fire sự kiện khi tất cả các lệnh gọi GDT.loadJs đồng thời đã hoàn tất
+					GDT.fire(this, errorOccurred ? GDT.eventKeys.mod.loadError : GDT.eventKeys.mod.loaded);
 				}
-
-				if (!fs.existsSync(curPath)) {
-					curPath = curPath.replace('/mods_ws/', '/mods/');
-					return curPath;
-				}
-
-				return curPath;
-
-			} else {
-				var curCwd = b.replaceAll("\\", "/");
-				if (curScript.startsWith(curCwd)) {
-					curPath = curScript;
-				} else {
-					curPath = b + '/' + curScript;
-
-					if (!fs.existsSync(curPath)) {
-						curPath = curPath.replace('/mods/', '/mods_ws/');
-						return curPath;
-					}
-				}
-				return curPath;
 			}
 		}
 
-		var cwd = PlatformShim.getScriptPath(false);
-		if (cwd == "") {
-			var path = require('path');
-			cwd = path.dirname(process.execPath);
-			var searchString = '/Contents/Frameworks/node-webkit';
-			if (cwd.lastIndexOf(searchString) > -1) {
-				cwd = cwd.substr(0, cwd.lastIndexOf(searchString)) + '/Contents/Resources/app.nw';
-			}
-		}
-		cwd = cwd.replaceAll('\\', '/');
-		if (!cwd.startsWith('/') && cwd.length > 1 && cwd[1] != ':')
-			cwd = '/' + cwd;
-		var searchString = '/Contents/Resources/app.nw/';
-		if (cwd.lastIndexOf(searchString) > -1) {
-			cwd = cwd.substr(cwd.lastIndexOf(searchString) + searchString.length, cwd.length - (cwd.lastIndexOf(searchString) + searchString.length));
-		}
+		scriptFiles.forEach(function (scriptUrl) {
+			// Đường dẫn scriptUrl đã được chuẩn bị trong modSupport.js
+			// ví dụ: "mods/CheatModKristof1104/source.js"
+			console.log("GDT.loadJs: Đang yêu cầu tải " + scriptUrl);
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.async = true; // Tải bất đồng bộ
+			script.src = scriptUrl;
 
-		if (Array.isArray(scriptFiles)) {
-			for (var i = 0; i < scriptFiles.length; i++) {
-				scriptFiles[i] = acquireProperJsFileLocation(scriptFiles[i], cwd);
-			}
-		} else {
-			scriptFiles = [acquireProperJsFileLocation(scriptFiles, cwd)];
-		}
-
-		_scriptsToLoad++;
-		requireLoad(scriptFiles, function () {
-			_scriptsToLoad--;
-			if (_scriptsToLoad == 0) {
-				GDT.fire(this, GDT.eventKeys.mod.loaded);
-			}
-			if (ready) {
-				ready();
-			}
-		}, function () {
-			Logger.LogModError('Could not load mod one of the scripts {0} is missing or invalid!'.format(scriptFiles), undefined, 'Could not load mod one of the scripts {0} is missing or invalid!'.format(scriptFiles));
-			_scriptsToLoad--;
-			if (_scriptsToLoad == 0) {
-				GDT.fire(this, GDT.eventKeys.mod.loadError);
-			}
-			if (error) {
-				error();
-			}
+			script.onload = function () {
+				console.log("GDT.loadJs: Đã tải thành công " + scriptUrl);
+				onScriptLoadOrError(true, scriptUrl);
+			};
+			script.onerror = function (err) {
+				console.error("GDT.loadJs: Lỗi khi tải " + scriptUrl, err);
+				onScriptLoadOrError(false, scriptUrl);
+			};
+			document.head.appendChild(script);
 		});
 	};
 
+	// GDT.getRelativePath và GDT.addSettingsTab giữ nguyên nếu bạn vẫn cần chúng
+	// Nhưng getRelativePath có thể không còn hoạt động như mong đợi trên web tĩnh.
 	GDT.getRelativePath = function () {
-		var cwd = PlatformShim.getScriptPath(false);
-		if (!cwd.startsWith('/') && cwd.length > 1 && cwd[1] != ':')
-			cwd = '/' + cwd;
-		return cwd;
+		// Trên web tĩnh, việc xác định "relative path" theo cách cũ có thể không chính xác.
+		// Bạn có thể trả về một đường dẫn gốc hoặc rỗng.
+		// Hoặc dựa vào location.pathname nếu cần.
+		console.warn("GDT.getRelativePath có thể không hoạt động như mong đợi trên web tĩnh.");
+		return "./"; // Hoặc một giá trị phù hợp khác
 	};
 
 	GDT.addSettingsTab = function (text, content) {
