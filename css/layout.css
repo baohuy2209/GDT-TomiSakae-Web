@@ -4115,3 +4115,7 @@ p.errorMessage .span {
 	user-select: text !important;
 	-ms-user-select: text !important;
 }
+
+#cancelProjectDialog {
+	overflow-x: hidden;
+}
