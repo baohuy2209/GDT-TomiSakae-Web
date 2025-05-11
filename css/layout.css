@@ -3006,6 +3006,7 @@ body {
 	background-color: #FFF9EF;
 	border: 5px solid #FFD17B;
 	z-index: -1;
+	overflow: auto;
 }
 
 .featureSelectionPanelHiddenState {
