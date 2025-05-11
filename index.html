@@ -66,6 +66,7 @@
     <link rel="stylesheet" href="./css/achievements.css" />
     <link rel="stylesheet" href="./css/popoutDialog.css" />
     <link rel="stylesheet" href="./css/greenworks.css" />
+    <link href="./tailwindcss/output.css" rel="stylesheet">
 
     <!-- Hỗ trợ font tiếng Việt -->
     <style>
@@ -1160,6 +1161,48 @@
                         <div class="cancelActionButton selectorButton orangeButton">ll:{No}</div>
                     </div>
                 </div>
+                <div id="createShareCodeWindow" class="windowBorder">
+                    <div class="topPart">
+                        <div class="windowTitle smallerWindowTitle">ll:{Upload}</div>
+                        <div class="description"></div>
+                    </div>
+                    <div class="flipContainer">
+                        <div class="page page1">
+                            <div class="saveContainer"></div>
+                            <div class="achievementsCheck centeredButtonWrapper" style="margin-top:10px;display:none">
+                                <div class="checkbox achievement icon-check"></div><label class="label">Enable
+                                    achievements on
+                                    this save.</label>
+                            </div>
+                        </div>
+                        <div class="page page2">
+                            <div class="icon-spinner spinner"></div>
+                        </div>
+                        <div class="page page3">
+                            <div class="centeredButtonWrapper">
+                                <span class="prefix">GDT-</span><input class="sharecodeInput" type="text"
+                                    maxlength="8" />
+                                <div class="copiedNotice"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="legalCheck centeredButtonWrapper" style="margin-top:10px">
+                        <div class="checkbox legal icon-check-empty"></div><label class="label legal"></label>
+                    </div>
+                    <div class="centeredButtonWrapper">
+                        <div class="uploadToCloudButton confirmActionButton orangeButton selectorButton">ll:{Upload}
+                        </div>
+                    </div>
+                </div>
+                <div id="displaySharecode" class="windowBorder smallWindow">
+                    <div class="windowTitle smallerWindowTitle">ll:{Share code}</div>
+                    <div>ll:{Hooray! The servers have bestowed this shiny new share code upon you.}</div>
+                    GDT-<input class="sharecodeInput" type="text" value="" maxlength="8" style="font-size: 14pt"
+                        required />
+                    <div class="centeredButtonWrapper">
+                        <div class="confirmActionButton orangeButton selectorButton">ll:{OK}</div>
+                    </div>
+                </div>
                 <div id="gameEndStatisticItem">
                 </div>
                 <div id="fullGameFeatureTeaser">
@@ -1604,7 +1647,7 @@
                         </div>
                     </div>
                     <div class="version"></div>
-                    <span style="position: absolute; font-size: 12pt; left: 5px; bottom: 5px;">TomiSakae -
+                    <span class="absolute text-md left-[5px] bottom-[5px]">TomiSakae -
                         betaV0.2</span>
                 </div>
                 <div id="helpPanel" class="windowBorder wideWindow">
