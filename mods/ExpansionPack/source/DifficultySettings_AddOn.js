@@ -1,46 +1,46 @@
 var DifSet = {};
 (function () {
 	var time;
-	
+
 	DifSet.store = function () {
 		return GDT.getDataStore("ExpPackMod").data;
 	};
 	DifSet.settings = function () {
 		return GDT.getDataStore("ExpPackMod").settings;
 	};
-	
+
 	DifSet.addGameDifSelector = function () {
 		var c = "";
 		c += '<div id="gameDif" class="centeredButtonWrapper">';
-		c += "<h2>Game Difficulty</h2>";
+		c += "<h2>Độ Khó Trò Chơi</h2>";
 		c += "</ br>";
 		c += '<select id="difSelect" style="max-width: 250px">';
-		c += '<option value="Easy">Easy</option>';
-		c += '<option value="Normal" selected="selected">Normal</option>';
-		c += '<option value="Hard">Hard</option>';
+		c += '<option value="Easy">Dễ</option>';
+		c += '<option value="Normal" selected="selected">Bình Thường</option>';
+		c += '<option value="Hard">Khó</option>';
 		c += "</select>";
-		c += "<p>Select a game difficulty you wish to play. Difficulty will change starting money, research costs and more.</p>";
+		c += "<p>Chọn độ khó trò chơi bạn muốn chơi. Độ khó sẽ thay đổi tiền ban đầu, chi phí nghiên cứu và nhiều thứ khác.</p>";
 		c += "</div>";
 		UltimateLib.Configuration.addAdvancedOption(c);
 	};
-	
+
 	DifSet.setGameDif = function () {
 		var d = UI.closeNewGameView;
 		var c = function () {
 			var e = document.getElementById("difSelect").value;
 			switch (e) {
-			case "Easy":
-				GameManager.company.cash = 100000;
-				Es();
-				break;
-			case "Normal":
-				break;
-			case "Hard":
-				GameManager.company.cash = 50000;
-				Ha();
-				break;
-			default:
-				break;
+				case "Easy":
+					GameManager.company.cash = 100000;
+					Es();
+					break;
+				case "Normal":
+					break;
+				case "Hard":
+					GameManager.company.cash = 50000;
+					Ha();
+					break;
+				default:
+					break;
 			}
 		};
 		UI.closeNewGameView = function () {
@@ -48,7 +48,7 @@ var DifSet = {};
 			c();
 		};
 	};
-	
+
 	function Es() {
 		applyDifSetting(0.8, "Easy");
 		console.log('dif = Easy');
@@ -61,45 +61,45 @@ var DifSet = {};
 		applyDifSetting(1.2, "Hard");
 		console.log('dif = Hard');
 	};
-	
+
 	DifSet.checkGameDif = function () {
 		switch (DifSet.store().gameDif) {
-		case "Easy":
-			Es();
-			console.log('dif = Easy');
-			break;
-		case "Normal":
-			No();
-			console.log('dif = Normal');
-			break;
-		case "Hard":
-			Ha();
-			console.log('dif = Hard');
-			break;
-		default:
-			break;
+			case "Easy":
+				Es();
+				console.log('dif = Easy');
+				break;
+			case "Normal":
+				No();
+				console.log('dif = Normal');
+				break;
+			case "Hard":
+				Ha();
+				console.log('dif = Hard');
+				break;
+			default:
+				break;
 		}
 	};
-	
+
 	DifSet.setCheckGameMode = function () {
 		GDT.on(GDT.eventKeys.saves.loading, DifSet.checkGameDif);
 	};
-	
+
 	DifSet.runStartUp = function () {
 		DifSet.addGameDifSelector();
 		DifSet.setGameDif();
 		DifSet.setCheckGameMode();
 	};
-	
+
 	return DifSet;
-	
-	function applyDifSetting (difValue, difName) {
+
+	function applyDifSetting(difValue, difName) {
 		/* Monthly Costs Change */
 		General.getMonthlyCosts = function (company) {
 			var costsPerMonth = 2E3 * 4 * difValue;
 			if (company.currentLevel === 2 || company.currentLevel === 3)
 				costsPerMonth *=
-				4;
+					4;
 			else if (company.currentLevel === 4)
 				costsPerMonth *= 8;
 			if (company.flags.solarPowerInstalled)
@@ -109,7 +109,7 @@ var DifSet = {};
 					costsPerMonth += company.staff[i].salary;
 			return costsPerMonth
 		};
-		
+
 		/* Fans Change */
 		Company.prototype.adjustFans = function (value) {
 			var currentChange = this.fansChange ? this.fansChange : 0;
@@ -119,13 +119,13 @@ var DifSet = {};
 			else
 				this.fansChange = currentChange + value
 		};
-		
+
 		/* Research Costs */
 		Research.getPointsCost = function (r) {
 			var v = r.v;
 			if (!r.v)
 				return r.pointsCost;
-			var possiblevalues = [1,2, 4, 6, 8, 10, 12, 14];
+			var possiblevalues = [1, 2, 4, 6, 8, 10, 12, 14];
 			var index = possiblevalues.indexOf(v);
 			if (index == -1)
 				throw "invalid v";
@@ -145,7 +145,7 @@ var DifSet = {};
 			if (index == -1)
 				throw "invalid v";
 			var values = [5, 10, 30, 60, 100, 150, 300, 400];
-			var value = values[index] * 1E3 * difValue ;
+			var value = values[index] * 1E3 * difValue;
 			if (game) {
 				value *= General.getGameSizeDurationFactor(game.gameSize) * General.getMultiPlatformCostFactor(game);
 				value = Math.floor(value / 1E3) * 1E3
@@ -180,7 +180,7 @@ var DifSet = {};
 			var values = [10, 30, 50, 100, 140, 180, 350, 500];
 			return values[index] * 1E3 * difValue
 		};
-		
+
 		/* Platform Prices */
 		for (i = 0; i < Platforms.allPlatforms.length; i++) {
 			c_platform = Platforms.allPlatforms[i];
@@ -192,7 +192,7 @@ var DifSet = {};
 			c_platform.licencePrize *= difValue;
 			c_platform.developmentCosts *= difValue;
 		};
-		
+
 		/* Game Price */
 		Sales.smallUnitPrice = Math.abs(7 / difValue);
 		Sales.mediumUnitPrice = Math.abs(11 / difValue);
@@ -202,5 +202,5 @@ var DifSet = {};
 		DifSet.store().gameDif = difName;
 		DifSet.store().oldValue = difValue;
 	}
-	
+
 })();

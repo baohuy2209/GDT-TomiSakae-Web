@@ -412,8 +412,8 @@ var ExpPack = {};
 						date: '1/5/1',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Today, Grapple, a new hardware manufacturer, has announced a brand new computer - the Grapintosh. The Grapintosh comes with a new advanced operating system called Grap OS. Even though the new platform is expensive, you get value for your money. Grapple said that the Grapintosh will become available {0}".localize().format(General.getETADescription('1/5/1', '1/7/4')),
+								header: "Tin tức ngành".localize(),
+								text: "Hôm nay, Grapple, một nhà sản xuất phần cứng mới, đã công bố một máy tính hoàn toàn mới - Grapintosh. Grapintosh đi kèm với hệ điều hành tiên tiến mới có tên Grap OS. Mặc dù nền tảng mới này khá đắt tiền, nhưng bạn sẽ nhận được giá trị xứng đáng với số tiền bỏ ra. Grapple cho biết Grapintosh sẽ có mặt trên thị trường {0}".localize().format(General.getETADescription('1/5/1', '1/7/4')),
 								image: icon
 							});
 						}
@@ -445,8 +445,8 @@ var ExpPack = {};
 						date: '16/5/4',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Grapple, developer of the very successful Grapintosh, has announced a new platform called the grMac. Grapple has managed to implement all the hardware in the screen and named it a 'All-In-One' computer.{n} Despite the compact hardware, it still has all the power expected from Grapple. The grMac will be released {0}".localize().format(General.getETADescription('16/5/4', '16/8/1')),
+								header: "Tin tức ngành".localize(),
+								text: "Grapple, nhà phát triển của Grapintosh rất thành công, đã công bố một nền tảng mới có tên là grMac. Grapple đã thành công trong việc tích hợp tất cả phần cứng vào màn hình và đặt tên là máy tính 'Tất cả trong một'.{n} Mặc dù phần cứng nhỏ gọn, nó vẫn có tất cả sức mạnh mà người dùng mong đợi từ Grapple. Máy grMac sẽ được phát hành {0}".localize().format(General.getETADescription('16/5/4', '16/8/1')),
 								image: icon
 							});
 						}
@@ -480,8 +480,8 @@ var ExpPack = {};
 						date: '12/7/3',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Today Itara, a company known for their consoles in the early console market, has announced that they're going to release a new console - the Itara Backflash.{n} Despite inevitable competition with the TES 64, Itara has announced that they are anticipating the console to be very successful.{n} The Itara Backflash will be released on {0}.".localize().format(General.getETADescription('12/7/3', '12/11/3')),
+								header: "Tin tức ngành".localize(),
+								text: "Hôm nay Itara, một công ty nổi tiếng với các máy console trong thị trường console đời đầu, đã thông báo rằng họ sẽ phát hành một máy console mới - Itara Backflash.{n} Mặc dù phải đối mặt với sự cạnh tranh không thể tránh khỏi từ TES 64, Itara đã tuyên bố rằng họ dự đoán console này sẽ rất thành công.{n} Itara Backflash sẽ được phát hành vào {0}.".localize().format(General.getETADescription('12/7/3', '12/11/3')),
 								image: icon
 							});
 						}
@@ -513,8 +513,8 @@ var ExpPack = {};
 						date: '2/9/1',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Today, Itara announced their first platform, the Itara 5200.{n} The console uses an analogue joystick and has to compete with the popular TES from Ninvento.\nThe Itara 5200 will be released in {0}.".localize().format(General.getETADescription('2/9/1', '2/11/2')),
+								header: "Tin tức ngành".localize(),
+								text: "Hôm nay, Itara đã công bố nền tảng đầu tiên của họ, Itara 5200.{n} Máy console này sử dụng cần điều khiển analog và phải cạnh tranh với TES phổ biến từ Ninvento.\nItara 5200 sẽ được phát hành trong {0}.".localize().format(General.getETADescription('2/9/1', '2/11/2')),
 								image: icon
 							});
 						}
@@ -548,8 +548,8 @@ var ExpPack = {};
 						date: '21/5/1',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Today Ninvento, known for the GS, has announced that they are going to release its successor, the 3GS. This handheld console will have 3D animations - the first of its kind in the handheld market.{n} Ninvento stated that the 3GS is will get released {0}.".localize().format(General.getETADescription('21/5/1', '21/9/3')),
+								header: "Tin tức ngành".localize(),
+								text: "Hôm nay Ninvento, nổi tiếng với GS, đã thông báo rằng họ sẽ phát hành người kế nhiệm, 3GS. Máy console cầm tay này sẽ có hoạt ảnh 3D - đầu tiên trong thị trường máy cầm tay.{n} Ninvento tuyên bố rằng 3GS sẽ được phát hành {0}.".localize().format(General.getETADescription('21/5/1', '21/9/3')),
 								image: icon
 							});
 						}
@@ -581,8 +581,8 @@ var ExpPack = {};
 						date: '21/1/4',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Today is the day that Ninvento announced to make another handheld console following up the 3GS, the 2GS. While the 2GS has the same mechanics as the 3GS, it features better graphics and, by extension, better gameplay. The 2GS will be released {0}.".localize().format(General.getETADescription('21/1/4', '21/4/2')),
+								header: "Tin tức ngành".localize(),
+								text: "Hôm nay là ngày Ninvento thông báo sẽ làm một máy console cầm tay khác tiếp nối 3GS, đó là 2GS. Mặc dù 2GS có cùng cơ chế như 3GS, nó có đồ họa tốt hơn và, do đó, gameplay tốt hơn. 2GS sẽ được phát hành {0}.".localize().format(General.getETADescription('21/1/4', '21/4/2')),
 								image: icon
 							});
 						}
@@ -619,8 +619,8 @@ var ExpPack = {};
 						date: '9/8/4',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Ninvento just announced their next platform! The Gameling Color, as it is called, is another handheld console, featuring a 160x144 resolution with over 30k colors.{n} We are not sure if it will overtake the success of the original Gameling but we can not wait! Ninvento said the Gameling Color will be released {0}".localize().format(General.getETADescription('9/8/4', '9/11/2')),
+								header: "Tin tức ngành".localize(),
+								text: "Ninvento vừa công bố nền tảng tiếp theo của họ! Gameling Color, như tên gọi của nó, là một máy console cầm tay khác, có độ phân giải 160x144 với hơn 30 nghìn màu.{n} Chúng tôi không chắc liệu nó có vượt qua thành công của Gameling gốc hay không nhưng chúng tôi không thể chờ đợi! Ninvento cho biết Gameling Color sẽ được phát hành {0}".localize().format(General.getETADescription('9/8/4', '9/11/2')),
 								image: icon
 							});
 						}
@@ -654,8 +654,8 @@ var ExpPack = {};
 						date: '22/3/4',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Vonny, developer of the PPS platform, has been spreading rumors that they are working on a new platform called 'Viva Playsystem' or 'VPS' in short.{n} They haven't released much info about the VPS but they claim that the new handheld console will be released {0}".localize().format(General.getETADescription('22/3/4', '22/6/2')),
+								header: "Tin tức ngành".localize(),
+								text: "Vonny, nhà phát triển của nền tảng PPS, đã lan truyền tin đồn rằng họ đang làm việc trên một nền tảng mới có tên 'Viva Playsystem' hay viết tắt là 'VPS'.{n} Họ chưa công bố nhiều thông tin về VPS nhưng họ tuyên bố rằng máy console cầm tay mới sẽ được phát hành {0}".localize().format(General.getETADescription('22/3/4', '22/6/2')),
 								image: icon
 							});
 						}
@@ -687,8 +687,8 @@ var ExpPack = {};
 						date: '11/11/2',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Vonny just released info on an improved version of their successful Playsystem 2. Vonny called the new platform the 'Playsystem 2 Slim'.{n} Although not the most original name, they claim that the Playsystem 2 Slim has better hardware than the original Playsystem 2.\nVonny was not very clear about the release date but we expect it {0}".localize().format(General.getETADescription('11/11/4', '12/2/2')),
+								header: "Tin tức ngành".localize(),
+								text: "Vonny vừa công bố thông tin về phiên bản cải tiến của Playsystem 2 thành công của họ. Vonny gọi nền tảng mới là 'Playsystem 2 Slim'.{n} Mặc dù không phải cái tên sáng tạo nhất, họ tuyên bố rằng Playsystem 2 Slim có phần cứng tốt hơn so với Playsystem 2 gốc.\nVonny không rõ ràng về ngày phát hành nhưng chúng tôi dự kiến nó {0}".localize().format(General.getETADescription('11/11/4', '12/2/2')),
 								image: icon
 							});
 						}
@@ -722,8 +722,8 @@ var ExpPack = {};
 						date: '19/9/3',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Today Holo Corp, a new gaming company, has announced that they will be releasing their first console, the Holo Box. It displays games using holographic technology and eradicates the need for game disks by loading games into a flash drive which is plugged into the console, reducing the cost of games. They are anticipating that the Holo Box will be a huge success. It will be released {0}".localize().format(General.getETADescription('19/9/3', '20/1/1')),
+								header: "Tin tức ngành".localize(),
+								text: "Hôm nay Holo Corp, một công ty game mới, đã thông báo rằng họ sẽ phát hành console đầu tiên của mình, Holo Box. Nó hiển thị game bằng công nghệ holographic và loại bỏ nhu cầu về đĩa game bằng cách tải game vào ổ đĩa flash được cắm vào console, giảm chi phí game. Họ dự đoán rằng Holo Box sẽ là một thành công lớn. Nó sẽ được phát hành {0}".localize().format(General.getETADescription('19/9/3', '20/1/1')),
 								image: icon
 							});
 						}
@@ -757,8 +757,8 @@ var ExpPack = {};
 						date: '17/1/1',
 						getNotification: function (company) {
 							return new Notification({
-								header: "Industry News".localize(),
-								text: "Mirconoft announced their improvement on their mBox 360, called the mBox 360 Slim.\nAccording to the critics, Mirconoft didn't make huge improvements and thus they are curious to see how the market will respond. {n} The mBox 360 Slim will be released {0}".localize().format(General.getETADescription('17/1/1', '17/4/4')),
+								header: "Tin tức ngành".localize(),
+								text: "Mirconoft đã công bố cải tiến cho mBox 360 của họ, có tên là mBox 360 Slim.\nTheo các nhà phê bình, Mirconoft không thực hiện những cải tiến lớn và do đó họ tò mò xem thị trường sẽ phản ứng như thế nào. {n} mBox 360 Slim sẽ được phát hành {0}".localize().format(General.getETADescription('17/1/1', '17/4/4')),
 								image: icon
 							});
 						}
@@ -783,12 +783,12 @@ var ExpPack = {};
 			getNotification: function (company) {
 				var game = company.currentGame;
 
-				var msg = "You have almost finished {0}! You could throw a party for the neighbourhood to celebrate it, but of course it'll cost some money...".localize().format(game.title);
+				var msg = "Bạn đã gần hoàn thành {0}! Bạn có thể tổ chức một bữa tiệc cho khu phố để ăn mừng, nhưng tất nhiên sẽ tốn một chút tiền...".localize().format(game.title);
 				return new Notification({
 					sourceId: eventId,
-					header: "Celebration party?".localize(),
+					header: "Tiệc ăn mừng?".localize(),
 					text: msg,
-					options: ["Party time!", "No party"]
+					options: ["Đến giờ tiệc!", "Không tiệc tùng"]
 				});
 			},
 			complete: function (decision) {
@@ -796,10 +796,10 @@ var ExpPack = {};
 
 				if (decision === 0) {
 					var n = new Notification({
-						header: "Party time!!".localize(),
-						text: "The party was a massive success. Everybody was really impressed with your work."
+						header: "Đến giờ tiệc!!".localize(),
+						text: "Bữa tiệc đã thành công rực rỡ. Mọi người đều rất ấn tượng với công việc của bạn."
 					});
-					n.adjustCash(-500, "Party");
+					n.adjustCash(-500, "Tiệc");
 					n.adjustHype(5 + 10 * company.getRandom());
 
 					company.activeNotifications.addRange(n.split());
@@ -807,8 +807,8 @@ var ExpPack = {};
 				}
 				if (decision === 1) {
 					var n = new Notification({
-						header: "No party".localize(),
-						text: "Looks like things will be quiet tonight."
+						header: "Không tiệc tùng".localize(),
+						text: "Có vẻ như mọi thứ sẽ yên tĩnh tối nay."
 					});
 					return;
 				}
@@ -831,12 +831,12 @@ var ExpPack = {};
 			getNotification: function (company) {
 				var game = company.currentGame;
 
-				var msg = "Boss, our fans have discovered that we're developing {0} and they're wondering what it's about. We've got three options: we could tell them everything, tell them a little, or we could just ignore them, hoping this doesn't hurt them too much. There's some valuable hype available, but is it worth it?".localize().format(game.title);
+				var msg = "Sếp, người hâm mộ của chúng ta đã phát hiện ra rằng chúng ta đang phát triển {0} và họ đang tự hỏi nó là về cái gì. Chúng ta có ba lựa chọn: có thể nói với họ mọi thứ, nói với họ một chút, hoặc chúng ta có thể bỏ qua họ, hy vọng điều này không làm tổn thương họ quá nhiều. Có một số sự chú ý có giá trị, nhưng liệu nó có đáng không?".localize().format(game.title);
 				return new Notification({
 					sourceId: eventId,
-					header: "Give information?".localize(),
+					header: "Cung cấp thông tin?".localize(),
 					text: msg,
-					options: ["Give them what they want!", "Tell them a little", "Don't tell them!"]
+					options: ["Cho họ những gì họ muốn!", "Nói với họ một chút", "Đừng nói với họ!"]
 				});
 			},
 			complete: function (decision) {
@@ -844,8 +844,8 @@ var ExpPack = {};
 
 				if (decision === 0) {
 					var n = new Notification({
-						header: "Give them what they want!".localize(),
-						text: "Your fans are excited about what you have told them and they are spreading your word across the world!"
+						header: "Cho họ những gì họ muốn!".localize(),
+						text: "Người hâm mộ của bạn rất phấn khích về những gì bạn đã nói với họ và họ đang lan truyền thông tin của bạn khắp thế giới!"
 					});
 					n.adjustHype(5 + 6 * company.getRandom());
 					company.activeNotifications.addRange(n.split());
@@ -853,16 +853,16 @@ var ExpPack = {};
 				}
 				if (decision === 1) {
 					var n = new Notification({
-						header: "Tell them a little".localize(),
-						text: "Your fans are excited about your information, but they also think you could have said a bit more."
+						header: "Nói với họ một chút".localize(),
+						text: "Người hâm mộ của bạn rất phấn khích về thông tin của bạn, nhưng họ cũng nghĩ rằng bạn có thể đã nói nhiều hơn một chút."
 					});
 					n.adjustHype(5 + 3 * company.getRandom());
 					return;
 				}
 				if (decision === 2) {
 					var n = new Notification({
-						header: "Don't tell them!".localize(),
-						text: "Your fans are a bit disappointed in you."
+						header: "Đừng nói với họ!".localize(),
+						text: "Người hâm mộ của bạn hơi thất vọng về bạn."
 					});
 					return;
 				}
@@ -885,12 +885,12 @@ var ExpPack = {};
 			getNotification: function (company) {
 				var game = company.currentGame;
 
-				var msg = "While you were working on your game, someone knocked on the door of the garage - a man who wants to sell you a vacuum cleaner. Do you want to buy the vacuum cleaner for 4K?".localize().format(game.title);
+				var msg = "Trong khi bạn đang làm việc trên trò chơi của mình, ai đó gõ cửa nhà để xe - một người đàn ông muốn bán cho bạn một chiếc máy hút bụi. Bạn có muốn mua máy hút bụi với giá 4K không?".localize().format(game.title);
 				return new Notification({
 					sourceId: eventId,
-					header: "The Vacuum Cleaner".localize(),
+					header: "Máy Hút Bụi".localize(),
 					text: msg,
-					options: ["Buy it!", "Ask to leave", "Denounce him"]
+					options: ["Mua nó!", "Yêu cầu rời đi", "Tố cáo anh ta"]
 				});
 			},
 			complete: function (decision) {
@@ -898,28 +898,28 @@ var ExpPack = {};
 
 				if (decision === 0) {
 					var n = new Notification({
-						header: "The Vacuum Cleaner".localize(),
-						text: "You buy the vacuum cleaner. After doing a garage clean-up, you win the prize for the cleanest games industry garage! Now everyone knows about the game you're working on!"
+						header: "Máy Hút Bụi".localize(),
+						text: "Bạn mua máy hút bụi. Sau khi dọn dẹp nhà để xe, bạn giành được giải thưởng cho nhà để xe sạch nhất trong ngành công nghiệp game! Giờ đây mọi người đều biết về trò chơi bạn đang làm!"
 					});
 					n.adjustHype(5 + 10 * company.getRandom());
-					n.adjustCash(-4000, "Vacuum Cleaner");
+					n.adjustCash(-4000, "Máy Hút Bụi");
 
 					company.activeNotifications.addRange(n.split());
 					return;
 				}
 				if (decision === 1) {
 					var n = new Notification({
-						header: "It's me again!".localize(),
-						text: "He leaves... but soon after, he comes back. However, this time he convinces you to buy that vacuum cleaner. Bye bye, 4K."
+						header: "Lại là tôi!".localize(),
+						text: "Anh ta rời đi... nhưng ngay sau đó, anh ta quay lại. Tuy nhiên, lần này anh ta thuyết phục bạn mua chiếc máy hút bụi đó. Tạm biệt, 4K."
 					});
-					n.adjustCash(-4000, "Vacuum Cleaner");
+					n.adjustCash(-4000, "Máy Hút Bụi");
 					company.notifications.push(n);
 					return;
 				}
 				if (decision === 2) {
 					var n = new Notification({
-						header: "The Vacuum Cleaner".localize(),
-						text: "'After you denounced me I thought it was a good idea to give you a bad reputation with the media! But that didn't work out, you just got your game hyped!' was the last thing he said before walking away in an angry mood."
+						header: "Máy Hút Bụi".localize(),
+						text: "'Sau khi bạn tố cáo tôi, tôi nghĩ đó là một ý tưởng hay để làm hỏng danh tiếng của bạn với truyền thông! Nhưng điều đó không hiệu quả, bạn chỉ làm cho trò chơi của mình được chú ý hơn!' là điều cuối cùng anh ta nói trước khi bỏ đi trong tâm trạng tức giận."
 					});
 					n.adjustHype(15 + 25 * company.getRandom());
 					company.activeNotifications.addRange(n.split());
@@ -943,16 +943,16 @@ var ExpPack = {};
 			getNotification: function (company) {
 				var game = company.currentGame;
 
-				var msg = "It seems that kids in the neighbourhood have started chatting about your upcoming game {0}. Rumour has it that Billy, your neighbour's kid, snuck into the garage and spied on some of the design papers.{n}How he managed to do this is a mystery. You could swear you were sitting in the garage the entire time!\nHow do you want to react?\n\nYou could talk to the parents to get him punished, ignore the incident or maybe invite some of the neighbours over to show them more of the game."
+				var msg = "Có vẻ như trẻ em trong khu phố đã bắt đầu trò chuyện về trò chơi sắp ra mắt của bạn {0}. Tin đồn là Billy, con của hàng xóm, đã lẻn vào nhà để xe và do thám một số giấy tờ thiết kế.{n}Làm thế nào cậu ta làm được điều này là một bí ẩn. Bạn có thể thề rằng bạn đã ngồi trong nhà để xe suốt thời gian đó!\nBạn muốn phản ứng thế nào?\n\nBạn có thể nói chuyện với cha mẹ để phạt cậu ta, bỏ qua sự cố hoặc có thể mời một số hàng xóm đến để cho họ xem thêm về trò chơi."
 					.localize().format(game.title);
 
 				company.adjustHype(5 + 10 * company.getRandom());
 
 				return new Notification({
 					sourceId: eventId,
-					header: "Billy, the kid".localize(),
+					header: "Billy, đứa trẻ".localize(),
 					text: msg,
-					options: ["Talk to parents", "Ignore incident", "Invite over"]
+					options: ["Nói chuyện với cha mẹ", "Bỏ qua sự cố", "Mời họ đến"]
 				});
 			},
 			complete: function (decision) {
@@ -960,8 +960,8 @@ var ExpPack = {};
 
 				if (decision === 0) {
 					var n = new Notification({
-						header: "Billy, the kid".localize(),
-						text: "You talk to the parents about Billy's actions and they promise that it won't happen again."
+						header: "Billy, đứa trẻ".localize(),
+						text: "Bạn nói chuyện với cha mẹ về hành động của Billy và họ hứa rằng điều đó sẽ không xảy ra nữa."
 					});
 					n.adjustHype(5 + 10 * company.getRandom());
 
@@ -970,18 +970,18 @@ var ExpPack = {};
 				}
 				if (decision === 1) {
 					var n = new Notification({
-						header: "Vanished documents".localize(),
-						text: "The other day, you were working on some intricate design documents - now, however, they're gone. Small foot prints on the floor suggest that someone might have taken them.\nUnfortunately you have to recreate the documents - this was probably Billy's work",
+						header: "Tài liệu biến mất".localize(),
+						text: "Hôm khác, bạn đang làm việc trên một số tài liệu thiết kế phức tạp - tuy nhiên, bây giờ chúng đã biến mất. Dấu chân nhỏ trên sàn nhà gợi ý rằng ai đó có thể đã lấy chúng.\nThật không may, bạn phải tạo lại các tài liệu - đây có lẽ là công việc của Billy",
 						weeksUntilFired: 1 + 2 * company.getRandom()
 					});
-					n.adjustCash(-500, "Document Restoration");
+					n.adjustCash(-500, "Khôi phục tài liệu");
 					company.notifications.push(n);
 					return;
 				}
 				if (decision === 2) {
 					var n = new Notification({
-						header: "Billy, the kid".localize(),
-						text: "You invite Billy, his parents and a few other interested neighbours over and show them the game in progress. The kids are very excited and you hear them talk about it for weeks afterwards."
+						header: "Billy, đứa trẻ".localize(),
+						text: "Bạn mời Billy, cha mẹ cậu ấy và một vài hàng xóm quan tâm khác đến và cho họ xem trò chơi đang trong quá trình phát triển. Bọn trẻ rất phấn khích và bạn nghe chúng nói về nó trong nhiều tuần sau đó."
 					});
 					n.adjustHype(15 + 25 * company.getRandom());
 					company.activeNotifications.addRange(n.split());
@@ -1006,13 +1006,13 @@ var ExpPack = {};
 			getNotification: function (company) {
 				var game = company.currentGame;
 
-				var msg = "Boss, a movie director has approached us with the option of making a movie from {0}! If we agree to this, we will get a lot of valuable hype, but it won't be free".localize().format(game.title);
+				var msg = "Sếp, một đạo diễn phim đã tiếp cận chúng ta với lựa chọn làm một bộ phim từ {0}! Nếu chúng ta đồng ý với điều này, chúng ta sẽ nhận được rất nhiều sự chú ý có giá trị, nhưng nó sẽ không miễn phí".localize().format(game.title);
 
 				return new Notification({
 					sourceId: eventId,
-					header: "Make a movie".localize(),
+					header: "Làm một bộ phim".localize(),
 					text: msg,
-					options: ["Sign the contract", "Don't make a movie"]
+					options: ["Ký hợp đồng", "Không làm phim"]
 				});
 			},
 			complete: function (decision) {
@@ -1020,8 +1020,8 @@ var ExpPack = {};
 
 				if (decision === 0) {
 					var n = new Notification({
-						header: "A movie there shall be!".localize(),
-						text: "The movie received a great response - we even gained some more fans!"
+						header: "Sẽ có một bộ phim!".localize(),
+						text: "Bộ phim nhận được phản hồi tuyệt vời - chúng ta thậm chí còn có thêm một số người hâm mộ!"
 					});
 					n.adjustHype(10 + 15 * company.getRandom());
 					n.adjustFans(250);
@@ -1031,8 +1031,8 @@ var ExpPack = {};
 				}
 				if (decision === 1) {
 					var n = new Notification({
-						header: "No movie".localize(),
-						text: "You refused the offer and everything went on as normal."
+						header: "Không có phim".localize(),
+						text: "Bạn từ chối lời đề nghị và mọi thứ vẫn diễn ra bình thường."
 					});
 					return;
 				}
@@ -1055,13 +1055,13 @@ var ExpPack = {};
 			getNotification: function (company) {
 				var game = company.currentGame;
 
-				var msg = "Oh my god! A fire broke out! We all need to leave! Now!{n} .... After the fire has been extinguished you take a look inside - as expected, there's a lot of damage.".localize().format(game.title);
+				var msg = "Ôi trời ơi! Hỏa hoạn đã xảy ra! Tất cả chúng ta cần phải rời đi! Ngay bây giờ!{n} .... Sau khi đám cháy đã được dập tắt, bạn nhìn vào bên trong - như dự kiến, có rất nhiều thiệt hại.".localize().format(game.title);
 
 				return new Notification({
 					sourceId: eventId,
-					header: "Fire in the office!!".localize(),
+					header: "Hỏa hoạn trong văn phòng!!".localize(),
 					text: msg,
-					options: ["Repair everything"]
+					options: ["Sửa chữa mọi thứ"]
 				});
 			},
 			complete: function (decision) {
@@ -1069,10 +1069,10 @@ var ExpPack = {};
 
 				if (decision === 0) {
 					var n = new Notification({
-						header: "Repairs".localize(),
-						text: "You were able to save your current project but the repair was expensive. This game had better be worth it."
+						header: "Sửa chữa".localize(),
+						text: "Bạn đã có thể cứu dự án hiện tại của mình nhưng việc sửa chữa rất tốn kém. Trò chơi này tốt hơn hết là nên đáng giá."
 					});
-					n.adjustCash(-15000, "Fire damage");
+					n.adjustCash(-15000, "Thiệt hại do hỏa hoạn");
 
 					company.activeNotifications.addRange(n.split());
 					return;
@@ -1092,12 +1092,12 @@ var ExpPack = {};
 			date: '4/8/3',
 			ignoreGameLengthModifier: false,
 			getNotification: function (company) {
-				var msg = "Gamer Pride magazine would like you to give an interview as a part of their 'New Stars in the Game Industry' action to promote the games industry and upcoming game developers - this is a big part of their project.\n\n What would you like to discuss?.".localize();
+				var msg = "Tạp chí Gamer Pride muốn bạn cho một cuộc phỏng vấn như một phần của hoạt động 'Ngôi sao mới trong ngành công nghiệp game' của họ để quảng bá ngành công nghiệp game và các nhà phát triển game sắp ra mắt - đây là một phần lớn trong dự án của họ.\n\n Bạn muốn thảo luận về điều gì?".localize();
 				return new Notification({
 					sourceId: eventId,
-					header: "Magazine Interview".localize(),
+					header: "Phỏng vấn tạp chí".localize(),
 					text: msg,
-					options: ["Nothing, thank you.", "The current games industry", "My dreams"]
+					options: ["Không, cảm ơn.", "Ngành công nghiệp game hiện tại", "Ước mơ của tôi"]
 				});
 			},
 
@@ -1107,26 +1107,26 @@ var ExpPack = {};
 
 				if (decision === 0) {
 					var n = new Notification({
-						header: "Magazine Interview".localize(),
-						text: "You declined - Gamer Pride magazine is disappointed but nothing bad has come of it."
+						header: "Phỏng vấn tạp chí".localize(),
+						text: "Bạn từ chối - Tạp chí Gamer Pride thất vọng nhưng không có điều gì tồi tệ xảy ra."
 					});
 					company.activeNotifications.addRange(n.split());
 					return;
 				}
 				if (decision === 1) {
 					var n = new Notification({
-						header: "Magazine Interview".localize(),
-						text: "You tell the magazine that nowadays the games industry is relatively small and a great opportunity for people like you to find their place and grow.{n} The interviewer asked what you predict the future of the games industry will be like.\n\n You answered that progress in the electronics industry will mean there will be more platforms around, as well as giving a great chance for new innovation in the games industry."
+						header: "Phỏng vấn tạp chí".localize(),
+						text: "Bạn nói với tạp chí rằng ngày nay ngành công nghiệp game tương đối nhỏ và là một cơ hội tuyệt vời cho những người như bạn để tìm vị trí của mình và phát triển.{n} Người phỏng vấn hỏi bạn dự đoán tương lai của ngành công nghiệp game sẽ như thế nào.\n\n Bạn trả lời rằng tiến bộ trong ngành công nghiệp điện tử sẽ có nghĩa là sẽ có nhiều nền tảng hơn, cũng như mang lại cơ hội tuyệt vời cho sự đổi mới trong ngành công nghiệp game."
 					});
 					n.adjustFans(200);
 					company.notifications.push(n);
 
 					var m = new Notification({
-						header: "Sponsorship".localize(),
-						text: "Some electronic companies appreciated that you mentioned them in your recent interview. A company called RBM contacted to you and gave you some money as a gift for your current project. They hope that cooperation between them and game developers will boost both industries."
+						header: "Tài trợ".localize(),
+						text: "Một số công ty điện tử đánh giá cao việc bạn đề cập đến họ trong cuộc phỏng vấn gần đây của bạn. Một công ty có tên RBM đã liên hệ với bạn và tặng bạn một số tiền như một món quà cho dự án hiện tại của bạn. Họ hy vọng rằng sự hợp tác giữa họ và các nhà phát triển game sẽ thúc đẩy cả hai ngành công nghiệp."
 					});
 					if (company.isGameProgressBetween(0.2, 0.9)) {
-						m.adjustCash(40000, "RBM Sponsorship");
+						m.adjustCash(40000, "Tài trợ RBM");
 						m.adjustHype(5 + 15 * company.getRandom());
 						company.notifications.push(m);
 					}
@@ -1134,8 +1134,8 @@ var ExpPack = {};
 				}
 				if (decision === 2) {
 					var n = new Notification({
-						header: "Magazine Interview".localize(),
-						text: "Your dream is to find a 'golden solution' that will push your company and the games industry as a whole to the next level. \nYou say that right now is a great time to grow since the games business is relatively new. You hope that in 4 or 5 years the company will grow and you will be able to work on more ambitious projects.{n} The interviewer asked if you can predict the future of the games industry.\n\n You answered that God only knows what the future may bring."
+						header: "Phỏng vấn tạp chí".localize(),
+						text: "Ước mơ của bạn là tìm ra một 'giải pháp vàng' sẽ đưa công ty của bạn và toàn bộ ngành công nghiệp game lên một tầm cao mới. \nBạn nói rằng bây giờ là thời điểm tuyệt vời để phát triển vì kinh doanh game tương đối mới. Bạn hy vọng rằng trong 4 hoặc 5 năm, công ty sẽ phát triển và bạn sẽ có thể làm việc trên các dự án tham vọng hơn.{n} Người phỏng vấn hỏi liệu bạn có thể dự đoán tương lai của ngành công nghiệp game không.\n\n Bạn trả lời rằng chỉ có Chúa mới biết tương lai có thể mang lại điều gì."
 					});
 					n.adjustFans(100);
 					if (company.isGameProgressBetween(0.2, 0.9)) {
@@ -1161,20 +1161,20 @@ var ExpPack = {};
 				return company.fans >= 1500000;
 			},
 			getNotification: function (company) {
-				var msg = "Gamer Pride magazine contacted you for an interview. Recently you reached 1.5M fans and they want to know the secret behind this success.".localize();
+				var msg = "Tạp chí Gamer Pride đã liên hệ với bạn để phỏng vấn. Gần đây bạn đã đạt 1,5 triệu người hâm mộ và họ muốn biết bí quyết đằng sau thành công này.".localize();
 				return new Notification({
 					sourceId: eventId,
-					header: "Magazine Interview".localize(),
+					header: "Phỏng vấn tạp chí".localize(),
 					text: msg,
-					options: ["Providing the best games", "The fans", "Being 'pro'"]
+					options: ["Cung cấp những trò chơi tốt nhất", "Người hâm mộ", "Là 'chuyên nghiệp'"]
 				});
 			},
 			complete: function (decision) {
 				var company = GameManager.company;
 				if (decision === 0) {
 					var n = new Notification({
-						header: "Magazine Interview".localize(),
-						text: "You said that only by providing the best games possible you were able to build such a big fanbase. Over time you've learned that gamers only seek great games and any developers that can't provide that won't get the fanbase they need and likely go bankrupt."
+						header: "Phỏng vấn tạp chí".localize(),
+						text: "Bạn nói rằng chỉ bằng cách cung cấp những trò chơi tốt nhất có thể, bạn mới có thể xây dựng một lượng người hâm mộ lớn như vậy. Theo thời gian, bạn đã học được rằng game thủ chỉ tìm kiếm những trò chơi tuyệt vời và bất kỳ nhà phát triển nào không thể cung cấp điều đó sẽ không có được lượng người hâm mộ họ cần và có thể phá sản."
 					});
 					n.adjustFans(5000);
 					if (company.isGameProgressBetween(0.2, 0.9)) {
@@ -1185,13 +1185,13 @@ var ExpPack = {};
 				}
 				if (decision === 1) {
 					var n = new Notification({
-						header: "Magazine Interview".localize(),
-						text: "In your opinion, based on the years of experience your recipe for success is to build a good relationship between the developer and the customers. Gamers need to see that it is a good idea to invest their money in your products. \n They can see it when a company provides good value for the money that gamers spent on the game.{n} You say that customers need to be treated properly. For instance, they can't be punished with DRM, because it is not fair. \nPirates have no problem with breaking DRM, even the day after release.\n In this way, the pirates enjoy the game as is while only honest customers have to deal with the hassles of DRM.{n}Instead of punishing customers, companies should reward them with additional content for free, great customer service and so on.\n Most importantly, treat gamers as you would like to be treated yourself: at the end of the day, we are all gamers!"
+						header: "Phỏng vấn tạp chí".localize(),
+						text: "Theo ý kiến của bạn, dựa trên nhiều năm kinh nghiệm, công thức thành công của bạn là xây dựng mối quan hệ tốt giữa nhà phát triển và khách hàng. Game thủ cần thấy rằng đầu tư tiền vào sản phẩm của bạn là một ý tưởng tốt. \n Họ có thể thấy điều đó khi một công ty cung cấp giá trị tốt cho số tiền mà game thủ đã chi cho trò chơi.{n} Bạn nói rằng khách hàng cần được đối xử đúng cách. Ví dụ, họ không thể bị trừng phạt bằng DRM, vì điều đó không công bằng. \nNhững kẻ cướp biển không gặp vấn đề gì khi phá vỡ DRM, ngay cả ngày sau khi phát hành.\n Theo cách này, những kẻ cướp biển tận hưởng trò chơi như nó vốn có trong khi chỉ có những khách hàng trung thực phải đối mặt với những rắc rối của DRM.{n}Thay vì trừng phạt khách hàng, các công ty nên thưởng cho họ với nội dung bổ sung miễn phí, dịch vụ khách hàng tuyệt vời và v.v.\n Quan trọng nhất, hãy đối xử với game thủ như bạn muốn được đối xử: cuối cùng, tất cả chúng ta đều là game thủ!"
 					});
 					company.notifications.push(n);
 					var m = new Notification({
-						header: "Magazine Interview".localize(),
-						text: "Your words warmed people. The company's e-mail was swarmed with tons of supportive messages from your fans! Isn't that a great feeling?"
+						header: "Phỏng vấn tạp chí".localize(),
+						text: "Lời nói của bạn đã làm ấm lòng mọi người. Email của công ty đã tràn ngập hàng tấn tin nhắn ủng hộ từ người hâm mộ của bạn! Đó không phải là một cảm giác tuyệt vời sao?"
 					});
 					m.adjustFans(20000);
 					if (company.isGameProgressBetween(0.2, 0.9)) {
@@ -1202,8 +1202,8 @@ var ExpPack = {};
 				}
 				if (decision === 2) {
 					var n = new Notification({
-						header: "Magazine Interview".localize(),
-						text: "What can you say? You and your company are just pro developers and gamers love pro!"
+						header: "Phỏng vấn tạp chí".localize(),
+						text: "Bạn có thể nói gì? Bạn và công ty của bạn chỉ là những nhà phát triển chuyên nghiệp và game thủ yêu thích sự chuyên nghiệp!"
 					});
 					n.adjustFans(1000);
 					if (company.isGameProgressBetween(0.2, 0.9)) {
@@ -1219,13 +1219,13 @@ var ExpPack = {};
 	};
 	/*  */
 
-	/* Researches */
+	/* Nghiên cứu */
 	ExpPack.addResearch = function () {
-		/* Graphic items */
+		/* Mục đồ họa */
 		GDT.addResearchItem(
 			{
 				id: "Realistic Particles",
-				name: "Realistic particles".localize(),
+				name: "Hạt thực tế".localize(),
 				v: 6,
 				canResearch: function (company) {
 					return LevelCalculator.getMissionLevel('Graphic') > 7;
@@ -1236,7 +1236,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Advanced Shaders",
-				name: "Advanced shaders".localize(),
+				name: "Shader nâng cao".localize(),
 				v: 6,
 				canResearch: function (company) {
 					return LevelCalculator.getMissionLevel('Graphic') > 5;
@@ -1247,7 +1247,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Animated Textures",
-				name: "Animated textures".localize(),
+				name: "Kết cấu động".localize(),
 				v: 2,
 				canResearch: function (company) {
 					return LevelCalculator.getMissionLevel('Graphic') > 3;
@@ -1258,7 +1258,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Basic Holograms",
-				name: "Basic holograms".localize(),
+				name: "Hình ảnh 3D cơ bản".localize(),
 				v: 4,
 				canResearch: function (company) {
 					return LevelCalculator.getMissionLevel('Graphic') > 4;
@@ -1269,7 +1269,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Advanced Holograms",
-				name: "Advanced holograms".localize(),
+				name: "Hình ảnh 3D nâng cao".localize(),
 				v: 8,
 				canResearch: function (company) {
 					return LevelCalculator.getMissionLevel('Graphic') > 6;
@@ -1280,7 +1280,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Interactive Holograms",
-				name: "Interactive holograms".localize(),
+				name: "Hình ảnh 3D tương tác".localize(),
 				v: 10,
 				canResearch: function (company) {
 					return LevelCalculator.getMissionLevel('Graphic') > 8;
@@ -1290,11 +1290,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* Sound items */
+		/* Mục âm thanh */
 		GDT.addResearchItem(
 			{
 				id: "Realistic Sound",
-				name: "Realistic sound".localize(),
+				name: "Âm thanh thực tế".localize(),
 				v: 6,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Sound') > 6;
@@ -1305,7 +1305,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Copywritten Music",
-				name: "Copywritten sound".localize(),
+				name: "Âm thanh có bản quyền".localize(),
 				v: 8,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Sound') > 7;
@@ -1315,11 +1315,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* A.I. items */
+		/* Mục trí tuệ nhân tạo */
 		GDT.addResearchItem(
 			{
 				id: "Superior AI",
-				name: "Superior A.I.".localize(),
+				name: "Trí tuệ nhân tạo vượt trội".localize(),
 				v: 8,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('AI') > 7;
@@ -1330,7 +1330,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "AI Difficulty",
-				name: "A.I. difficulty".localize(),
+				name: "Độ khó trí tuệ nhân tạo".localize(),
 				v: 4,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('AI') > 4;
@@ -1340,11 +1340,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* Gameplay */
+		/* Lối chơi */
 		GDT.addResearchItem(
 			{
 				id: "Cheat Codes",
-				name: "Cheat Codes".localize(),
+				name: "Mã gian lận".localize(),
 				v: 4,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Gameplay') > 3;
@@ -1355,7 +1355,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Premium Content",
-				name: "Premium content".localize(),
+				name: "Nội dung cao cấp".localize(),
 				v: 8,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Gameplay') > 6;
@@ -1365,11 +1365,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* Engine items */
+		/* Mục động cơ */
 		GDT.addResearchItem(
 			{
 				id: "Quick Saving",
-				name: "Quick Saving".localize(),
+				name: "Lưu nhanh".localize(),
 				v: 2,
 				canResearch: function (company) {
 					return LevelCalculator.getMissionLevel('Engine') > 3;
@@ -1380,7 +1380,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Seasons",
-				name: "Seasons".localize(),
+				name: "Mùa".localize(),
 				v: 6,
 				canResearch: function (e) {
 					return LevelCalculator.getMissionLevel('Engine') > 6;
@@ -1390,11 +1390,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* Story/Quests */
+		/* Cốt truyện/Nhiệm vụ */
 		GDT.addResearchItem(
 			{
 				id: "Collectables",
-				name: "Collectables".localize(),
+				name: "Vật phẩm sưu tầm".localize(),
 				v: 2,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Story/Quests') > 2;
@@ -1405,7 +1405,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Simple quests",
-				name: "Simple quests".localize(),
+				name: "Nhiệm vụ đơn giản".localize(),
 				v: 2,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Story/Quests') > 3;
@@ -1416,7 +1416,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Advanced quests",
-				name: "Advanced quests".localize(),
+				name: "Nhiệm vụ nâng cao".localize(),
 				v: 6,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Story/Quests') > 6;
@@ -1426,11 +1426,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* Dialogues items */
+		/* Mục hội thoại */
 		GDT.addResearchItem(
 			{
 				id: "Language Settings",
-				name: "Language settings".localize(),
+				name: "Cài đặt ngôn ngữ".localize(),
 				v: 4,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Dialogs') > 4;
@@ -1440,11 +1440,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* World Design items */
+		/* Mục thiết kế thế giới */
 		GDT.addResearchItem(
 			{
 				id: "Realistic Water",
-				name: "Realistic water".localize(),
+				name: "Nước thực tế".localize(),
 				v: 4,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('World Design') > 3;
@@ -1455,7 +1455,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Realistic Plant Life",
-				name: "Realistic plant life".localize(),
+				name: "Thực vật thực tế".localize(),
 				v: 6,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('World Design') > 6;
@@ -1465,11 +1465,11 @@ var ExpPack = {};
 			});
 		/*  */
 
-		/* Level Design items */
+		/* Mục thiết kế cấp độ */
 		GDT.addResearchItem(
 			{
 				id: "Bosses",
-				name: "Bosses".localize(),
+				name: "Trùm cuối".localize(),
 				v: 2,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Level Design') > 2;
@@ -1480,7 +1480,7 @@ var ExpPack = {};
 		GDT.addResearchItem(
 			{
 				id: "Swift Loading",
-				name: "Swift loading".localize(),
+				name: "Tải nhanh".localize(),
 				v: 4,
 				canResearch: function () {
 					return LevelCalculator.getMissionLevel('Level Design') > 5;
@@ -1492,7 +1492,7 @@ var ExpPack = {};
 	};
 	/*  */
 
-	/* Custom prices for games */
+	/* Giá tùy chỉnh cho trò chơi */
 	ExpPack.addCustomPrice = function () {
 		var company = GameManager.company;
 		var gamePrice;
@@ -1511,14 +1511,14 @@ var ExpPack = {};
 		};
 
 		var div = $("body");
-		div.append('<div id="PriceContainer" class="windowBorder tallWindow" style="overflow:auto;display:none;"> <div id="priceSelector" class="windowTitle smallerWindowTitle">Custom Price</div>');
+		div.append('<div id="PriceContainer" class="windowBorder tallWindow" style="overflow:auto;display:none;"> <div id="priceSelector" class="windowTitle smallerWindowTitle">Giá tùy chỉnh</div>');
 		div = $("#PriceContainer");
 
 		div.append('<div id="exppack_price" style="text-align:center;margin-left:50px;width: 450px"></div>');
 		div.append('<div id="exppack_current_price" style="text-align:center;margin-left:50px;width: 450px"></div>');
 		div.append('<div id="exppack_select_price" style="text-align:center;margin-left:50px;width: 450px"></div>');
 		div.append('<div class="priceSlider"></div>');
-		div.append('<div id="applyPrice" class="selectorButton whiteButton" onclick="UI.selectPriceClick(this)" style="margin-left:50px;width: 450px">Set Price</div>');
+		div.append('<div id="applyPrice" class="selectorButton whiteButton" onclick="UI.selectPriceClick(this)" style="margin-left:50px;width: 450px">Đặt giá</div>');
 
 		function applyPrice() {
 			if (GameManager.company.isCurrentlyDevelopingGame()) {
@@ -1538,7 +1538,7 @@ var ExpPack = {};
 				}
 
 				gamePrice = newPrice;
-				div.find("#exppack_current_price").html("Current price: " + gamePrice);
+				div.find("#exppack_current_price").html("Giá hiện tại: " + gamePrice);
 			}
 			dataStore.data.gamePrice = gamePrice;
 		};
@@ -1551,19 +1551,19 @@ var ExpPack = {};
 				var div = $("#PriceContainer");
 
 				if (newPrice == 7 && game.gameSize === "small")
-					div.find("#exppack_price").html(newPrice + " Cr. (Default)");
+					div.find("#exppack_price").html(newPrice + " Cr. (Mặc định)");
 				else if (newPrice == 11 && game.gameSize === "medium")
-					div.find("#exppack_price").html(newPrice + " Cr. (Default)");
+					div.find("#exppack_price").html(newPrice + " Cr. (Mặc định)");
 				else if (newPrice == 14 && game.gameSize === "large")
-					div.find("#exppack_price").html(newPrice + " Cr. (Default)");
+					div.find("#exppack_price").html(newPrice + " Cr. (Mặc định)");
 				else if (newPrice == 18 && game.gameSize === "aaa")
-					div.find("#exppack_price").html(newPrice + " Cr. (Default)");
+					div.find("#exppack_price").html(newPrice + " Cr. (Mặc định)");
 				else
 					div.find("#exppack_price").html(newPrice + " Cr.");
 			}
 		};
 
-		/* calculateSales algorithm */
+		/* Thuật toán tính doanh số */
 		var salesCalculated = function (company, game) {
 			var price = dataStore.data.gamePrice;
 			var currentGame = company.game;
@@ -1614,7 +1614,7 @@ var ExpPack = {};
 		var original_showContextMenu = UI._showContextMenu;
 		var new_showContextMenu = function (b, c, d, h) {
 			GameManager.company.isCurrentlyDevelopingGame() && c.push({
-				label: "Game Price...",
+				label: "Giá trò chơi...",
 				action: function () {
 					Sound.click();
 					GameManager.resume(true);
@@ -1685,7 +1685,7 @@ var ExpPack = {};
 					(targetChar.state != CharacterState.Training && targetChar.state != CharacterState.Vacation)) {
 					if (company.currentLevel > 1 && targetChar.flags.needsVacation) {
 						menuItems.push({
-							label: "Buy a Black Bull".localize("menu item"),
+							label: "Mua Black Bull".localize("menu item"),
 							action: function () {
 								Sound.click();
 								GameManager.resume(true);
