@@ -4469,3 +4469,84 @@ p.errorMessage .span {
 	text-align: right;
 	color: var(--dark-color);
 }
+
+/* Cải thiện UI cho phần Help Panel */
+#helpPanel {
+	padding: 20px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-color: rgba(255, 255, 255, 0.95);
+}
+
+#helpPanel h2 {
+	font-size: var(--font-size-xxlarge);
+	margin: 20px 0 15px 0;
+	color: var(--primary-dark);
+	border-bottom: 2px solid var(--primary-color);
+	padding-bottom: 8px;
+}
+
+#helpPanel h3 {
+	font-size: var(--font-size-large);
+	margin: 15px 0 8px 0;
+	color: var(--dark-color);
+	font-weight: 600;
+}
+
+#helpPanel p {
+	font-size: var(--font-size-medium);
+	line-height: 1.5;
+	margin-bottom: 15px;
+	color: var(--dark-color);
+}
+
+#devStages {
+	margin: 10px 0;
+	padding: 5px;
+}
+
+#devStages>h3 {
+	font-size: var(--font-size-xlarge);
+	background-color: rgba(255, 246, 232, 0.9);
+	padding: 12px 15px;
+	border-radius: var(--border-radius);
+	margin: 15px 0 5px 0;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	color: var(--dark-color);
+	border-left: 4px solid var(--primary-color);
+}
+
+#devStages>h3:hover {
+	background-color: var(--primary-light);
+	color: var(--dark-color);
+	transform: translateX(5px);
+}
+
+#devStages>div {
+	padding: 15px 20px;
+	border-radius: var(--border-radius);
+	margin-bottom: 15px;
+	box-shadow: var(--box-shadow);
+	border: 1px solid rgba(255, 209, 123, 0.3);
+}
+
+#devStages>div>h3 {
+	color: var(--primary-dark);
+	font-size: var(--font-size-large);
+	margin-top: 15px;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(255, 209, 123, 0.5);
+	padding-bottom: 5px;
+}
+
+#helpMessagesContainer {
+	max-height: 300px;
+	overflow-y: auto;
+	padding: 15px;
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: var(--border-radius);
+	margin-top: 15px;
+	box-shadow: var(--box-shadow);
+	border: 1px solid rgba(255, 209, 123, 0.3);
+}
