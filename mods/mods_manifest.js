@@ -30,6 +30,17 @@ var GDT_MOD_MANIFEST = [
         "description": "A Mod for Game Dev Tycoon which provides users all kind of cheats.",
         "main": "CheatMod.js",
         "folder": "./mods/CheatMod"
+    },
+    {
+        "id": "ExpansionPack",
+        "name": "Expansion Pack Mod",
+        "version": "1.2.0",
+        "author": "DzjengisKhan (Founder & Leader) & LineLiar (Co-Leader)",
+        "url": "https://github.com/DzjengisKhan/GDT-Expansion-Pack",
+        "description": "The one and only 'Expansion Pack Mod' for Game Dev Tycoon.",
+        "main": "ExpansionPack.js",
+        "folder": "./mods/ExpansionPack",
+        "dependencies": { "UltimateLib": "1.x.x" }
     }
     // Thêm các mod khác vào đây
 ];
