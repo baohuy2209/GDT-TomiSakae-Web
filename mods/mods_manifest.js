@@ -41,6 +41,17 @@ var GDT_MOD_MANIFEST = [
         "main": "ExpansionPack.js",
         "folder": "./mods/ExpansionPack",
         "dependencies": { "UltimateLib": "1.x.x" }
+    },
+    {
+        "id": "TAG_Mod",
+        "name": "TAG Mod",
+        "version": "1.2.7",
+        "author": "Bellwood Studios",
+        "url": "https://www.bellwoodstudios.com/",
+        "description": "TAG MOD CURRENT VERSION: V1.2.5\n\nExperience GDT like never before with this full overhaul of the UI. TAG Mod also adds additional features and insights to give you a more complete picture of your company's operation.",
+        "main": "Main.js",
+        "folder": "./mods/TAG_Mod",
+        "image": "TM-Square-Logo-DM-Thumbnail.png"
     }
     // Thêm các mod khác vào đây
 ];
