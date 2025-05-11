@@ -522,6 +522,21 @@ body {
 	position: absolute;
 	top: 120px;
 	left: 230px;
+	max-width: 330px;
+	line-height: 1.4;
+}
+
+.platformButton .genreHints span {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.platformButton .genreHints .green {
+	color: #4CAF50;
+}
+
+.platformButton .genreHints span[style*="opacity"] {
+	margin-bottom: 3px;
 }
 
 .platformButton .licenseCost {
