@@ -473,7 +473,7 @@ body {
 
 .platformButton {
 	width: 578px;
-	height: 200px;
+	height: 250px;
 	margin: 10px;
 	outline: none;
 	cursor: pointer;
@@ -1333,7 +1333,8 @@ body {
 
 .dialogScreenContainer {
 	position: relative;
-	overflow: hidden;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .dialogScreen1Title {
