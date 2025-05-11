@@ -238,7 +238,7 @@ body {
 #cashLogContainer {
 	position: relative;
 	margin: 5px;
-	font-size: 14pt;
+	font-size: 12pt;
 	color: black;
 	width: 100%;
 	display: inline-block;
@@ -2475,6 +2475,8 @@ body {
 }
 
 .projectStatusCard {
+	border-radius: 5px;
+	padding: 6px;
 	width: 300px;
 	position: absolute;
 	font-family: 'Segoe UI', 'Open Sans';
@@ -2629,7 +2631,7 @@ body {
 
 
 .projectCardLabel {
-	font-size: 18pt;
+	font-size: 16pt;
 }
 
 .conventionImageBg {
