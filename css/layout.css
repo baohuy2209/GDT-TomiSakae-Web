@@ -520,28 +520,9 @@ body {
 .platformButton .genreHints {
 	font-size: 12pt;
 	position: absolute;
-	top: 120px;
+	top: 150px;
 	left: 230px;
 	max-width: 330px;
-	line-height: 1.4;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.platformButton .genreHints span {
-	display: inline-block;
-	margin-right: 5px;
-	vertical-align: middle;
-}
-
-.platformButton .genreHints .green {
-	color: #4CAF50;
-	font-weight: bold;
-}
-
-.platformButton .genreHints span[style*="opacity"] {
-	margin-bottom: 3px;
-	margin-right: 3px;
 }
 
 .platformButton .licenseCost {
@@ -2317,7 +2298,7 @@ body {
 	font-size: 22pt;
 	line-height: 60px;
 	text-align: center;
-	width: 60px;
+	max-width: 200px;
 	border-radius: 10px;
 	border-color: black;
 	border-width: 4px;
@@ -2331,9 +2312,9 @@ body {
 	font-size: 14pt;
 	position: absolute;
 	display: inline-block;
-	top: 20px;
-	line-height: 60px;
+	top: 90px;
 	height: 60px;
+	right: 20px;
 }
 
 .ratingY {
