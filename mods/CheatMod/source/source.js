@@ -321,8 +321,8 @@
 	div.append('<div id="hype100" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="display:inline-block;position: relative;margin-left:0px;width: 142px;" >Thêm 100</div>');
 
 	div.append('<div id="research" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;width: 450px;">Thêm Điểm Nghiên Cứu (100đ)</div>');
-	div.append('<div id="dreamteam" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;height: 100px;width: 450px">Lấp đầy vị trí trống bằng Đồng đội Siêu Cấp</div>');
-	div.append('<div id="bteam" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;height: 100px;width: 450px">Lấp đầy vị trí trống bằng Đồng đội Hạng B</div>');
+	div.append('<div id="dreamteam" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;width: 450px">Lấp đầy vị trí trống bằng Đồng đội Siêu Cấp</div>');
+	div.append('<div id="bteam" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;width: 450px">Lấp đầy vị trí trống bằng Đồng đội Hạng B</div>');
 	div.append('<div id="proDeveloper" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;width: 450px">Biến người chơi thành Lập trình viên Siêu Cấp</div>');
 	div.append('<div id="generateNewTrend" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;width: 450px">Tạo xu hướng ngẫu nhiên</div>');
 	div.append('<div id="moveToLvl4" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="margin-left:50px;width: 450px">Chuyển đến Màn Cuối</div>');

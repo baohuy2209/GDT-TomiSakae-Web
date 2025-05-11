@@ -18,6 +18,45 @@
 	src: url('../fonts/OpenSans-Light.ttf');
 }
 
+/* Quy tắc font-size mặc định cho toàn bộ trang */
+:root {
+	--font-size-base: 14px;
+	--font-size-small: 12px;
+	--font-size-smaller: 10px;
+	--font-size-tiny: 9px;
+	--font-size-medium: 16px;
+	--font-size-large: 18px;
+	--font-size-xlarge: 20px;
+	--font-size-xxlarge: 24px;
+
+	/* Bảng màu mới */
+	--primary-color: #ff8800;
+	--primary-dark: #e67700;
+	--primary-light: #ffa94d;
+	--secondary-color: #00a8ff;
+	--secondary-dark: #0088cc;
+	--secondary-light: #66c7ff;
+	--accent-color: #8e44ad;
+	--success-color: #27ae60;
+	--danger-color: #e74c3c;
+	--warning-color: #f39c12;
+	--info-color: #3498db;
+	--light-color: #f9f9f9;
+	--dark-color: #2c3e50;
+	--gray-color: #95a5a6;
+	--background-color: #fff9ef;
+	--border-radius: 5px;
+	--box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+	--transition-speed: 0.3s;
+}
+
+body {
+	font-size: var(--font-size-base);
+	font-family: 'Segoe UI', 'Open Sans', sans-serif;
+	color: var(--dark-color);
+	background-color: var(--background-color);
+}
+
 /*disable selection on elements except for input*/
 * {
 	-webkit-user-select: none;
@@ -60,48 +99,47 @@ a {
 
 h1 {
 	font-family: "Segoe UI Light", "Open Sans Light";
-	font-size: 42pt;
-	line-height: 48pt;
+	font-size: 32pt;
+	line-height: 36pt;
 	margin: 0px;
 }
 
 h2 {
 	font-family: "Segoe UI Light", "Open Sans Light";
-	font-size: 20pt;
-	line-height: 24pt;
+	font-size: 18pt;
+	line-height: 22pt;
 	margin: 0px;
 }
 
 h3 {
 	font-family: "Segoe UI", "Open Sans Light";
-	font-size: 11pt;
-	line-height: 15pt;
+	font-size: 10pt;
+	line-height: 14pt;
 	margin: 0px;
 }
 
 h4 {
 	font-family: "Segoe UI Semibold", "Open Sans Semibold";
-	font-size: 11pt;
-	line-height: 15pt;
+	font-size: 10pt;
+	line-height: 14pt;
 	margin: 0px;
 }
 
 h5 {
 	font-family: "Segoe UI", "Open Sans";
-	font-size: 9pt;
-	line-height: 15pt;
+	font-size: 8pt;
+	line-height: 12pt;
 	margin: 0px;
 }
 
 h6 {
 	font-family: "Segoe UI Semibold", "Open Sans Semibold";
-	font-size: 9pt;
-	line-height: 15pt;
+	font-size: 8pt;
+	line-height: 12pt;
 	margin: 0px;
 }
 
 body {
-	font-family: 'Segoe UI', 'Open Sans';
 	margin: 0px;
 	overflow: hidden;
 }
@@ -113,10 +151,14 @@ body {
 }
 
 .mainBackgroundOverlay {
-	/*#marron from top: background-image: -ms-radial-gradient(center top, ellipse farthest-corner, #630000 0%, #5E0000 50%, #300000 100%);*/
-	/*orangish from top: background-image: -ms-radial-gradient(center top, ellipse farthest-corner, #FFE18D 0%, #FFE9BD 50%, #FFF5D9 100%);*/
-	background-image: -ms-radial-gradient(center, ellipse closest-side, #FFE18D 0%, #FFE9BD 50%, #FFF5D9 100%);
-	background-image: -webkit-radial-gradient(center, ellipse closest-side, #FFE18D 0%, #FFE9BD 50%, #FFF5D9 100%);
+	background-image: radial-gradient(ellipse closest-side at center,
+			rgba(255, 225, 141, 0.8) 0%,
+			rgba(255, 233, 189, 0.8) 50%,
+			rgba(255, 245, 217, 0.8) 100%),
+		linear-gradient(to bottom right,
+			rgba(255, 213, 79, 0.2) 0%,
+			rgba(255, 236, 179, 0.2) 50%,
+			rgba(255, 249, 237, 0.2) 100%);
 }
 
 .statusBarItem {
@@ -132,13 +174,19 @@ body {
 }
 
 .statusBar {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	color: black;
 	padding: 5px;
 	border: 2px solid #A4A4A4;
-	border-radius: 5px;
+	border-radius: var(--border-radius);
 	background-color: white;
 	cursor: default;
+	box-shadow: var(--box-shadow);
+	transition: all var(--transition-speed) ease;
+}
+
+.statusBar:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .rightBar {
@@ -173,13 +221,14 @@ body {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	font-size: var(--font-size-medium);
 }
 
 .gameSalesLabelContainer {
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-bottom: 2px;
-	font-size: 10pt;
+	font-size: var(--font-size-small);
 	word-spacing: -2em;
 }
 
@@ -208,14 +257,16 @@ body {
 	position: relative;
 	font-family: 'Segoe UI', 'Open Sans';
 	border: 2px solid #A4A4A4;
-	border-radius: 5px 5px 0px 0px;
+	border-radius: var(--border-radius) var(--border-radius) 0 0;
 	background-color: white;
 	word-spacing: 0em;
+	box-shadow: var(--box-shadow);
+	transition: all var(--transition-speed) ease;
 }
 
 #trendContainer {
 	position: relative;
-	font-size: 12pt;
+	font-size: var(--font-size-small);
 	color: black;
 	width: 100%;
 	display: inline-block;
@@ -228,7 +279,7 @@ body {
 
 #gameSalesContainer {
 	position: relative;
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	color: black;
 	width: 100%;
 	display: inline-block;
@@ -238,7 +289,7 @@ body {
 #cashLogContainer {
 	position: relative;
 	margin: 5px;
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	color: black;
 	width: 100%;
 	display: inline-block;
@@ -285,52 +336,71 @@ body {
 
 .baseButton {
 	width: 180px;
-	height: 50px;
+	height: 45px;
 	margin: 10px;
 	outline: none;
 	cursor: pointer;
-	font-size: 16pt;
+	font-size: var(--font-size-large);
 	font-family: Segoe UI, Open Sans, sans-serif;
-	line-height: 50px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	line-height: 45px;
+	box-shadow: var(--box-shadow);
 	text-align: center;
 	font-style: italic;
+	border-radius: var(--border-radius);
+	transition: all var(--transition-speed) ease;
+}
+
+.baseButton:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.baseButton:active {
+	transform: translateY(1px);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 .selectorButton {
 	width: 180px;
-	height: 50px;
+	height: 45px;
 	margin: 10px;
 	outline: none;
 	cursor: pointer;
-	font-size: 16pt;
+	font-size: var(--font-size-large);
 	font-family: Segoe UI, Open Sans, sans-serif;
-	line-height: 50px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	line-height: 45px;
+	box-shadow: var(--box-shadow);
 	text-align: center;
 	-ms-user-select: none;
 	user-select: none;
+	border-radius: var(--border-radius);
+	transition: all var(--transition-speed) ease;
 }
 
-.selectorButton:not(.no-click).active {
-	-ms-transition-duration: 0.2s;
-	-ms-transform: scale(0.95);
-	-webkit-transition-duration: 0.2s;
-	-webkit-transform: scale(0.95);
+.selectorButton:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.selectorButton:active {
+	transform: translateY(1px);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 .selectorButtonInactive {
 	width: 180px;
-	height: 50px;
+	height: 45px;
 	margin: 10px;
 	outline: none;
 	cursor: pointer;
-	font-size: 16pt;
+	font-size: var(--font-size-large);
 	font-family: Segoe UI, Open Sans, sans-serif;
-	line-height: 50px;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	line-height: 45px;
+	box-shadow: var(--box-shadow);
 	text-align: center;
 	opacity: 0.7;
+	border-radius: var(--border-radius);
+	transition: all var(--transition-speed) ease;
 }
 
 .whiteButton {
@@ -339,12 +409,14 @@ body {
 	background: white;
 	background-image: -ms-linear-gradient(top left, #fff 0%, #ededed 100%);
 	background-image: -webkit-linear-gradient(top left, #fff 0%, #ededed 100%);
+	background: linear-gradient(to bottom, #ffffff, #f5f5f5);
+	color: var(--dark-color);
+	border: 1px solid #e0e0e0;
 }
 
 .whiteButton:not(.no-hover):hover {
-	background: #ededed;
-	background-image: -ms-linear-gradient(top left, #fff 0%, #dcdcdc 100%);
-	background-image: -webkit-linear-gradient(top left, #fff 0%, #dcdcdc 100%);
+	background: linear-gradient(to bottom, #ffffff, #eeeeee);
+	border-color: #d0d0d0;
 }
 
 .whiteButton:not(.no-click):active {
@@ -355,7 +427,7 @@ body {
 
 
 .greenButton {
-	color: black;
+	color: white;
 	border: solid 1px #b7b7b7;
 	background-image: radial-gradient(at center, #54E23F, #2FAF1B 64.3%, rgb(34, 151, 16));
 	/* Mozilla Firefox */
@@ -366,18 +438,13 @@ body {
 	background-image: -webkit-gradient(radial, center center, 0, center center, 591, color-stop(0, #54E23F), color-stop(0.64, #2FAF1B), color-stop(1, #229710));
 	/* Webkit (Chrome 11+) */
 	background-image: -webkit-radial-gradient(center, ellipse farthest-corner, #54E23F 0%, #2FAF1B 64%, #229710 100%);
+	background: linear-gradient(to bottom, var(--success-color), #219653);
+	color: white;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .greenButton:hover {
-	background-image: radial-gradient(at center, #61EC4A, #2FAF1B 64.3%, rgb(34, 151, 16));
-	/* Mozilla Firefox */
-	background-image: -moz-radial-gradient(center, ellipse farthest-corner, #61EC4A 0%, #2FAF1B 64%, #229710 100%);
-	/* Opera */
-	background-image: -o-radial-gradient(center, ellipse farthest-corner, #61EC4A 0%, #2FAF1B 64%, #229710 100%);
-	/* Webkit (Safari/Chrome 10) */
-	background-image: -webkit-gradient(radial, center center, 0, center center, 591, color-stop(0, #61EC4A), color-stop(0.64, #2FAF1B), color-stop(1, #229710));
-	/* Webkit (Chrome 11+) */
-	background-image: -webkit-radial-gradient(center, ellipse farthest-corner, #61EC4A 0%, #2FAF1B 64%, #229710 100%);
+	background: linear-gradient(to bottom, #2ebd7f, #27ae60);
 }
 
 .greenButton:active {
@@ -424,6 +491,9 @@ body {
 	background-color: #FFF9EF;
 	border: 5px solid #FFD17B;
 	z-index: -1;
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	transition: all var(--transition-speed) ease;
 }
 
 .staffInfoPanel.hidden {
@@ -574,23 +644,24 @@ body {
 	-ms-backface-visibility: visible;
 	-ms-transform-origin: 50% 50%;
 	-ms-transform: perspective(500px) scale(1) rotateX(0deg);
-	-ms-transition: 0.2s ease-out;
+	-ms-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	-webkit-backface-visibility: visible;
 	-webkit-transform-origin: 50% 50%;
 	-webkit-transform: perspective(500px) scale(1) rotateX(0deg);
-	-webkit-transition: 0.2s ease-out;
+	-webkit-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
 }
 
 .windowStyleHideState {
-	opacity: 0.2;
+	opacity: 0;
 	-ms-backface-visibility: visible;
 	-ms-transform-origin: 50% 50%;
 	-ms-transform: perspective(500px) scale(0.85) rotateX(10deg);
-	-ms-transition: 0.1s ease-out;
+	-ms-transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 	-webkit-backface-visibility: visible;
 	-webkit-transform-origin: 50% 50%;
 	-webkit-transform: perspective(500px) scale(0.85) rotateX(10deg);
-	-webkit-transition: 0.1s ease-out;
+	-webkit-transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
 .windowBorder {
@@ -598,8 +669,11 @@ body {
 	height: 100%;
 	color: #212121;
 	cursor: default;
-	background-color: #FFF9EF;
-	border: 5px solid #FFD17B;
+	background-color: rgba(255, 249, 239, 0.95);
+	backdrop-filter: blur(5px);
+	border-radius: var(--border-radius);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
 }
 
 .smallWindow {
@@ -631,7 +705,7 @@ body {
 	color: #252525;
 	line-height: 1.36;
 	font-family: 'Segoe UI', 'Open Sans', sans-serif;
-	font-size: 34pt;
+	font-size: 26pt;
 	font-weight: bolder;
 	letter-spacing: 0.02em;
 	cursor: default;
@@ -643,10 +717,13 @@ body {
 	margin: 5px 50px;
 	text-overflow: ellipsis;
 	max-height: 50pt;
+	border-bottom: 2px solid var(--primary-dark);
+	padding-bottom: 8px;
+	text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
 }
 
 .smallerWindowTitle {
-	font-size: 22pt;
+	font-size: 18pt;
 	margin: 5px 10px;
 	max-height: 33pt;
 }
@@ -662,6 +739,7 @@ body {
 .engineButton {
 	display: inline-block;
 	width: 250px;
+	font-size: var(--font-size-medium);
 }
 
 .windowSmallOkButton,
@@ -672,9 +750,9 @@ body {
 
 .mainMenuButton {
 	margin: 5px;
-	height: 50px;
-	line-height: 50px;
-	font-size: 18pt;
+	height: 45px;
+	line-height: 45px;
+	font-size: var(--font-size-xlarge);
 	width: 450px;
 }
 
@@ -700,9 +778,9 @@ body {
 
 .mainMenuButtonSmall {
 	margin: 5px;
-	height: 50px;
-	line-height: 50px;
-	font-size: 18pt;
+	height: 45px;
+	line-height: 45px;
+	font-size: var(--font-size-large);
 	width: 216px;
 }
 
@@ -726,32 +804,30 @@ body {
 }
 
 .notificationText {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	font-family: 'Segoe UI';
 	padding: 10px 20px;
 	height: 175px;
 }
 
 .notificationText.fallback {
-	font-size: 13.5pt;
+	font-size: var(--font-size-small);
 	font-family: 'Open Sans';
 }
 
 .windowMainActionButton {
-	font-size: 22pt;
+	font-size: var(--font-size-xlarge);
 }
 
 .orangeButton {
-	color: black;
+	color: white;
 	border: solid 1px #b7b7b7;
-	background: white;
-	background-image: -ms-linear-gradient(top, #FAA51A 0%, #F47A20 100%);
-	background-image: -webkit-linear-gradient(top, #FAA51A 0%, #F47A20 100%);
+	background: linear-gradient(to bottom, var(--primary-color), var(--primary-dark));
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .orangeButton:not(.disabled):hover {
-	background-image: -ms-linear-gradient(top, #FFC561 0%, #FF8000 100%);
-	background-image: -webkit-linear-gradient(top, #FFC561 0%, #FF8000 100%);
+	background: linear-gradient(to bottom, var(--primary-light), var(--primary-color));
 }
 
 .orangeButton:not(.disabled):active {
@@ -760,16 +836,14 @@ body {
 }
 
 .deleteButton {
-	color: black;
+	color: white;
 	border: solid 1px #b7b7b7;
-	background: white;
-	background-image: -ms-linear-gradient(top, #FA6464 0%, #F42727 100%);
-	background-image: -webkit-linear-gradient(top, #FA6464 0%, #F42727 100%);
+	background: linear-gradient(to bottom, var(--danger-color), #c0392b);
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .deleteButton:hover {
-	background-image: -ms-linear-gradient(top, #FA7D7D 0%, #F42727 100%);
-	background-image: -webkit-linear-gradient(top, #FA7D7D 0%, #F42727 100%);
+	background: linear-gradient(to bottom, #e67e22, var(--danger-color));
 }
 
 .deleteButton:active {
@@ -784,17 +858,15 @@ body {
 }
 
 .windowStepActionButton {
-	color: black;
+	color: white;
 	border: solid 1px #b7b7b7;
-	background: white;
+	background: linear-gradient(to bottom, var(--secondary-light), var(--secondary-color));
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 	width: 250px;
-	background-image: -ms-linear-gradient(top, #CCF5FF 0%, #A3E7FF 100%);
-	background-image: -webkit-linear-gradient(top, #CCF5FF 0%, #A3E7FF 100%);
 }
 
 .windowStepActionButton:hover {
-	background-image: -ms-linear-gradient(top, #E0F7FF 0%, #A3E7FF 100%);
-	background-image: -webkit-linear-gradient(top, #E0F7FF 0%, #A3E7FF 100%);
+	background: linear-gradient(to bottom, #87ceeb, var(--secondary-light));
 }
 
 .windowStepActionButton:active {
@@ -962,18 +1034,20 @@ body {
 .featureDurationPreview {
 	height: 40px;
 	display: inline-block;
+	border-radius: 5px;
+	box-shadow: var(--box-shadow);
 }
 
 .featurePreview1 {
-	background-color: #F66;
+	background: linear-gradient(to right, #f66, #ff9999);
 }
 
 .featurePreview2 {
-	background-color: #6F6;
+	background: linear-gradient(to right, #6f6, #99ff99);
 }
 
 .featurePreview3 {
-	background-color: #66F;
+	background: linear-gradient(to right, #66f, #9999ff);
 }
 
 .featureDurationPreviewContainer {
@@ -1057,39 +1131,18 @@ body {
 	background: #E6E6E6;
 	vertical-align: middle;
 	border: 1px solid #AEAEAE;
-}
-
-.featureGainCaption {
-	width: 50px;
-	display: inline-block;
-}
-
-.featureLevelUp {
-	width: 20%;
-	display: inline-block;
-	float: right;
-}
-
-.releaseGameFeatureTemplate {
-	margin-top: 5px;
-	width: 100%;
-	font-size: 14pt;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .featureProgress {
-	display: inline-block;
-	background-color: orange;
-	height: 100%;
-	margin: 0px;
-	padding: 0px;
+	background: linear-gradient(to right, #ff8800, #ffaa33);
+	transition: width 0.3s ease;
 }
 
 .featureProgressGain {
-	display: inline-block;
-	background-color: #FFC456;
-	height: 100%;
-	margin: 0px;
-	padding: 0px;
+	background: linear-gradient(to right, #ffaa33, #ffcc66);
 }
 
 .xpGainedTitleContainer {
@@ -1213,7 +1266,7 @@ body {
 
 .loadSaveButton {
 	position: relative;
-	width: 560px;
+	width: 600px;
 	min-height: 66px;
 	height: auto;
 	margin: 19px;
@@ -1222,12 +1275,14 @@ body {
 	background: white;
 	background-image: -ms-linear-gradient(top left, #fff 0%, #ededed 100%);
 	background-image: -webkit-linear-gradient(top left, #fff 0%, #ededed 100%);
+	transition: all 0.2s ease;
+	border-radius: var(--border-radius);
+	overflow: hidden;
 }
 
 .loadSaveButton:not(.disabled):hover {
-	background: #ededed;
-	background-image: -ms-linear-gradient(top left, #fff 0%, #dcdcdc 100%);
-	background-image: -webkit-linear-gradient(top left, #fff 0%, #dcdcdc 100%);
+	transform: translateY(-3px);
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 .loadSaveButton:not(.disabled):active {
@@ -1260,6 +1315,7 @@ body {
 	top: 35%;
 	transform: translateY(-50%);
 	-webkit-transform: translateY(-50%);
+	display: none;
 }
 
 .name {
@@ -1284,7 +1340,7 @@ body {
 	position: absolute;
 	left: 97px;
 	top: 30px;
-	width: 184px;
+	width: 200px;
 	height: 28px;
 	font-size: 15pt;
 	text-align: center;
@@ -1301,7 +1357,7 @@ body {
 
 .week {
 	position: absolute;
-	left: 240px;
+	left: 275px;
 	bottom: 57px;
 	top: 30px;
 	font-size: 15pt;
@@ -1312,7 +1368,7 @@ body {
 
 .saveTime {
 	position: absolute;
-	left: 373px;
+	left: 400px;
 	top: 36px;
 	font-size: 12pt;
 	font-weight: bolder;
@@ -1440,7 +1496,7 @@ body {
 }
 
 .dialogBackButton {
-	font-size: 32pt;
+	font-size: 28pt;
 	position: absolute;
 	left: 10px;
 	top: 10px;
@@ -1448,54 +1504,66 @@ body {
 }
 
 .configButton {
-	font-size: 24pt;
+	font-size: 22pt;
 	position: absolute;
 	top: 60px;
 	right: 20px;
 }
 
 .closeDialogButtonWin8 {
-	font-size: 30pt;
+	font-size: 28pt;
 	position: absolute;
 	top: -20px;
 	right: -20px;
 	z-index: 3200;
 	width: 40pt;
 	height: 40pt;
-	background: #FFF9EF;
+	background: linear-gradient(to bottom, #fff9ef, #ffe9bd);
 	border-radius: 50%;
 	text-align: center;
 	border: 5px solid #FFD17B;
 	letter-spacing: 0em;
+	transition: all 0.2s ease;
 }
 
 .closeDialogButton {
-	font-size: 38pt;
+	font-size: 34pt;
 	position: absolute;
 	top: -20px;
 	right: -20px;
 	z-index: 3200;
 	width: 40pt;
 	height: 40pt;
-	background: #FFF9EF;
+	background: linear-gradient(to bottom, #fff9ef, #ffe9bd);
 	border-radius: 50%;
 	text-align: center;
 	border: 5px solid #FFD17B;
 	letter-spacing: 0em;
+	transition: all 0.2s ease;
+}
+
+.closeDialogButton:hover,
+.closeDialogButtonWin8:hover {
+	transform: rotate(90deg);
+	background: linear-gradient(to bottom, #ffe9bd, #ffd17b);
 }
 
 .featureSelectionItem {
 	width: 100%;
-	font-size: 22pt;
+	font-size: var(--font-size-xlarge);
 	vertical-align: middle;
 	color: black;
 	margin-top: 5px;
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
 }
 
 .featureSelectionItem input {
 	vertical-align: middle;
 	position: relative;
 	top: -2px;
+	margin-right: 10px;
 }
 
 .featureSelectionCategoryHeading {
@@ -1513,6 +1581,16 @@ body {
 	margin: 10px 20px 10px 20px;
 	cursor: pointer;
 	font-size: 18pt;
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	transition: all 0.2s ease;
+	border: 1px solid #e0e0e0;
+}
+
+.selectableGameFeatureItem:hover {
+	transform: translateX(5px);
+	border-left: 4px solid var(--primary-color);
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .selectableGameFeatureItem:not(.disabled):active {
@@ -1531,9 +1609,8 @@ body {
 }
 
 .selectableGameFeatureItem.selectedFeature {
-	background-color: #8CE2FF;
-	-ms-transition-duration: 0.2s;
-	-webkit-transition-duration: 0.2s;
+	background: linear-gradient(to right, #e3f2fd, #8CE2FF);
+	border-left: 4px solid var(--secondary-color);
 }
 
 .selectableGameFeatureItem.selectedFeature .featureContent {
@@ -1618,7 +1695,7 @@ body {
 
 .gameDetailsTitleLabel {
 	position: relative;
-	font-size: 22pt;
+	font-size: 20pt;
 	font-weight: bolder;
 	left: 10px;
 	top: 5px;
@@ -1630,7 +1707,7 @@ body {
 .gameDetailsColumn1 {
 	left: 250px;
 	width: 180px;
-	font-size: 15pt;
+	font-size: 14pt;
 	font-weight: bolder;
 	overflow: visible;
 	white-space: pre;
@@ -1638,7 +1715,7 @@ body {
 
 .gameDetailsColumn2 {
 	width: 150px;
-	font-size: 13pt;
+	font-size: 12pt;
 	right: 20px;
 	text-align: right;
 }
@@ -1693,7 +1770,7 @@ body {
 	top: 130px;
 	left: 20px;
 	text-align: center;
-	font-size: 50pt;
+	font-size: 45pt;
 	opacity: 0.5;
 	color: black;
 	width: 200px;
@@ -1758,6 +1835,9 @@ body {
 	width: 200px;
 	height: 200px;
 	margin-left: 10px;
+	border-radius: 8px;
+	box-shadow: var(--box-shadow);
+	transition: all 0.3s ease;
 }
 
 .gameDetailsImage {
@@ -1781,7 +1861,7 @@ body {
 	position: absolute;
 	right: 10px;
 	top: 25px;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 	text-align: center;
 	width: 32px;
 	opacity: 0.8;
@@ -1818,7 +1898,7 @@ body {
 	position: absolute;
 	margin-left: 20px;
 	margin-top: 10px;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 	width: 180px;
 	background-color: orange;
 	padding: 5px;
@@ -1881,7 +1961,7 @@ body {
 	position: absolute;
 	right: 10px;
 	top: 75px;
-	font-size: 20pt;
+	font-size: 18pt;
 	width: 140px;
 }
 
@@ -1971,7 +2051,7 @@ body {
 #gameEndDialog .companyName {
 	position: absolute;
 	top: 10px;
-	font-size: 40pt;
+	font-size: 36pt;
 	font-family: 'Segoe UI', 'Open Sans';
 	width: 100%;
 	text-align: center;
@@ -1991,7 +2071,7 @@ body {
 
 .gameEndAnimationItem {
 	display: inline-block;
-	font-size: 16pt;
+	font-size: 14pt;
 }
 
 .gameEndAnimationItem .value {
@@ -2001,7 +2081,7 @@ body {
 .gameEndStatisticItem {
 	margin-top: 5px;
 	width: 100%;
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 }
 
 .gameEndStatisticsContainer {
@@ -2049,13 +2129,13 @@ body {
 /* Staff template
 	*/
 .staffTemplate {
-	font-size: 24pt;
+	font-size: 22pt;
 	margin: 10px;
 	padding: 10px;
 }
 
 .staffName {
-	font-size: 30pt;
+	font-size: 28pt;
 }
 
 .staffLeftColumn {
@@ -2229,16 +2309,15 @@ body {
 	transform: scale(0.65, 0.65);
 	-webkit-transform: scale(0.65, 0.65);
 	background-color: deepskyblue;
-	transition-duration: 0.4s;
-	transition-timing-function: ease-out;
-	-webkit-transition: 0.4s ease-out;
-	cursor: pointer;
+	transition: all 0.4s ease;
+	box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
 }
 
 .boostButton.enabled:hover {
 	transform: scale(1, 1);
 	-webkit-transform: scale(1, 1);
 	color: white;
+	box-shadow: 0 0 20px rgba(0, 191, 255, 0.8);
 }
 
 .boostMultiplier {
@@ -2260,47 +2339,49 @@ body {
 	display: inline-block;
 	width: 100px;
 	height: 50px;
-	font-size: 18pt;
+	font-size: 16pt;
 	line-height: 50px;
 	text-align: center;
 	border: solid 1px #b7b7b7;
 	margin-right: 15px;
 	background-image: -ms-linear-gradient(top, #CCF5FF 0%, #A3E7FF 100%);
 	background-image: -webkit-linear-gradient(top, #CCF5FF 0%, #A3E7FF 100%);
+	transition: all 0.2s ease;
+	border-radius: var(--border-radius);
 }
 
 .gameSizeButton:hover {
-	background-image: -ms-linear-gradient(top, #E0F7FF 0%, #A3E7FF 100%);
-	background-image: -webkit-linear-gradient(top, #E0F7FF 0%, #A3E7FF 100%);
+	transform: translateY(-3px);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .gameSizeButton.selected {
-	background-image: -ms-linear-gradient(top, #FFCC00 0%, #FFA500 100%);
-	background-image: -webkit-linear-gradient(top, #FFCC00 0%, #FFA500 100%);
+	background: linear-gradient(to bottom, #ffcc00, #ffa500);
+	box-shadow: 0 3px 8px rgba(255, 165, 0, 0.4);
 }
 
 .gameSizeSmall {
-	font-size: 16pt;
+	font-size: 14pt;
 }
 
 .gameSizeMedium {
-	font-size: 18pt;
+	font-size: 16pt;
 }
 
 .gameSizeLarge {
-	font-size: 20pt;
+	font-size: 18pt;
 }
 
 .gameSizeAAA {
 	position: absolute;
-	font-size: 24pt;
+	font-size: 22pt;
 	font-weight: bold;
 	margin-right: 20px;
 }
 
 .gameGenreMMO {
 	position: absolute;
-	font-size: 24pt;
+	font-size: 22pt;
 	font-weight: bold;
 	margin-left: 43px;
 	margin-top: 10px;
@@ -2314,7 +2395,7 @@ body {
 
 .rating {
 	display: inline-block;
-	font-size: 22pt;
+	font-size: 20pt;
 	line-height: 60px;
 	text-align: center;
 	width: 60px;
@@ -2325,10 +2406,32 @@ body {
 	color: black;
 	margin-top: 10px;
 	margin-right: 20px;
+	box-shadow: var(--box-shadow);
+	transition: all 0.2s ease;
+}
+
+.rating:hover {
+	transform: scale(1.05);
+}
+
+.rating:hover {
+	transform: scale(1.05);
+}
+
+.ratingY {
+	background: linear-gradient(to bottom, #7ed56f, #55c57a);
+}
+
+.ratingE {
+	background: linear-gradient(to bottom, #ffb900, #ff7730);
+}
+
+.ratingM {
+	background: linear-gradient(to bottom, #ff3366, #c0392b);
 }
 
 .ratingLabel {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	position: absolute;
 	display: inline-block;
 	top: 20px;
@@ -2349,22 +2452,26 @@ body {
 }
 
 .gameDefSelection:hover {
-	border-color: orange;
-	transition-duration: 0.2s;
+	border-color: var(--primary-color);
+	transition: all 0.3s ease;
+	box-shadow: 0 5px 15px rgba(255, 136, 0, 0.3);
 }
 
 .gameDefSelection.selected {
-	border-color: orange;
-	transition-duration: 0.2s;
-	transform: scale(1.105);
+	border-color: var(--primary-color);
+	transition: all 0.3s ease;
+	transform: scale(1.05);
+	box-shadow: 0 8px 20px rgba(255, 136, 0, 0.4);
 }
 
 .trainingOverlayTemplate {
 	position: absolute;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 	font-family: Arial;
 	width: 270px;
 	word-spacing: -0.3em;
+	border-radius: var(--border-radius);
+	overflow: hidden;
 }
 
 .trainingContent {
@@ -2382,32 +2489,29 @@ body {
 }
 
 .trainingInnerBorder {
-	background-color: rgba(255, 255, 255, 0.8);
-	color: black;
-	border: 1px solid black;
-	border-radius: 5px;
-	position: absolute;
-	top: 0px;
-	height: 0px;
-	width: 78.5%;
-	height: 100%;
-	z-index: -1;
+	background-color: rgba(255, 255, 255, 0.85);
+	backdrop-filter: blur(3px);
+	border-radius: var(--border-radius);
 }
 
 .trainingD {
-	color: #CC7A00;
+	color: #e67e22;
+	font-weight: bold;
 }
 
 .trainingT {
-	color: #0081FF;
+	color: #3498db;
+	font-weight: bold;
 }
 
 .trainingR {
-	color: #006AFF;
+	color: #2980b9;
+	font-weight: bold;
 }
 
 .trainingS {
-	color: firebrick;
+	color: #e74c3c;
+	font-weight: bold;
 }
 
 .trainingGain {
@@ -2429,9 +2533,15 @@ body {
 
 
 .textEffect3D {
-	color: rgba(255, 255, 0, .7);
+	color: rgba(255, 255, 0, 0.8);
 	font-weight: bold;
-	text-shadow: 1px 1px rgba(255, 128, 0, .7), 2px 2px rgba(255, 128, 0, .7), 3px 3px rgba(255, 128, 0, .7), 4px 4px rgba(255, 128, 0, .7), 5px 5px rgba(255, 128, 0, .7);
+	text-shadow:
+		1px 1px 0 rgba(255, 128, 0, 0.8),
+		2px 2px 0 rgba(255, 128, 0, 0.7),
+		3px 3px 0 rgba(255, 128, 0, 0.6),
+		4px 4px 0 rgba(255, 128, 0, 0.5),
+		5px 5px 0 rgba(255, 128, 0, 0.4),
+		6px 6px 10px rgba(0, 0, 0, 0.3);
 }
 
 .projectSlider {
@@ -2441,7 +2551,7 @@ body {
 }
 
 .projectTitleLabel {
-	font-size: 24pt;
+	font-size: 22pt;
 	position: absolute;
 	left: 240px;
 	top: 20px;
@@ -2454,7 +2564,7 @@ body {
 }
 
 .projectDescription {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	position: absolute;
 	left: 20px;
 	top: 220px;
@@ -2468,7 +2578,7 @@ body {
 }*/
 
 .projectPointCost {
-	font-size: 16pt;
+	font-size: var(--font-size-medium);
 	position: absolute;
 	left: 240px;
 	top: 150px;
@@ -2481,12 +2591,14 @@ body {
 	border: 1px solid #181818;
 	background-color: rgba(255, 255, 255, 0.498);
 	cursor: pointer;
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	transition: all 0.3s ease;
 }
 
-.projectStatusCard.small {
-	-ms-transform: scale(0.8);
-	-webkit-transform: scale(0.8);
-	transition-duration: 0.2s;
+.projectStatusCard:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .projectCardLeft {
@@ -2559,7 +2671,7 @@ body {
 }
 
 .projectStatusCard .projectTitle {
-	font-size: 18pt;
+	font-size: 16pt;
 	position: relative;
 	left: 110px;
 	width: 180px;
@@ -2587,11 +2699,11 @@ body {
 }
 
 .rndCard .projectProgress {
-	background: orange;
+	background: linear-gradient(to right, #f39c12, #f5b041);
 }
 
 .hwCard .projectProgress {
-	background: deepskyblue;
+	background: linear-gradient(to right, #3498db, #5dade2);
 }
 
 .projectPointsRemaining {
@@ -2602,7 +2714,7 @@ body {
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 }
 
 .projectBudgetSliderContainer {
@@ -2611,11 +2723,11 @@ body {
 }
 
 .projectBudgetLabel {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 }
 
 .projectBudgetValue {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	text-align: right;
 	position: absolute;
 	top: 0px;
@@ -2629,7 +2741,7 @@ body {
 
 
 .projectCardLabel {
-	font-size: 18pt;
+	font-size: 16pt;
 }
 
 .conventionImageBg {
@@ -2638,6 +2750,9 @@ body {
 	left: 25px;
 	width: 760px;
 	height: 450px;
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	box-shadow: var(--box-shadow);
 }
 
 .conventionImageFg {
@@ -2646,12 +2761,18 @@ body {
 	left: 25px;
 	width: 760px;
 	height: 450px;
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	box-shadow: var(--box-shadow);
 }
 
 .conventionImageFloor {
 	margin: 20px;
 	width: 760px;
 	height: 450px;
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	box-shadow: var(--box-shadow);
 }
 
 .conventionAnimationCanvas {
@@ -2676,20 +2797,20 @@ body {
 }
 
 .conferenceBoothPickerText {
-	font-size: 20pt;
+	font-size: 18pt;
 	margin: 30px;
 }
 
 .boothTitleLabel {
-	font-size: 24pt;
+	font-size: 22pt;
 }
 
 .boothDescription {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 }
 
 .boothCashCost {
-	font-size: 16pt;
+	font-size: var(--font-size-medium);
 }
 
 .marketingVariationContainer {
@@ -2699,20 +2820,20 @@ body {
 }
 
 .marketingPickerText {
-	font-size: 20pt;
+	font-size: 18pt;
 	margin: 30px;
 }
 
 .marketingTitleLabel {
-	font-size: 24pt;
+	font-size: 22pt;
 }
 
 .marketingDescription {
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 }
 
 .marketingCashCost {
-	font-size: 16pt;
+	font-size: var(--font-size-medium);
 }
 
 .splashImage {
@@ -2825,7 +2946,7 @@ body {
 	left: 20px;
 	width: 500px;
 	text-align: center;
-	font-size: 20pt;
+	font-size: 18pt;
 }
 
 .contract.topicNotResearched {
@@ -2846,7 +2967,7 @@ body {
 .contract.reqLabel {
 	top: 240px;
 	left: 20px;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 }
 
 .contract.req {
@@ -2903,7 +3024,7 @@ body {
 	top: 200px;
 	left: 20px;
 	width: 500px;
-	font-size: 16pt;
+	font-size: var(--font-size-medium);
 	text-align: center;
 	font-weight: bold;
 }
@@ -2911,39 +3032,39 @@ body {
 .contract.payment {
 	top: 280px;
 	left: 80px;
-	font-size: 17pt;
+	font-size: 16pt;
 }
 
 .contract.penalty {
 	top: 280px;
 	left: 330px;
-	font-size: 17pt;
+	font-size: 16pt;
 	color: red;
 }
 
 .contract.payment.game {
 	top: 280px;
 	left: 260px;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 }
 
 .contract.penalty.game {
 	top: 310px;
 	left: 260px;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 	color: red;
 }
 
 .contract.royaltyRate {
 	top: 250px;
 	left: 260px;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 }
 
 .contract.reqs {
 	top: 120px;
 	left: 260px;
-	font-size: 15pt;
+	font-size: var(--font-size-medium);
 }
 
 .consoleMainContainer {
@@ -2967,7 +3088,7 @@ body {
 	position: absolute;
 	top: 5px;
 	left: 10px;
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	font-weight: 300;
 }
 
@@ -2980,7 +3101,7 @@ body {
 .consoleMainCardGroup.points {
 	position: absolute;
 	margin: 5px;
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	font-weight: 300;
 	top: 100px;
 	left: 10px;
@@ -3231,21 +3352,21 @@ body {
 }
 
 .reviewItem .score {
-	font-size: 48pt;
+	font-size: 42pt;
 	display: inline-block;
-	width: 48pt;
+	width: 42pt;
 	text-align: center;
 }
 
 .reviewItem .text {
-	font-size: 18pt;
+	font-size: 16pt;
 	display: inline-block;
 	margin-left: 20px;
 	max-width: 500px;
 }
 
 .reviewItem .reviewer {
-	font-size: 16pt;
+	font-size: 14pt;
 	text-align: right;
 	margin-top: -10px;
 	margin-right: -10px;
@@ -3287,7 +3408,7 @@ body {
 .contextMenuItem {
 	position: relative;
 	left: 0px;
-	font-size: 18pt;
+	font-size: 16pt;
 	min-width: 250px;
 	max-width: 350px;
 	margin: 5px;
@@ -3352,7 +3473,8 @@ body {
 	height: 100%;
 	top: 0px;
 	left: 0px;
-	background: black;
+	background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
+	backdrop-filter: blur(5px);
 	opacity: 0;
 	z-index: 6500;
 	/*above splashscreen*/
@@ -3377,7 +3499,7 @@ body {
 .supporterOption .title {
 	text-align: center;
 	width: 100%;
-	font-size: 20pt;
+	font-size: 18pt;
 	border-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: #004E8D;
@@ -3385,7 +3507,7 @@ body {
 
 .supporterOption .description {
 	width: 100%;
-	font-size: 14pt;
+	font-size: var(--font-size-medium);
 	margin-top: 10px;
 }
 
@@ -3735,15 +3857,22 @@ p.errorMessage .span {
 }
 
 ::-webkit-scrollbar {
-	width: 15px;
+	width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-	background: #ffd17b;
+	background: #f9f0dc;
+	border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #ffa401;
+	background: linear-gradient(to bottom, #ffb347, #ffcc33);
+	border-radius: 10px;
+	border: 3px solid #f9f0dc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(to bottom, #ff8800, #ffb347);
 }
 
 #newsletterSignup {
@@ -3958,6 +4087,9 @@ p.errorMessage .span {
 	padding: 5px;
 	margin-top: 5px;
 	background-color: rgba(255, 255, 255, 0.498);
+	animation: slideIn 0.5s ease forwards;
+	transform-origin: left center;
+	overflow: hidden;
 }
 
 .sidebarNotificationItem .icon {
@@ -4031,7 +4163,7 @@ p.errorMessage .span {
 	width: 49%;
 	display: inline-block;
 	text-align: center;
-	font-size: 16pt;
+	font-size: var(--font-size-medium);
 }
 
 .externalLink {
@@ -4120,15 +4252,220 @@ p.errorMessage .span {
 	border: 4px solid transparent;
 	border-top-color: #FF6A00;
 	border-bottom-color: #FF6A00;
-	-webkit-animation: rotate .7s ease-in-out infinite;
+	animation: rotate .7s ease-in-out infinite;
 	animation: rotate360 .7s ease-in-out infinite;
 }
 
 .sharecodeInput {
-	font-size: 22pt;
+	font-size: 20pt;
 	font-family: "Segoe UI", "Open Sans";
 	-webkit-user-select: text !important;
 	-moz-user-select: text !important;
 	user-select: text !important;
 	-ms-user-select: text !important;
+}
+
+/* Thêm hiệu ứng floating animation */
+@keyframes floating {
+	0% {
+		transform: translateY(0px);
+	}
+
+	50% {
+		transform: translateY(-8px);
+	}
+
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+.floatingAnimation {
+	animation: floating 3s ease-in-out infinite;
+}
+
+/* Hiệu ứng cho cả thông báo bên sidebar */
+.sidebarNotificationItem {
+	animation: slideIn 0.5s ease forwards;
+	transform-origin: left center;
+	overflow: hidden;
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+/* Hiệu ứng pulse cho thông báo mới */
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 0 rgba(255, 209, 123, 0.7);
+	}
+
+	70% {
+		box-shadow: 0 0 0 10px rgba(255, 209, 123, 0);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 rgba(255, 209, 123, 0);
+	}
+}
+
+.newNotification {
+	animation: pulse 2s infinite;
+}
+
+/* Thêm style mới cho container công nghệ */
+.techLevelContainer {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 5px;
+	margin: 5px 0;
+	flex-wrap: nowrap;
+}
+
+/* Tùy chỉnh style cho phần tên công nghệ */
+.techLevelName {
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 10px;
+}
+
+/* Tùy chỉnh style cho phần cấp độ */
+.techLevelValue {
+	width: 80px;
+	text-align: right;
+	white-space: nowrap;
+}
+
+/* Tùy chỉnh style cho thanh tiến trình */
+.techLevelProgress {
+	height: 20px;
+	background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+	border-radius: var(--border-radius);
+}
+
+/* Tùy chỉnh style cho màn hình cheatmodTechLevels */
+#cheatmodTechLevels {
+	padding: 5px;
+	margin: 10px 0;
+	width: 98%;
+}
+
+#cheatmodTechLevels .releaseGameFeatureTemplate {
+	display: flex;
+	align-items: center;
+	margin: 5px 0;
+	padding: 8px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+}
+
+#cheatmodTechLevels .featureName {
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 10px;
+	font-size: 14pt !important;
+}
+
+#cheatmodTechLevels .featureLevel {
+	width: 70px;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 12pt !important;
+}
+
+#cheatmodTechLevels .featureProgressContainer {
+	width: 200px;
+	height: 20px;
+	margin: 0 10px;
+}
+
+#cheatmodTechLevels #featureTechLvl {
+	margin-left: 5px !important;
+	font-weight: bold;
+	background: linear-gradient(to bottom, var(--primary-light), var(--primary-color));
+	color: white;
+}
+
+/* Chỉnh sửa style cho các phòng thí nghiệm */
+
+.consoleMainCard,
+.projectStatusCard {
+	min-height: 50px;
+	width: 300px;
+	font-family: 'Segoe UI', 'Open Sans';
+	border: 2px solid #A4A4A4;
+	border-radius: var(--border-radius);
+	background-color: rgba(255, 255, 255, 0.8);
+	word-spacing: 0em;
+	box-shadow: var(--box-shadow);
+	padding: 10px;
+}
+
+.consoleMainContainer:hover,
+.projectStatusCard:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.projectCardLeft {
+	position: relative;
+	left: 20px;
+	top: 20px;
+	word-spacing: 0em;
+	pointer-events: all;
+}
+
+.projectCardLeft.small {
+	top: 10px;
+	padding: 5px;
+}
+
+.consoleMainCardGroup.title,
+.projectStatusCard .projectTitle {
+	position: absolute;
+	top: 10px;
+	left: 15px;
+	font-size: var(--font-size-large);
+	font-weight: 600;
+	width: 250px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Định dạng cho phần nội dung của phòng thí nghiệm */
+.consoleMainCardGroup.points,
+.projectProgressContainer {
+	position: absolute;
+	margin: 5px;
+	font-size: var(--font-size-medium);
+	top: 50px;
+	left: 15px;
+	width: 270px;
+}
+
+/* Space cho thông tin ngân sách */
+.windowCostLabel {
+	position: absolute;
+	right: 15px;
+	top: 75px;
+	font-size: var(--font-size-medium);
+	width: 160px;
+	text-align: right;
+	color: var(--dark-color);
 }
