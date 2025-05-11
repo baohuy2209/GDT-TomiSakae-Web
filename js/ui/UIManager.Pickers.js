@@ -28,6 +28,17 @@
             a.find(".overlayTitle").text("Pick Topic".localize("heading"));
             var b = a.find(".listContainer");
             b.empty();
+
+            // Thêm ô tìm kiếm topic
+            var searchContainer = $('<div class="topicSearchContainer" style="margin-bottom: 15px; padding: 0 10px; position: relative; z-index: 999;"></div>');
+            var searchInput = $('<input type="text" class="topicSearchInput" placeholder="Tìm kiếm topic..." style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"/>');
+            searchContainer.append(searchInput);
+            b.append(searchContainer);
+
+            // Thêm container riêng cho danh sách topics
+            var topicsListContainer = $('<div class="topicsListContainer" style="position: relative;"></div>');
+            b.append(topicsListContainer);
+
             var f = 0,
                 l = 0,
                 g = General.getTopicOrder(GameManager.company),
@@ -44,27 +55,126 @@
                     t = 0 < GameManager.currentResearches.filter(function (a) {
                         return a.topicId === s.id
                     }).length,
-                    r = c ? !u && !t && -1 != n.indexOf(s) : u,
-                    q = '<div class="pickTopicListButton selectorButton whiteButton"><img class="topicIcon" src="{{iconUrl}}"></img><span class="topicButtonText">{{name}}</span><div class="hints"></div></div>';
-                (u = c && !r && !u && !t || !c && !r) ? (q = q.replace("{{name}}", "?"), q = q.replace("{{iconUrl}}", "./images/topic icons/overlay_locked.png")) : (q = q.replace("{{name}}", s.name), t = s.iconUrl ? s.iconUrl : "./images/topic icons/icon_topic_{0}.png".format(s.id.toLowerCase()), q = q.replace("{{iconUrl}}", t));
-                q = $(q);
+                    r = c ? !u && !t && -1 != n.indexOf(s) : u;
+
+                // Kiểm tra xem topic có bị khóa không
+                var isLocked = c && !r && !u && !t || !c && !r;
+
+                // Tạo HTML cho button topic
+                var topicName = isLocked ? "?" : s.name;
+                var iconUrl = isLocked ?
+                    "./images/topic icons/overlay_locked.png" :
+                    (s.iconUrl ? s.iconUrl : "./images/topic icons/icon_topic_{0}.png".format(s.id.toLowerCase()));
+
+                var buttonHTML = '<div class="pickTopicListButton selectorButton whiteButton" data-topic-name="' + topicName + '"><img class="topicIcon" src="' + iconUrl + '"></img><span class="topicButtonText">' + topicName + '</span><div class="hints"></div></div>';
+                var topicButton = $(buttonHTML);
+
                 (function (a) {
                     a.find(".topicIcon").on("error", function () {
                         a.find(".topicIcon").attr("src", "./images/topic icons/generic.png")
                     })
-                })(q);
-                q.disableDrag();
-                r ? q.clickExclOnce(function () {
-                    UI.pickTopicClick(this)
-                }) : (q.addClass("disabledButton"),
-                    q.removeAttr("onClick"), q.addClass("no-hover").addClass("no-click"));
-                !u && GameManager.areHintsEnabled() && GameManager.company.canSetTargetAudience() && Knowledge.hasTopicAudienceWeightingKnowledge(GameManager.company, s) && (q.find(".hints").html(Knowledge.getTopicAudienceHtml(GameManager.company, s)), q.addClass("hintsEnabled"));
-                q.css("position", "absolute");
-                q.css("top", 140 * l + 10 * l);
-                q.css("left", 190 * (f - 1) + 10);
-                q.css("font-size", UI.pickTopicFontSize + "pt");
-                b.append(q)
+                })(topicButton);
+
+                topicButton.disableDrag();
+
+                if (r) {
+                    topicButton.clickExclOnce(function () {
+                        UI.pickTopicClick(this)
+                    });
+                } else {
+                    topicButton.addClass("disabledButton");
+                    topicButton.removeAttr("onClick");
+                    topicButton.addClass("no-hover").addClass("no-click");
+                }
+
+                if (!isLocked && GameManager.areHintsEnabled() && GameManager.company.canSetTargetAudience() && Knowledge.hasTopicAudienceWeightingKnowledge(GameManager.company, s)) {
+                    topicButton.find(".hints").html(Knowledge.getTopicAudienceHtml(GameManager.company, s));
+                    topicButton.addClass("hintsEnabled");
+                }
+
+                topicButton.css("position", "absolute");
+                topicButton.css("top", 140 * l + 10 * l);
+                topicButton.css("left", 190 * (f - 1) + 10);
+                topicButton.css("font-size", UI.pickTopicFontSize + "pt");
+
+                topicsListContainer.append(topicButton);
             }
+
+            // Xử lý tìm kiếm
+            searchInput.on("input", function () {
+                var searchText = $(this).val().toLowerCase().trim();
+
+                if (searchText === "") {
+                    // Nếu không có từ khóa tìm kiếm, sắp xếp lại theo thứ tự ban đầu
+                    topicsListContainer.find(".pickTopicListButton").each(function () {
+                        var originalPosition = $(this).data("original-position");
+                        if (originalPosition) {
+                            $(this).css({
+                                "top": originalPosition.top,
+                                "left": originalPosition.left
+                            });
+                        }
+                    });
+                    return;
+                }
+
+                // Mảng để lưu các topic phù hợp và không phù hợp
+                var matchingTopics = [];
+                var nonMatchingTopics = [];
+
+                // Phân loại các topic
+                topicsListContainer.find(".pickTopicListButton").each(function () {
+                    var topicElement = $(this);
+                    var topicName = topicElement.attr("data-topic-name") || "";
+
+                    // Lưu vị trí ban đầu nếu chưa lưu
+                    if (!topicElement.data("original-position")) {
+                        topicElement.data("original-position", {
+                            top: topicElement.css("top"),
+                            left: topicElement.css("left")
+                        });
+                    }
+
+                    if (topicName.toLowerCase().indexOf(searchText) > -1 || topicName === "?") {
+                        matchingTopics.push(topicElement);
+                    } else {
+                        nonMatchingTopics.push(topicElement);
+                    }
+                });
+
+                // Sắp xếp lại vị trí của các topic
+                var rowCount = 0;
+                var colCount = 0;
+
+                // Đặt các topic phù hợp lên đầu
+                $.each(matchingTopics, function (index, topic) {
+                    colCount++;
+                    if (colCount > 3) {
+                        rowCount++;
+                        colCount = 1;
+                    }
+
+                    topic.css({
+                        "top": 140 * rowCount + 10 * rowCount,
+                        "left": 190 * (colCount - 1) + 10
+                    });
+                });
+
+                // Đặt các topic không phù hợp phía sau
+                $.each(nonMatchingTopics, function (index, topic) {
+                    colCount++;
+                    if (colCount > 3) {
+                        rowCount++;
+                        colCount = 1;
+                    }
+
+                    topic.css({
+                        "top": 140 * rowCount + 10 * rowCount,
+                        "left": 190 * (colCount - 1) + 10
+                    });
+                });
+            });
+
             UI.createDraggable(b);
             a.find(".selectionOverlayContainer").fadeIn("fast")
         })

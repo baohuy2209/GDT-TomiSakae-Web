@@ -53,7 +53,6 @@
 		'mods/gdt-modAPI/examples/examples.js',
 		'mods/ExpansionPack/source/source.js',
 		'mods/ExpansionPack/source/CC_AddOn.js',
-		//'mods/ExpansionPack/source/Search_AddOn.js',
 		'mods/ExpansionPack/source/DifficultySettings_AddOn.js',
 		'mods/UltimateLib/UltimateLib.js'
 	], ready, error);
