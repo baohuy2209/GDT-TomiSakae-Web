@@ -307,7 +307,7 @@
 	div.append('<div id="moneylbl" style="margin-left:50px;width: 450px;" >Thêm Tiền</div>');
 	div.append('<div id="money1M" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="display:inline-block;position: relative;margin-left:50px;width: 104px;" >Thêm 1Tr</div>');
 	div.append('<div id="money10M" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="display:inline-block;position: relative;margin-left:0px;width: 103px;" >Thêm 10Tr</div>');
-	div.append('<div id="money100M" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="display:inline-block;position: relative;margin-left:0px;width: 103px;" >Thêm 100Tr</div>');
+	div.append('<div id="money100M" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="display:inline-block;position: relative;margin-left:0px;width: 103px; font-size:18px;" >Thêm 100Tr</div>');
 	div.append('<div id="money1B" class="selectorButton whiteButton" onclick="UI.pickCheatClick(this)" style="display:inline-block;position: relative;margin-left:0px;width: 104px;" >Thêm 1Tỷ</div>');
 
 	div.append('<div id="fanslbl" style="margin-left:50px;width: 450px;" >Thêm Fan</div>');
