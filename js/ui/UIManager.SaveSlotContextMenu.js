@@ -1,68 +1,23 @@
 (function () {
     var b = function (a) {
-        return "https://greenback.greenheartgames.com/api/{0}?code=aXxCQxF1HOwaElXscdr9hJ1/hTRfSPJaaQn5cexlXSjLOO71bGlFhQ==".format(a)
+        return "https://gdt-tomisakae.vercel.app/api/saves/{0}".format(a)
     };
     UI.uploadToCloud = function (a) {
         var b = $("#createShareCodeWindow").clone();
-        d(b);
-        var c = !1,
-            g = b.find(".checkbox.legal");
-        g.clickExcl(function (a) {
-            Sound.click();
-            c = !c;
-            g.toggleClass("icon-check-empty", !c);
-            g.toggleClass("icon-check", c);
-            b.find(".uploadToCloudButton").toggleClass("disabled",
-                !c)
-        });
+
+        // Loại bỏ phần kiểm tra bản quyền và đồng ý
+        b.find(".legalCheck").hide();
+        b.find(".legal.label").html("");
+
         b.find(".description").text("Upload your game to our servers and receive a short save-code which you can then use to continue playing on a different device.".localize());
         b.find(".page1").show();
-        b.find(".legalCheck").show();
         b.find(".page2").hide();
         b.find(".page3").hide();
-        b.find(".uploadToCloudButton").clickExcl(function () {
-            Sound.click();
-            $(this).hasClass("disabled") ? g.parent().effect("shake", {
-                times: 2,
-                distance: 5
-            }, 50) : ($(this).unbind("click"), b.find(".page1").hide(), b.find(".legalCheck").hide(),
-                b.find(".uploadToCloudButton").toggleClass("disabled", !0), b.find(".page2").show(), b.find(".description").text(""), b.find(".topPart").height("160px"), f(a, function (a) {
-                    a = a.substring(4);
-                    b.find(".page2").hide();
-                    b.find(".page3").show();
-                    b.find(".topPart").height("auto");
-                    b.find(".description").text("Hooray! The servers have generated this beautiful save-code for you.".localize());
-                    a = "GDT-" + a;
-                    b.find(".sharecodeInput").val(a).focus().select();
-                    var c = !1;
-                    try {
-                        if (PlatformShim.ISWIN8) {
-                            var d = new Windows.ApplicationModel.DataTransfer.DataPackage;
-                            d.setText(a);
-                            Windows.ApplicationModel.DataTransfer.Clipboard.setContent(d);
-                            c = !0
-                        } else document.execCommand("copy") && (c = !0)
-                    } catch (f) { }
-                    c ? b.find(".copiedNotice").text("The save-code was copied to your clipboard.".localize()) : b.find(".copiedNotice").text("Please copy the save-code to your clipboard.".localize());
-                    b.find(".sharecodeInput").width("290px");
-                    b.find(".prefix").hide();
-                    b.find(".uploadToCloudButton").toggleClass("disabled", !1).text("Close".localize()).clickExclOnce(function () {
-                        Sound.click();
-                        b.dialog("close");
-                        UI.closeContextMenu()
-                    })
-                }, function (a) {
-                    var b = a;
-                    a.errorStatus && (b = a.errorStatus);
-                    PlatformShim.alert(b, "Error".localize());
-                    UI.closeAllLoadSaveViews()
-                }))
-        }).addClass("disabled");
-        b.find(".externalLink").clickExcl(function () {
-            Sound.click();
-            var a = $(this).attr("href");
-            a.startsWith("https://www.greenheartgames.com") && PlatformShim.openUrlExternal(a)
-        });
+
+        // Luôn bật nút upload
+        b.find(".uploadToCloudButton").removeClass("disabled");
+
+        // Dialog settings
         var k = b.find(".saveContainer"),
             l = GameManager.getSaveGames().first(function (b) {
                 return null != b && b.slot == a
@@ -76,7 +31,64 @@
             disableOverlayFix: !0,
             close: !0,
             popout: !0
-        })
+        });
+
+        // Upload button click event
+        b.find(".uploadToCloudButton").clickExcl(function () {
+            Sound.click();
+            $(this).unbind("click");
+            b.find(".page1").hide();
+            b.find(".uploadToCloudButton").toggleClass("disabled", !0);
+            b.find(".page2").show();
+            b.find(".description").text("");
+            b.find(".topPart").height("160px");
+            f(a, function (a) {
+                // Xử lý response từ API
+                var saveCode = a;
+                // Đảm bảo rằng saveCode là một chuỗi hợp lệ
+                if (typeof saveCode !== 'string') {
+                    saveCode = String(saveCode || "");
+                }
+
+                // Bỏ tiền tố "GDT-" nếu có
+                if (saveCode.startsWith("GDT-")) {
+                    saveCode = saveCode.substring(4);
+                }
+
+                b.find(".page2").hide();
+                b.find(".page3").show();
+                b.find(".topPart").height("auto");
+                b.find(".description").text("Hooray! The servers have generated this beautiful save-code for you.".localize());
+
+                // Đảm bảo mã save có tiền tố GDT-
+                var displaySaveCode = "GDT-" + saveCode;
+                b.find(".sharecodeInput").val(displaySaveCode).focus().select();
+                var c = !1;
+                try {
+                    if (PlatformShim.ISWIN8) {
+                        var d = new Windows.ApplicationModel.DataTransfer.DataPackage;
+                        d.setText(displaySaveCode);
+                        Windows.ApplicationModel.DataTransfer.Clipboard.setContent(d);
+                        c = !0
+                    } else document.execCommand("copy") && (c = !0)
+                } catch (f) { }
+                c ? b.find(".copiedNotice").text("The save-code was copied to your clipboard.".localize()) : b.find(".copiedNotice").text("Please copy the save-code to your clipboard.".localize());
+                b.find(".sharecodeInput").width("290px");
+                b.find(".prefix").hide();
+                b.find(".uploadToCloudButton").toggleClass("disabled", !1).text("Close".localize()).clickExclOnce(function () {
+                    Sound.click();
+                    b.dialog("close");
+                    UI.closeContextMenu()
+                })
+            }, function (a) {
+                var b = a;
+                a.errorStatus && (b = a.errorStatus);
+                PlatformShim.alert(b, "Error".localize());
+                UI.closeAllLoadSaveViews()
+            })
+        });
+
+        b.find(".externalLink").hide();
     };
     var c = function (a, b, d, f, g) {
         var k = {};
@@ -136,11 +148,42 @@
                         c.append("saveFile", a);
                         $.ajax({
                             type: "POST",
-                            url: b("saves/share/gdt"),
+                            url: b("upload"),
                             data: c,
                             processData: !1,
                             contentType: !1,
-                            success: d,
+                            success: function (response) {
+                                var saveCodeValue = "";
+
+                                // Xử lý response là JSON
+                                if (typeof response === 'string') {
+                                    try {
+                                        var jsonResponse = JSON.parse(response);
+                                        if (jsonResponse && jsonResponse.saveCode) {
+                                            saveCodeValue = jsonResponse.saveCode;
+                                        } else {
+                                            saveCodeValue = response;
+                                        }
+                                    } catch (e) {
+                                        // Nếu không phải JSON, sử dụng chuỗi nguyên bản
+                                        saveCodeValue = response;
+                                    }
+                                }
+                                // Xử lý response là object
+                                else if (typeof response === 'object' && response !== null) {
+                                    if (response.saveCode) {
+                                        saveCodeValue = response.saveCode;
+                                    } else {
+                                        saveCodeValue = JSON.stringify(response);
+                                    }
+                                }
+                                // Mọi trường hợp khác
+                                else {
+                                    saveCodeValue = String(response || "");
+                                }
+
+                                d(saveCodeValue);
+                            },
                             error: f
                         })
                     }, f)
@@ -182,81 +225,68 @@
             position: "rightStack"
         })
     };
-    var d = function (a) {
-        var b = "<span>I agree to the {0}</span>".localize("where parameter is save sharing policy").format('<a class="externalLink" href="https://www.greenheartgames.com/legal/game-data-policy">Game Data Policy</a>');
-        a.find(".legal.label").append($(b))
-    };
     UI.downloadFromCloud = function (a, b) {
         var c = $("#createShareCodeWindow").clone();
-        d(c);
+
+        // Ẩn phần yêu cầu đồng ý
+        c.find(".legalCheck").hide();
+
         var f = c.find(".sharecodeInput");
         f.attr("maxlength", 12);
         var l, n = function () {
-            var a = r && l;
-            c.find(".uploadToCloudButton").toggleClass("disabled", !a)
+            // Luôn cho phép tải xuống nếu có mã
+            l = f.val().trim() ? (f.val().trim().startsWith("GDT-") ? f.val().trim().substring(4) : f.val().trim()).length == 8 : !1;
+            c.find(".uploadToCloudButton").toggleClass("disabled", !l);
         };
+
         f.on("input", function () {
             var a = f.val().trim();
             a ? (a.startsWith("GDT-") && (a = a.substring(4), f.val(a)), l = 8 == a.length ? !0 : !1) : l = !1;
             n()
         });
-        var r = !1,
-            z = c.find(".checkbox");
-        z.clickExcl(function (a) {
-            Sound.click();
-            r = !r;
-            z.toggleClass("icon-check-empty", !r);
-            z.toggleClass("icon-check", r);
-            n()
-        });
+
         c.find(".description").text("Enter a save-code to download the corresponding game into the selected save slot.".localize());
         c.find(".page1").hide();
-        c.find(".legalCheck").show();
         c.find(".page2").hide();
         c.find(".page3").show();
         c.find(".copiedNotice").hide();
         c.find(".uploadToCloudButton").text("Download".localize());
         c.find(".windowTitle").text("Download".localize());
+
         var B = function (a) {
             a && a.responseText && (a = a.responseText);
             PlatformShim.alert(a.toString(), "Error".localize());
             c.dialog("close");
             UI.closeContextMenu()
         };
+
         c.find(".uploadToCloudButton").clickExcl(function () {
             Sound.click();
-            if ($(this).hasClass("disabled")) r ? f.parent().effect("shake", {
-                times: 2,
-                distance: 5
-            }, 50) : z.parent().effect("shake", {
-                times: 2,
-                distance: 5
-            }, 50);
-            else {
+            if ($(this).hasClass("disabled")) {
+                f.parent().effect("shake", {
+                    times: 2,
+                    distance: 5
+                }, 50);
+            } else {
                 $(this).unbind("click");
                 c.find(".page3").hide();
                 c.find(".page2").show();
                 c.find(".legalCheck").hide();
                 c.find(".description").text("");
                 c.find(".uploadToCloudButton").toggleClass("disabled", !0);
-                var b = "GDT-" + f.val().trim(),
-                    d = c.find(".checkbox.achievement"),
-                    l = !0;
-                d.clickExcl(function () {
-                    l = !l;
-                    z.toggleClass("icon-check-empty", !l);
-                    z.toggleClass("icon-check", l)
-                });
+                var b = "GDT-" + f.val().trim();
+
+                // Tải xuống mà không cần checkbox cho achievements
+                var enableAchievements = true;
+
                 k(b, function (b, f, k) {
                     try {
                         f = g(f);
                         c.find(".page2").hide();
-                        c.find(".legalCheck").hide();
                         c.find(".topPart").height("50px");
-                        d.parent().show();
                         c.find(".uploadToCloudButton").removeClass("disabled").text("Import and load game".localize()).clickExclOnce(function () {
                             Sound.click();
-                            m(a, b, f, k, !l, function () {
+                            m(a, b, f, k, !enableAchievements, function () {
                                 GameManager.reload(a, function () {
                                     Sound.playBackgroundMusic()
                                 })
@@ -276,14 +306,11 @@
                     } catch (t) {
                         B(t)
                     }
-                }, B)
+                }, B);
             }
-        }).addClass("disabled");
-        c.find(".externalLink").clickExcl(function () {
-            Sound.click();
-            var a = $(this).attr("href");
-            a.startsWith("https://www.greenheartgames.com") && PlatformShim.openUrlExternal(a)
         });
+
+        c.find(".externalLink").hide();
         c.gdDialog({
             zIndex: 3E4,
             disableOverlayFix: !0,
@@ -292,51 +319,55 @@
         })
     };
     var k = function (a, c, d) {
-        var f = new FormData;
-        f.append("id", a);
-        $.ajax({
-            type: "POST",
-            url: b("saves/load/gdt"),
-            data: f,
-            processData: !1,
-            contentType: !1,
-            success: function (a) {
-                PlatformShim.ISWIN8 || (a = a.replace("https://", "http://"));
-                var b = new XMLHttpRequest;
-                b.open("GET", a, !0);
-                b.responseType = "arraybuffer";
-                b.onload = function (a) {
-                    a = new Uint8Array(b.response);
-                    (new JSZip).loadAsync(a).then(function (a) {
-                        a.file("saveFile").async("string").then(function (b) {
-                            a.file("saveHeader").async("string").then(function (d) {
-                                var f = {},
-                                    g = function (k) {
-                                        if (5 == k) c(b, d, f);
-                                        else {
-                                            var l = "L" + k.toString(),
-                                                m = a.file(l);
-                                            m ? m.async("string").then(function (a) {
-                                                f[l] =
-                                                    a;
-                                                g(++k)
-                                            }, function () {
-                                                g(++k)
-                                            }) : g(++k)
-                                        }
-                                    };
-                                g(1)
-                            }, d)
-                        })
-                    }, d)
-                };
-                b.onerror = function (a) {
-                    d(a)
-                };
-                b.send()
-            },
-            error: d
-        })
+        // Xử lý mã saveCode, bỏ tiền tố "GDT-" nếu có
+        var saveCode = a;
+        if (typeof saveCode !== 'string') {
+            saveCode = String(saveCode || "");
+        }
+
+        if (saveCode.startsWith("GDT-")) {
+            saveCode = saveCode.substring(4);
+        }
+
+        if (!saveCode || saveCode.length === 0) {
+            return d("Invalid save code");
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", b("download/" + saveCode), true);
+        xhr.responseType = "arraybuffer";
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var data = new Uint8Array(xhr.response);
+                (new JSZip).loadAsync(data).then(function (zip) {
+                    zip.file("saveFile").async("string").then(function (saveFileContent) {
+                        zip.file("saveHeader").async("string").then(function (headerContent) {
+                            var extraFiles = {},
+                                processExtraFile = function (index) {
+                                    if (5 == index) c(saveFileContent, headerContent, extraFiles);
+                                    else {
+                                        var extraFileName = "L" + index.toString(),
+                                            extraFile = zip.file(extraFileName);
+                                        extraFile ? extraFile.async("string").then(function (content) {
+                                            extraFiles[extraFileName] = content;
+                                            processExtraFile(++index)
+                                        }, function () {
+                                            processExtraFile(++index)
+                                        }) : processExtraFile(++index)
+                                    }
+                                };
+                            processExtraFile(1)
+                        }, d)
+                    })
+                }, d);
+            } else {
+                d("HTTP error: " + xhr.status);
+            }
+        };
+        xhr.onerror = function (e) {
+            d(e);
+        };
+        xhr.send();
     },
         m = function (a, b, c, d, f, g, k) {
             try {
