@@ -1,5 +1,6 @@
 var GameManager = {
-    VERSION: 8 // Phiên bản của cấu trúc save game, dùng để migrate khi tải save game cũ
+    VERSION: 8, // Phiên bản của cấu trúc save game, dùng để migrate khi tải save game cũ
+    gameSpeed: "normal" // Giá trị mặc định cho tốc độ game
 };
 (function () {
     // Hàm này xử lý việc tải dữ liệu game từ một đối tượng save game
@@ -116,6 +117,9 @@ var GameManager = {
     // Khởi tạo GameManager
     gameManagerInstance.init = function () {
         gameManagerInstance._initKeyboardShortcuts(); // Khởi tạo các phím tắt
+
+        // Thêm nút điều khiển tốc độ vào UI
+        gameManagerInstance.addSpeedControlButton();
     };
 
     // Các hàm có tên ghgX có thể là các hàm debug hoặc liên quan đến phiên bản game (ví dụ: bản full, lite, trial)
@@ -1160,16 +1164,30 @@ var GameManager = {
     // speedMode: "slow", "normal", "fast", "super-fast", "extra-fast"
     gameManagerInstance.setGameSpeed = function (speedMode) {
         var newTimeModifier;
-        if (speedMode === "slow") newTimeModifier = 0.5;
-        else if (speedMode === "normal") newTimeModifier = 1;
-        else if (speedMode === "fast") newTimeModifier = 2.5;
+        if (speedMode === "slow") {
+            newTimeModifier = 0.5;
+            GameManager.gameSpeed = "slow";
+        }
+        else if (speedMode === "normal") {
+            newTimeModifier = 1;
+            GameManager.gameSpeed = "normal";
+        }
+        else if (speedMode === "fast") {
+            newTimeModifier = 2.5;
+            GameManager.gameSpeed = "fast";
+        }
         else if (speedMode === "super-fast") {
-            if (!GameFlags.ghg6) return; // Chỉ cho debug
             newTimeModifier = 10;
-        } else if (speedMode === "extra-fast") {
+            GameManager.gameSpeed = "super-fast";
+        }
+        else if (speedMode === "extra-fast") {
             if (!GameFlags.ghg6) return; // Chỉ cho debug
             newTimeModifier = 100;
+            GameManager.gameSpeed = "extra-fast";
         }
+        // Cập nhật biểu tượng nút tốc độ nếu có
+        gameManagerInstance.updateSpeedButtonContent(document.getElementById("speedControlButton"));
+
         // Nếu game đang tạm dừng bởi hệ thống và có modal đang mở, lưu tốc độ mới để áp dụng sau
         if (gameManagerInstance.isPaused(true)) {
             if (UI.isModalContentOpen()) {
@@ -1179,6 +1197,117 @@ var GameManager = {
             gameManagerInstance.resume(true); // Tiếp tục game (system) trước khi đổi tốc độ
         }
         gameManagerInstance._timeModifier = newTimeModifier;
+    };
+
+    // Mới: Hàm chuyển đổi tốc độ game với một nút duy nhất
+    gameManagerInstance.cycleThroughSpeeds = function () {
+        // Dựa trên tốc độ hiện tại để xác định tốc độ tiếp theo
+        var currentSpeed = GameManager.gameSpeed || "normal";
+        var nextSpeed;
+
+        if (currentSpeed === "normal") {
+            nextSpeed = "fast";
+        } else if (currentSpeed === "fast") {
+            nextSpeed = "super-fast";
+        } else {
+            nextSpeed = "normal"; // Quay về tốc độ bình thường nếu đang ở super-fast
+        }
+
+        // Áp dụng tốc độ mới
+        gameManagerInstance.setGameSpeed(nextSpeed);
+
+        return nextSpeed; // Trả về tốc độ mới để UI có thể cập nhật nếu cần
+    };
+
+    // Cập nhật biểu tượng tốc độ nếu có
+    gameManagerInstance.updateSpeedButton = function () {
+        var speedButton = document.getElementById("speedControlButton");
+        if (speedButton) {
+            // Cập nhật biểu tượng dựa trên tốc độ hiện tại
+            var currentSpeed = GameManager.gameSpeed || "normal";
+            var speedIcon = ">";
+
+            if (currentSpeed === "fast") {
+                speedIcon = ">>";
+            } else if (currentSpeed === "super-fast") {
+                speedIcon = ">>>";
+            }
+
+            speedButton.textContent = speedIcon;
+        }
+    };
+
+    // Mới: Thêm nút điều khiển tốc độ vào UI
+    gameManagerInstance.addSpeedControlButton = function () {
+        // Kiểm tra xem nút đã tồn tại chưa
+        if (document.getElementById("speedControlButton")) {
+            return;
+        }
+
+        // Tạo nút tốc độ
+        var button = document.createElement("div");
+        button.id = "speedControlButton";
+        button.className = "fixed right-5 bottom-5 w-10 h-10 rounded-full bg-blue-500 text-white text-base font-bold flex justify-center items-center cursor-pointer z-[9999] shadow-md transition-all duration-200 ease-in-out";
+
+        // Đặt nội dung ban đầu dựa vào tốc độ hiện tại
+        gameManagerInstance.updateSpeedButtonContent(button);
+
+        // Thêm sự kiện click
+        button.addEventListener("click", function () {
+            gameManagerInstance.cycleThroughSpeeds();
+            // Hiệu ứng khi nhấn
+            this.style.transform = "scale(1.1)";
+            setTimeout(function () {
+                button.style.transform = "scale(1)";
+            }, 150);
+        });
+
+        // Thêm vào body
+        document.body.appendChild(button);
+
+        // Giám sát trạng thái main menu để ẩn/hiện nút
+        gameManagerInstance.monitorMainMenuForSpeedButton();
+    };
+
+    // Mới: Cập nhật biểu tượng nút tốc độ
+    gameManagerInstance.updateSpeedButton = function () {
+        var button = document.getElementById("speedControlButton");
+        if (button) {
+            gameManagerInstance.updateSpeedButtonContent(button);
+        }
+    };
+
+    // Mới: Cập nhật nội dung nút tốc độ
+    gameManagerInstance.updateSpeedButtonContent = function (button) {
+        if (!button) return;
+
+        var currentSpeed = GameManager.gameSpeed || "normal";
+
+        // Đặt biểu tượng dựa vào tốc độ hiện tại
+        if (currentSpeed === "normal") {
+            button.textContent = ">";
+        } else if (currentSpeed === "fast") {
+            button.textContent = ">>";
+        } else if (currentSpeed === "super-fast") {
+            button.textContent = ">>>";
+        } else if (currentSpeed === "slow") {
+            button.textContent = "½";
+        } else if (currentSpeed === "extra-fast") {
+            button.textContent = ">>>>";
+        }
+    };
+
+    // Mới: Giám sát menu chính để hiển thị/ẩn nút tốc độ
+    gameManagerInstance.monitorMainMenuForSpeedButton = function () {
+        setInterval(function () {
+            var button = document.getElementById("speedControlButton");
+            var mainMenu = document.getElementById("mainMenu");
+
+            if (button && mainMenu) {
+                // Hiển thị nút khi không ở main menu (trong game), ẩn khi ở main menu
+                button.style.display = mainMenu.offsetParent === null ? "flex" : "none";
+            }
+        }, 200);
     };
 
     // Tạm dừng game
