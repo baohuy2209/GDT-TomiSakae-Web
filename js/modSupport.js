@@ -390,13 +390,18 @@ ModSupport.init = function (callback) {
 		var enabledMods = ModSupport.initModStore();
 		ModSupport.currentMods = enabledMods;
 
-		// Nếu chưa có mod nào được kích hoạt, mặc định kích hoạt mod API
+		// Nếu chưa có mod nào được kích hoạt, mặc định kích hoạt tất cả mod ngoại trừ CheatMod
 		if (enabledMods.length === 0) {
-			var modAPI = ModSupport.availableMods.find(function (mod) { return mod.id === "gdt-modAPI"; });
-			if (modAPI) {
-				enabledMods.push(modAPI.id);
-				ModSupport.saveEnabledMods(enabledMods);
-			}
+			ModSupport.availableMods.forEach(function (mod) {
+				// Kích hoạt tất cả mod ngoại trừ CheatMod
+				if (mod.id !== "CheatMod-kristof1104") {
+					enabledMods.push(mod.id);
+				}
+			});
+
+			// Lưu danh sách mod được kích hoạt
+			ModSupport.saveEnabledMods(enabledMods);
+			console.log("Mặc định kích hoạt tất cả mod ngoại trừ CheatMod.");
 		}
 	} else {
 		console.error("Không tìm thấy GDT_MOD_MANIFEST. Hãy đảm bảo file mods_manifest.js đã được tải.");
