@@ -468,6 +468,7 @@ var UI = {};
             resizable: !1,
             show: "fade",
             zIndex: 8E3,
+            position: { my: "center", at: "center", of: window, collision: "fit", offset: "0 50" },
             open: function () {
                 var a = $(UI.closeButtonTemplate);
                 a.zIndex = 8E3;
@@ -522,18 +523,112 @@ var UI = {};
         var a = $("#modsPanelContent");
         a.empty();
         ModSupport.sortMods();
-        for (var b = 0; b < ModSupport.availableMods.length; b++) {
-            var c = ModSupport.availableMods[b],
-                f = UI._getElementForMod(c);
-            a.append(f);
-            f = f.get(0);
-            f.mod = c;
-            f.onclick = function () {
-                Sound.click();
-                this.mod.active ? ModSupport.disableMod(this.mod) : this.mod.unresolvedDependency || ModSupport.enableMod(this.mod);
-                UI.populateModsPanel()
+
+        // Cập nhật số lượng mod
+        var totalMods = ModSupport.availableMods.length;
+        var activeMods = ModSupport.availableMods.filter(function (mod) { return mod.active; }).length;
+        var inactiveMods = totalMods - activeMods;
+
+        $("#modsTotalCount").text(totalMods);
+        $("#modsActiveCount").text(activeMods);
+        $("#modsInactiveCount").text(inactiveMods);
+
+        // Các mod sắp xếp và hiển thị
+        var showMods = function (filterText, statusFilter) {
+            a.empty();
+
+            var filteredMods = ModSupport.availableMods;
+
+            // Lọc theo trạng thái
+            if (statusFilter && statusFilter !== 'all') {
+                filteredMods = filteredMods.filter(function (mod) {
+                    if (statusFilter === 'active') return mod.active;
+                    if (statusFilter === 'inactive') return !mod.active;
+                    return true;
+                });
             }
-        }
+
+            // Lọc theo từ khóa
+            if (filterText && filterText.trim() !== '') {
+                filterText = filterText.toLowerCase();
+                filteredMods = filteredMods.filter(function (mod) {
+                    return mod.name.toLowerCase().includes(filterText) ||
+                        mod.author.toLowerCase().includes(filterText) ||
+                        mod.description.toLowerCase().includes(filterText);
+                });
+            }
+
+            // Hiển thị thông báo nếu không tìm thấy kết quả
+            if (filteredMods.length === 0) {
+                var statusText = "";
+                if (statusFilter === 'active') statusText = " đã kích hoạt";
+                if (statusFilter === 'inactive') statusText = " chưa kích hoạt";
+
+                var message = 'Không tìm thấy mod' + statusText;
+                if (filterText && filterText.trim() !== '') {
+                    message += ' phù hợp với từ khóa "' + filterText + '"';
+                }
+
+                a.append('<div style="padding: 20px; text-align: center; font-size: 16px;">' + message + '</div>');
+                return;
+            }
+
+            for (var b = 0; b < filteredMods.length; b++) {
+                var c = filteredMods[b],
+                    f = UI._getElementForMod(c);
+                a.append(f);
+                f = f.get(0);
+                f.mod = c;
+                f.onclick = function () {
+                    Sound.click();
+                    this.mod.active ? ModSupport.disableMod(this.mod) : this.mod.unresolvedDependency || ModSupport.enableMod(this.mod);
+                    UI.populateModsPanel();
+                };
+            }
+        };
+
+        // Khởi tạo chức năng tìm kiếm
+        var searchInput = $("#modsSearchInput");
+        var searchButton = $("#modsSearchButton");
+        var resetButton = $("#modsResetButton");
+        var statusFilter = $("#modStatusFilter");
+
+        // Gỡ bỏ các event listener cũ để tránh duplicate
+        searchButton.off("click");
+        resetButton.off("click");
+        searchInput.off("keypress");
+        statusFilter.off("change");
+
+        // Xử lý sự kiện nút tìm kiếm
+        searchButton.on("click", function () {
+            Sound.click();
+            showMods(searchInput.val(), statusFilter.val());
+        });
+
+        // Xử lý sự kiện nút đặt lại
+        resetButton.on("click", function () {
+            Sound.click();
+            searchInput.val("");
+            statusFilter.val("all");
+            showMods("", "all");
+        });
+
+        // Tìm kiếm khi nhấn Enter
+        searchInput.on("keypress", function (e) {
+            if (e.which === 13) { // Enter key
+                Sound.click();
+                showMods(searchInput.val(), statusFilter.val());
+            }
+        });
+
+        // Xử lý sự kiện khi thay đổi bộ lọc trạng thái
+        statusFilter.on("change", function () {
+            Sound.click();
+            showMods(searchInput.val(), statusFilter.val());
+        });
+
+        // Hiển thị tất cả mod ban đầu
+        showMods("", "all");
     };
     UI.populateSettingsPanel = function (a) {
         SettingsGameplay.updateValuesOnPanel(a);

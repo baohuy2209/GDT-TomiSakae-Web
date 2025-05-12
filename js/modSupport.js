@@ -3,13 +3,34 @@
 var ModSupport = {};
 
 ModSupport.availableMods = [];
-ModSupport.currentMods = []; // Sẽ chứa ID của tất cả các mod từ manifest
+ModSupport.currentMods = []; // Sẽ chứa ID của các mod được kích hoạt
 
-// ModSupport.modsDescriptionsToLoad = 0; // Không cần biến này nữa
+// Hàm khởi tạo DataStore cho mod nếu chưa có
+ModSupport.initModStore = function () {
+	if (!window.localStorage.getItem('enabledMods')) {
+		window.localStorage.setItem('enabledMods', JSON.stringify([]));
+	}
+	return JSON.parse(window.localStorage.getItem('enabledMods') || '[]');
+};
+
+// Hàm lưu danh sách mod được kích hoạt vào localStorage
+ModSupport.saveEnabledMods = function (enabledMods) {
+	window.localStorage.setItem('enabledMods', JSON.stringify(enabledMods));
+	ModSupport.currentMods = enabledMods;
+};
 
 ModSupport.loadMods = function () {
-	// Không cần đọc 'enabledMods' từ DataStore vì chúng ta tải tất cả
-	var modsToLoad = ModSupport.availableMods.map(function (mod) { return mod.id; }); // Lấy ID của tất cả mod có sẵn
+	// Lấy danh sách mod được kích hoạt từ LocalStorage
+	var enabledMods = ModSupport.initModStore();
+	ModSupport.currentMods = enabledMods;
+
+	// Chỉ tải những mod đã được kích hoạt
+	var modsToLoad = ModSupport.availableMods.filter(function (mod) {
+		return enabledMods.includes(mod.id);
+	}).map(function (mod) {
+		mod.active = true;
+		return mod.id;
+	});
 
 	var i = 0;
 	GDT.off(GDT.eventKeys.mod.loaded); // Xóa listener cũ nếu có
@@ -19,11 +40,17 @@ ModSupport.loadMods = function () {
 		ModSupport.loadMod(modsToLoad, ++i);
 	});
 	GDT.on(GDT.eventKeys.mod.loadError, function (e) {
-		// Có thể thêm xử lý lỗi ở đây nếu muốn dừng lại khi một mod lỗi
 		console.error("Lỗi khi tải mod:", e);
 		ModSupport.loadMod(modsToLoad, ++i); // Vẫn cố gắng tải mod tiếp theo
 	});
-	ModSupport.loadMod(modsToLoad, i);
+
+	if (modsToLoad.length > 0) {
+		ModSupport.loadMod(modsToLoad, i);
+	} else {
+		// Không có mod nào được kích hoạt
+		console.log("Không có mod nào được kích hoạt.");
+		GDT.fire({}, GDT.eventKeys.mod.allLoaded);
+	}
 };
 
 ModSupport.loadMod = function (modsToLoadIDs, i) {
@@ -41,22 +68,19 @@ ModSupport.loadMod = function (modsToLoadIDs, i) {
 			}
 
 			// Đường dẫn tới file main của mod sẽ là mod.folder + '/' + mod.main
-			// Ví dụ: './mods/CheatModKristof1104/source.js'
 			var scriptPath = mod.folder + '/' + mod.main;
 			// Loại bỏ dấu ./ nếu có để đường dẫn tương đối chính xác từ thư mục gốc của index.html
 			if (scriptPath.startsWith('./')) {
 				scriptPath = scriptPath.substring(2);
 			}
 
-
 			console.log("Đang tải mod: " + mod.name + " từ " + scriptPath);
-			GDT.loadJs([scriptPath], function (util) { // GDT.loadJs mong đợi một mảng các đường dẫn
-				// Mod đã tải thành công, sự kiện GDT.eventKeys.mod.loaded sẽ tự động kích hoạt loadMod tiếp theo
+			GDT.loadJs([scriptPath], function (util) {
+				// Mod đã tải thành công
 				return;
 			}, function (util) {
 				var text = 'Không thể tải mod';
 				Logger.LogModError(text, util, text + ": " + mod.name);
-				// GDT.eventKeys.mod.loadError sẽ được kích hoạt, và loadMod tiếp theo sẽ được gọi
 			});
 		} else {
 			// Tất cả các mod đã được xử lý (tải hoặc lỗi)
@@ -69,88 +93,196 @@ ModSupport.loadMod = function (modsToLoadIDs, i) {
 	}
 };
 
-// sortMods, disableMod, enableMod có thể không cần thiết hoặc cần đơn giản hóa
-// vì chúng ta luôn tải tất cả.
 ModSupport.sortMods = function () {
-	// Vì chúng ta tải tất cả, việc sắp xếp dựa trên enabledMods không còn quá quan trọng.
-	// Tuy nhiên, việc kiểm tra dependencies vẫn có thể hữu ích.
-	// Nếu không có dependencies phức tạp, có thể bỏ qua hoặc đơn giản hóa hàm này.
+	// Lấy danh sách mod đã được kích hoạt
+	var enabledMods = ModSupport.initModStore();
 
-	// Logic sắp xếp dựa trên dependencies (nếu bạn vẫn muốn giữ lại)
+	// Logic sắp xếp dựa trên dependencies
 	var modsChecked = [];
-	var checkMod = ModSupport.availableMods.find(function (f) { return !modsChecked.includes(f.id); });
+	var sortedMods = [];
 
-	while (checkMod != undefined) {
-		checkMod.unresolvedDependency = false; // Reset cờ này
-		if (checkMod.dependencies && Object.keys(checkMod.dependencies).length > 0) {
-			var unresolvedDependency = undefined;
-			for (var key in checkMod.dependencies) {
-				if (checkMod.dependencies.hasOwnProperty(key)) {
-					if (!modsChecked.includes(key)) { // Dependency chưa được xử lý
-						unresolvedDependency = key;
-						// Kiểm tra xem dependency có tồn tại trong availableMods không
-						if (!ModSupport.availableMods.find(function (f) { return f.id == key; })) {
-							checkMod.unresolvedDependency = true; // Đánh dấu dependency không giải quyết được
-							console.error("Mod '" + checkMod.name + "' có dependency không giải quyết được: " + key);
-							// Với web tĩnh, chúng ta không thể tự động vô hiệu hóa, chỉ cảnh báo
-						}
-						break; // Dừng kiểm tra dependencies cho mod này
+	// Đánh dấu tất cả các mod đã được kích hoạt
+	ModSupport.availableMods.forEach(function (mod) {
+		mod.active = enabledMods.includes(mod.id);
+		mod.unresolvedDependency = false; // Reset cờ này
+	});
+
+	// Xử lý dependencies
+	var checkDependencies = function () {
+		var hasChanges = false;
+
+		ModSupport.availableMods.forEach(function (mod) {
+			if (modsChecked.includes(mod.id)) return;
+
+			if (mod.dependencies && Object.keys(mod.dependencies).length > 0) {
+				var allDependenciesChecked = true;
+				var hasMissingDependency = false;
+
+				for (var key in mod.dependencies) {
+					if (!mod.dependencies.hasOwnProperty(key)) continue;
+
+					// Nếu dependency chưa được xử lý
+					if (!modsChecked.includes(key)) {
+						allDependenciesChecked = false;
+						break;
+					}
+
+					// Nếu dependency không tồn tại trong availableMods
+					var dependencyMod = ModSupport.availableMods.find(function (m) { return m.id === key; });
+					if (!dependencyMod) {
+						hasMissingDependency = true;
+						mod.unresolvedDependency = true;
+						console.error("Mod '" + mod.name + "' có dependency không giải quyết được: " + key);
+						break;
 					}
 				}
+
+				if (allDependenciesChecked && !hasMissingDependency) {
+					modsChecked.push(mod.id);
+					sortedMods.push(mod);
+					hasChanges = true;
+				}
+			} else {
+				// Không có dependencies
+				modsChecked.push(mod.id);
+				sortedMods.push(mod);
+				hasChanges = true;
 			}
-			if (unresolvedDependency == undefined) { // Tất cả dependencies đã được xử lý
-				modsChecked.push(checkMod.id);
-			} else if (!checkMod.unresolvedDependency) { // Có dependency chưa xử lý nhưng vẫn tồn tại
-				// Đẩy mod này về sau để xử lý dependency của nó trước
-				var currentIndex = ModSupport.availableMods.indexOf(checkMod);
-				ModSupport.availableMods.splice(currentIndex, 1); // Xóa khỏi vị trí hiện tại
-				ModSupport.availableMods.push(checkMod); // Thêm vào cuối để thử lại sau
-				// Cần cơ chế tránh lặp vô hạn nếu có dependency vòng tròn
-			} else { // Dependency không giải quyết được
-				modsChecked.push(checkMod.id); // Vẫn thêm vào đã check để tránh lặp vô hạn
-			}
-		} else { // Không có dependencies
-			modsChecked.push(checkMod.id);
-		}
-		checkMod = ModSupport.availableMods.find(function (f) { return !modsChecked.includes(f.id); });
-	}
-	// Sắp xếp lại availableMods theo thứ tự đã check (đã giải quyết dependency)
-	var sortedMods = [];
-	modsChecked.forEach(function (id) {
-		var mod = ModSupport.availableMods.find(function (m) { return m.id === id; });
-		if (mod) sortedMods.push(mod);
-	});
-	// Thêm các mod còn lại (có thể là dependency vòng tròn hoặc chưa xử lý được)
+		});
+
+		return hasChanges;
+	};
+
+	// Lặp cho đến khi không còn thay đổi nào
+	while (checkDependencies()) { }
+
+	// Thêm các mod còn lại (có thể là dependency vòng tròn hoặc không giải quyết được)
 	ModSupport.availableMods.forEach(function (mod) {
-		if (!sortedMods.includes(mod)) sortedMods.push(mod);
+		if (!sortedMods.includes(mod)) {
+			mod.unresolvedDependency = true; // Đánh dấu là không giải quyết được
+			sortedMods.push(mod);
+		}
 	});
+
+	// Cập nhật lại danh sách mods
 	ModSupport.availableMods = sortedMods;
+
+	// Tự động vô hiệu hóa mod có dependency không giải quyết được
+	var modsToDisable = [];
+	ModSupport.availableMods.forEach(function (mod) {
+		if (mod.unresolvedDependency && mod.active) {
+			modsToDisable.push(mod.id);
+		}
+	});
+
+	if (modsToDisable.length > 0) {
+		modsToDisable.forEach(function (modId) {
+			enabledMods = enabledMods.filter(function (id) { return id !== modId; });
+		});
+
+		ModSupport.saveEnabledMods(enabledMods);
+		console.warn("Đã vô hiệu hóa " + modsToDisable.length + " mod do thiếu dependencies.");
+	}
 };
 
 ModSupport.disableMod = function (mod) {
-	// Không làm gì cả, vì chúng ta luôn tải tất cả mod
-	console.warn("Chức năng disableMod không hoạt động khi tự động tải tất cả mod.");
+	if (!mod) return;
+
+	var enabledMods = ModSupport.initModStore();
+	var index = enabledMods.indexOf(mod.id);
+	if (index !== -1) {
+		enabledMods.splice(index, 1);
+		mod.active = false;
+		ModSupport.saveEnabledMods(enabledMods);
+
+		// Cập nhật số lượng mod trong UI
+		if (typeof UI !== 'undefined' && UI.populateModsPanel) {
+			var totalMods = ModSupport.availableMods.length;
+			var activeMods = ModSupport.availableMods.filter(function (mod) { return mod.active; }).length;
+			var inactiveMods = totalMods - activeMods;
+
+			$("#modsTotalCount").text(totalMods);
+			$("#modsActiveCount").text(activeMods);
+			$("#modsInactiveCount").text(inactiveMods);
+		}
+
+		return true;
+	}
+
+	return false;
 };
 
 ModSupport.enableMod = function (mod) {
-	// Không làm gì cả, vì chúng ta luôn tải tất cả mod
-	console.warn("Chức năng enableMod không hoạt động khi tự động tải tất cả mod.");
+	if (mod.unresolvedDependency)
+		return false;
+
+	// Thêm mod vào danh sách đã kích hoạt
+	var enabledMods = ModSupport.initModStore();
+	if (enabledMods.indexOf(mod.id) === -1) {
+		enabledMods.push(mod.id);
+		mod.active = true;
+		ModSupport.saveEnabledMods(enabledMods);
+
+		// Cập nhật số lượng mod trong UI
+		if (typeof UI !== 'undefined' && UI.populateModsPanel) {
+			var totalMods = ModSupport.availableMods.length;
+			var activeMods = ModSupport.availableMods.filter(function (mod) { return mod.active; }).length;
+			var inactiveMods = totalMods - activeMods;
+
+			$("#modsTotalCount").text(totalMods);
+			$("#modsActiveCount").text(activeMods);
+			$("#modsInactiveCount").text(inactiveMods);
+		}
+
+		return true;
+	}
+	return false;
 };
 
 ModSupport.checkMissingMods = function (companyMods, activeMods) {
-	// Không còn ý nghĩa nhiều vì chúng ta tải tất cả
-	return [];
+	var missingMods = [];
+
+	if (!companyMods || companyMods.length === 0) return missingMods;
+	if (companyMods.length === 1 && companyMods[0].id === "gdt-modAPI") return missingMods;
+
+	missingMods = companyMods.filter(function (element) {
+		return !activeMods.includes(element.id);
+	});
+
+	return missingMods;
 };
 
 ModSupport.checkAdditionalMods = function (companyMods, activeMods) {
-	// Không còn ý nghĩa nhiều
-	return [];
+	var additionalMods = [];
+
+	if (!activeMods || activeMods.length === 0) return additionalMods;
+	if (activeMods.length === 1 && activeMods[0] === "gdt-modAPI") return additionalMods;
+
+	var companyModIds = companyMods.map(function (mod) { return mod.id; });
+
+	additionalMods = activeMods.filter(function (modId) {
+		return !companyModIds.includes(modId) && modId !== "gdt-modAPI";
+	}).map(function (modId) {
+		return ModSupport.availableMods.find(function (mod) { return mod.id === modId; });
+	}).filter(function (mod) { return mod !== undefined; });
+
+	return additionalMods;
 };
 
-ModSupport.init = function (callback) { // Thêm callback để báo hiệu ModSupport đã sẵn sàng
+ModSupport.init = function (callback) {
 	// Đọc manifest
 	if (typeof GDT_MOD_MANIFEST !== 'undefined') {
 		ModSupport.availableMods = GDT_MOD_MANIFEST.map(function (modData) {
+			// Xử lý đường dẫn hình ảnh đúng cách
+			var imagePath = modData.image;
+			if (imagePath && !imagePath.startsWith('http')) {
+				// Nếu đường dẫn hình ảnh không phải URL tuyệt đối và không bắt đầu với folder của mod
+				if (!imagePath.startsWith(modData.folder)) {
+					// Ghép đường dẫn đến thư mục của mod với tên file hình ảnh
+					imagePath = modData.folder + "/" + imagePath.replace(/^\.\//, '');
+				}
+			}
+
 			// Tạo đối tượng mod chuẩn từ manifest
 			return {
 				id: modData.id,
@@ -159,31 +291,49 @@ ModSupport.init = function (callback) { // Thêm callback để báo hiệu ModS
 				author: modData.author,
 				description: modData.description,
 				main: modData.main,
-				folder: modData.folder, // Đường dẫn này sẽ được sử dụng để tải file main
-				image: modData.image,
+				folder: modData.folder,
+				image: imagePath, // Đường dẫn hình ảnh đã được xử lý
 				dependencies: modData.dependencies || {},
-				active: true, // Mặc định tất cả là active
+				active: false, // Mặc định không active
 				unresolvedDependency: false // Khởi tạo
 			};
 		});
-		ModSupport.currentMods = ModSupport.availableMods.map(function (mod) { return mod.id; });
+
+		// Khởi tạo mod đã kích hoạt
+		var enabledMods = ModSupport.initModStore();
+		ModSupport.currentMods = enabledMods;
+
+		// Nếu chưa có mod nào được kích hoạt, mặc định kích hoạt mod API
+		if (enabledMods.length === 0) {
+			var modAPI = ModSupport.availableMods.find(function (mod) { return mod.id === "gdt-modAPI"; });
+			if (modAPI) {
+				enabledMods.push(modAPI.id);
+				ModSupport.saveEnabledMods(enabledMods);
+			}
+		}
 	} else {
 		console.error("Không tìm thấy GDT_MOD_MANIFEST. Hãy đảm bảo file mods_manifest.js đã được tải.");
 		ModSupport.availableMods = [];
 		ModSupport.currentMods = [];
 	}
 
-	// Sắp xếp các mod dựa trên dependencies (nếu có)
+	// Sắp xếp các mod dựa trên dependencies 
 	ModSupport.sortMods();
 
-	// Tải tất cả các mod đã được đánh dấu active (tức là tất cả mod từ manifest)
-	ModSupport.loadMods(); // Không cần truyền callback vào đây nữa vì loadMods sẽ gọi allLoaded
+	// Cập nhật trạng thái active cho mỗi mod
+	var enabledMods = ModSupport.initModStore();
+	ModSupport.availableMods.forEach(function (mod) {
+		mod.active = enabledMods.includes(mod.id);
+	});
+
+	// Tải các mod đã được kích hoạt
+	ModSupport.loadMods();
 
 	// Lưu thông tin mod vào company khi save game
 	var setActiveModsInfo = function (s) {
 		GameManager.company.mods = [];
-		ModSupport.availableMods.forEach(function (mod) { // Duyệt qua availableMods vì tất cả đều active
-			if (mod.active && !mod.unresolvedDependency) { // Chỉ lưu những mod thực sự được tải
+		ModSupport.availableMods.forEach(function (mod) {
+			if (mod.active && !mod.unresolvedDependency) {
 				GameManager.company.mods.push({
 					id: mod.id,
 					name: mod.name,
@@ -195,7 +345,7 @@ ModSupport.init = function (callback) { // Thêm callback để báo hiệu ModS
 	};
 	GDT.on(GDT.eventKeys.saves.saving, setActiveModsInfo);
 
-	// Gọi callback nếu có, sau khi tất cả mod đã được tải (thông qua sự kiện allLoaded)
+	// Gọi callback nếu có, sau khi tất cả mod đã được tải
 	if (callback) {
 		GDT.on(GDT.eventKeys.mod.allLoaded, function () {
 			console.log("ModSupport init: Gọi callback sau khi tất cả mod đã tải.");

@@ -8,7 +8,7 @@ var GDT_MOD_MANIFEST = [
         "description": "The Official Game Dev Tycoon Mod API which is commonly used by other mods.",
         "main": "modAPI.js",
         "folder": "./mods/gdt-modAPI",
-        "image": "./mods/gdt-modAPI/image.png",
+        "image": "image.png",
         "url": "https://github.com/greenheartgames/gdt-modAPI"
     },
     {
@@ -19,6 +19,7 @@ var GDT_MOD_MANIFEST = [
         "url": "http://forum.greenheartgames.com/t/wip-tools-ultimatesuite-ultimatelib-1-2-0-and-ume-0-2-4-24/9855/",
         "description": "A foundation library on which other mods can be built upon. Some modules will require this library.",
         "main": "UltimateLib.js",
+        "image": "img/logo.png",
         "folder": "./mods/UltimateLib"
     },
     {
@@ -39,6 +40,7 @@ var GDT_MOD_MANIFEST = [
         "url": "https://github.com/DzjengisKhan/GDT-Expansion-Pack",
         "description": "The one and only 'Expansion Pack Mod' for Game Dev Tycoon.",
         "main": "ExpansionPack.js",
+        "image": "mod-image-Thumbnail.png",
         "folder": "./mods/ExpansionPack",
         "dependencies": { "UltimateLib": "1.x.x" }
     },
@@ -106,7 +108,7 @@ var GDT_MOD_MANIFEST = [
         "description": "Part 2 of the All The Consoles Mod! Adds 75+ more consoles to Game Dev Tycoon!",
         "main": "./main.js",
         "folder": "./mods/AllconsolesII65",
-        "image": "allconsoles2025part2-Thumbnail.png",
+        "image": "allconsoles2025 part 2 kvadrat-Thumbnail.png",
         "dependencies": {
             "gdt-modAPI": "0.1.x",
             "UltimateLib": "1.x.x"
