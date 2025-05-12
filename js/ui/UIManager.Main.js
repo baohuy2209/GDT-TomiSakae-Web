@@ -692,6 +692,24 @@ var UI = {};
                 !b);
             a.dialog("close")
         });
+
+        // Xử lý sự kiện nút reset data
+        var resetButton = a.find("#resetAllDataButton");
+        resetButton.off("click").on("click", function () {
+            Sound.click();
+            UI.confirm("Xóa dữ liệu",
+                "Bạn có chắc chắn muốn xóa toàn bộ dữ liệu trò chơi không? Hành động này sẽ xóa tất cả các bản lưu và cài đặt, đồng thời làm mới trang web. Hành động này không thể hoàn tác!",
+                function () {
+                    // Xóa toàn bộ localStorage
+                    window.localStorage.clear();
+                    // Đợi 2 giây rồi tải lại trang
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                }
+            );
+        });
+
         UI._populateMessagesGrid(a);
         a.find("#tabs").tabs();
         UI.createDraggable(a)
@@ -865,3 +883,51 @@ var UI = {};
         })
     }
 })();
+
+UI.confirm = function (title, message, confirmCallback) {
+    Sound.click();
+    var confirmDialog = $(
+        '<div class="windowBorder smallWindow">' +
+        '<div class="windowTitle smallerWindowTitle text-center py-3">' + title + '</div>' +
+        '<div class="px-5 py-4 text-center text-base leading-relaxed">' + message + '</div>' +
+        '<div class="centeredButtonWrapper my-4">' +
+        '<div class="confirmActionButton deleteButton selectorButton w-32 mx-2 font-bold">Có</div>' +
+        '<div class="cancelActionButton selectorButton orangeButton w-32 mx-2 font-bold">Không</div>' +
+        '</div>' +
+        '</div>'
+    );
+
+    confirmDialog.find(".cancelActionButton").off("click").on("click", function () {
+        Sound.click();
+        confirmDialog.dialog("close");
+    });
+
+    confirmDialog.find(".confirmActionButton").off("click").on("click", function () {
+        Sound.click();
+        confirmDialog.dialog("close");
+        if (confirmCallback) confirmCallback();
+    });
+
+    // Thêm dialog vào body để đảm bảo nó tồn tại trong DOM
+    confirmDialog.appendTo('body');
+
+    confirmDialog.dialog({
+        draggable: false,
+        modal: true,
+        resizable: false,
+        show: "fade",
+        zIndex: 8000,
+        width: 500,
+        height: "auto",
+        open: function () {
+            $(this).siblings(".ui-dialog-titlebar").remove();
+            $(this).parents(".ui-dialog:first").addClass("smallWindow windowBorder rounded-lg shadow-lg");
+            $(this).parents(".ui-dialog:first").removeClass("ui-widget-content");
+            UI.maxFont("bolder", $(this).find(".windowTitle"), 34);
+        },
+        close: function () {
+            $(this).dialog("destroy");
+            $(this).remove();
+        }
+    });
+};
