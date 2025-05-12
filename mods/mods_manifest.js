@@ -69,6 +69,20 @@ var GDT_MOD_MANIFEST = [
         "image": "icon-full-Thumbnail.png"
     },
     {
+        "id": "ABYSSFINANCE",
+        "name": "ABYSS Finances (bank, loans, investments and more)",
+        "version": "0.2.1",
+        "author": "Acuru",
+        "url": "",
+        "description": "[h1]What this mod do?[/h1]\nMost mod options are avaible throught \"click\" menu -> Bank.\n\n[b]Bank Account[/b]\nYou can deposit money, and intrest every month.\n\nInterest rate will degrade over time - it starts on about 15% (yearly), and decrease to about",
+        "main": "./main.js",
+        "folder": "./mods/AbyssFinanceMod_0_2_1",
+        "image": "aflogo-Thumbnail.png",
+        "dependencies": {
+            "gdt-modAPI": "0.1.x"
+        }
+    },
+    {
         "id": "TAG_Mod",
         "name": "TAG Mod",
         "version": "1.2.7",

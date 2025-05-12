@@ -12,8 +12,6 @@ $(function () {
                                 Languages[a].values.push(data[a].values[t]);
                             }
                             a == LanguageMgr.gameLanguage && Localization.invalidateLanguage(a);
-                        } else {
-                            console.error("Language '" + a + "' does not exist in the core Languages object.");
                         }
                     }
                     n();

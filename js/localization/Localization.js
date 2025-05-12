@@ -149,7 +149,7 @@ var Localization = {};
             try {
                 // Giả sử requireLoad là một hàm tải module bất đồng bộ
                 if (typeof requireLoad === 'function') {
-                    requireLoad(["./libs/locales/jquery.timeago." + languageCode + ".js"], function () { }, function () { });
+                    //requireLoad(["./libs/locales/jquery.timeago." + languageCode + ".js"], function () { }, function () { });
                 }
             } catch (error) { // 'error' (trước đây là 'f' trong khối catch này)
                 // Bỏ qua lỗi nếu không tải được file locale

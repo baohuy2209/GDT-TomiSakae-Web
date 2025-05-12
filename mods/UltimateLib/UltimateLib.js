@@ -219,14 +219,18 @@ UltimateLib.Core = (function (a) {
     a.init = function () {
         UltimateLib.Logger.log("--- UltimateLib main library successfully loaded, now loading additional libs...");
         UltimateLib.Compatibility.init();
-        $.each(UltimateLib.libraries, function (c, f) {
-            var e = UltimateLib.getObjByName("UltimateLib." + f.name);
-            var d = e ? e.init : null;
-            if (d !== undefined) {
-                UltimateLib.Logger.log("# Calling UltimateLib internal init function on " + f.name + " (" + f.file + ").");
-                d();
-            }
-        });
+        if (UltimateLib.libraries && Array.isArray(UltimateLib.libraries)) {
+            $.each(UltimateLib.libraries, function (c, f) {
+                var e = UltimateLib.getObjByName("UltimateLib." + f.name);
+                var d = e ? e.init : null;
+                if (d !== undefined) {
+                    UltimateLib.Logger.log("# Calling UltimateLib internal init function on " + f.name + " (" + f.file + ").");
+                    d();
+                }
+            });
+        } else {
+            UltimateLib.Logger.log("UltimateLib.libraries không tồn tại hoặc không phải là mảng.");
+        }
         UltimateLib.Logger.log("UltimateLib fully loaded.");
         UltimateLib.Logger.log("----------------------------------------------------------------------");
         var b = ModSupport.availableMods;
@@ -3681,6 +3685,12 @@ UltimateLib.VisualTweaks = (function (a) {
     var a = function () { };
     UltimateLib.init();
     UltimateLib.Logger.enabled = UltimateLib.mod.debug && UltimateLib.mod.debug === true;
+
+    // Đảm bảo UltimateLib.libraries tồn tại trước khi gọi Core.init()
+    if (!UltimateLib.libraries) {
+        UltimateLib.libraries = [];
+    }
+
     UltimateLib.Core.init();
     UltimateLib.Update.GitHub.notifyIfNewerVersion("abesco", "gamedevtycoon-mods-ultimatelib", "release", "UltimateLib");
 })();

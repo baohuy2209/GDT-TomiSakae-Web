@@ -11,7 +11,7 @@ for (var tagMod = {}, i = 0; i < ModSupport.availableMods.length; i++) {
 
 // Kiểm tra nếu MOD_DIR vẫn rỗng sau vòng lặp
 if (!window.MOD_DIR) {
-    console.error("TAG Mod: Không thể tìm thấy thư mục mod");
+    //console.error("TAG Mod: Không thể tìm thấy thư mục mod");
     // Thử sử dụng một giá trị mặc định nếu không tìm thấy mod
     window.MOD_DIR = "mods/TAG_Mod/";
 }
