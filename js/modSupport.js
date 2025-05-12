@@ -186,14 +186,84 @@ ModSupport.sortMods = function () {
 };
 
 ModSupport.disableMod = function (mod) {
-	if (!mod) return;
+	if (!mod) return false;
 
 	var enabledMods = ModSupport.initModStore();
 	var index = enabledMods.indexOf(mod.id);
 	if (index !== -1) {
+		// Vô hiệu hóa mod chính trước
 		enabledMods.splice(index, 1);
 		mod.active = false;
+
+		// Danh sách các mod đã vô hiệu hóa (để tránh đệ quy vô hạn)
+		var disabledMods = [mod.id];
+
+		// Hàm tìm tất cả các mod phụ thuộc (trực tiếp và gián tiếp)
+		var findAllDependentMods = function () {
+			var foundNewDeps = false;
+
+			// Duyệt qua tất cả các mod
+			ModSupport.availableMods.forEach(function (m) {
+				// Bỏ qua nếu mod không active hoặc đã được xử lý
+				if (!m.active || disabledMods.includes(m.id)) return;
+
+				// Kiểm tra xem mod có phụ thuộc vào bất kỳ mod nào trong danh sách đã bị vô hiệu hóa
+				if (m.dependencies) {
+					for (var key in m.dependencies) {
+						if (disabledMods.includes(key)) {
+							console.log("Tự động vô hiệu hóa mod phụ thuộc: " + m.name);
+
+							// Vô hiệu hóa mod này
+							var idx = enabledMods.indexOf(m.id);
+							if (idx !== -1) {
+								enabledMods.splice(idx, 1);
+							}
+
+							m.active = false;
+							disabledMods.push(m.id);
+							foundNewDeps = true;
+							break;
+						}
+					}
+				}
+			});
+
+			// Nếu tìm thấy các mod phụ thuộc mới, tiếp tục tìm kiếm
+			return foundNewDeps;
+		};
+
+		// Tìm tất cả các mod phụ thuộc cho đến khi không còn mod nào phụ thuộc
+		while (findAllDependentMods()) { }
+
+		// Lưu danh sách mod đã được kích hoạt
 		ModSupport.saveEnabledMods(enabledMods);
+
+		// Hiển thị thông báo nếu đã vô hiệu hóa các mod khác
+		if (disabledMods.length > 1) {
+			var disabledModNames = disabledMods.map(function (id) {
+				var foundMod = ModSupport.availableMods.find(function (m) { return m.id === id; });
+				return foundMod ? foundMod.name : id;
+			});
+
+			var message = "Đã vô hiệu hóa " + (disabledMods.length - 1) + " mod phụ thuộc: " +
+				disabledModNames.slice(1).join(", ");
+
+			console.warn(message);
+
+			// Hiển thị thông báo trực quan cho người dùng nếu có nhiều hơn 1 mod bị vô hiệu hóa
+			if (disabledMods.length > 1) {
+				var notificationDiv = $("<div class='modDisableNotification' style='position: fixed; bottom: 20px; right: 20px; background-color: #ffcc00; padding: 15px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 9999; max-width: 400px;'></div>");
+				notificationDiv.html("<b>Vô hiệu hóa cả mod phụ thuộc:</b><br>" + disabledModNames.slice(1).join("<br>"));
+				$("body").append(notificationDiv);
+
+				// Tự động ẩn thông báo sau 5 giây
+				setTimeout(function () {
+					notificationDiv.fadeOut(500, function () {
+						$(this).remove();
+					});
+				}, 5000);
+			}
+		}
 
 		// Cập nhật số lượng mod trong UI
 		if (typeof UI !== 'undefined' && UI.populateModsPanel) {
@@ -213,12 +283,29 @@ ModSupport.disableMod = function (mod) {
 };
 
 ModSupport.enableMod = function (mod) {
-	if (mod.unresolvedDependency)
-		return false;
+	if (!mod || mod.unresolvedDependency) return false;
 
-	// Thêm mod vào danh sách đã kích hoạt
+	// Kiểm tra và kích hoạt tất cả các dependencies của mod này trước
+	if (mod.dependencies) {
+		for (var key in mod.dependencies) {
+			if (!mod.dependencies.hasOwnProperty(key)) continue;
+
+			// Tìm mod dependency
+			var dependencyMod = ModSupport.availableMods.find(function (m) {
+				return m.id === key;
+			});
+
+			// Nếu tìm thấy dependency và nó chưa được kích hoạt thì kích hoạt nó
+			if (dependencyMod && !dependencyMod.active) {
+				console.log("Tự động kích hoạt dependency: " + dependencyMod.name + " cho mod: " + mod.name);
+				ModSupport.enableMod(dependencyMod); // Gọi đệ quy để kích hoạt dependency
+			}
+		}
+	}
+
+	// Sau khi kích hoạt tất cả dependencies, kích hoạt mod này
 	var enabledMods = ModSupport.initModStore();
-	if (enabledMods.indexOf(mod.id) === -1) {
+	if (!enabledMods.includes(mod.id)) {
 		enabledMods.push(mod.id);
 		mod.active = true;
 		ModSupport.saveEnabledMods(enabledMods);

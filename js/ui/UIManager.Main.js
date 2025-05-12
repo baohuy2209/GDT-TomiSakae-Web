@@ -498,8 +498,34 @@ var UI = {};
     UI._getElementForMod = function (a) {
         var b = $("#modsButtonTemplate").clone();
         b.find(".modName").text(a.name);
-        b.find(".author").text(a.author);
+
+        // Cắt ngắn tên tác giả nếu quá dài
+        var authorText = a.author;
+        if (authorText && authorText.length > 35) {
+            authorText = authorText.substring(0, 32) + "...";
+        }
+        b.find(".author").text(authorText);
+
         b.find(".description").addClass("modDescription").text(a.description);
+
+        // Hiển thị dependencies nếu có
+        if (a.dependencies && Object.keys(a.dependencies).length > 0) {
+            var depNames = [];
+            for (var key in a.dependencies) {
+                if (!a.dependencies.hasOwnProperty(key)) continue;
+                var depMod = ModSupport.availableMods.find(function (m) { return m.id === key; });
+                if (depMod) {
+                    depNames.push(depMod.name);
+                }
+            }
+
+            if (depNames.length > 0) {
+                var depText = "Yêu cầu: " + depNames.join(", ");
+                var depElement = $("<div class='modDependencies'></div>").text(depText);
+                b.find(".description").after(depElement);
+            }
+        }
+
         a.url ? (b.find(".website").append('<a href="{0}">{1}</a>'.format(a.url, "Mod Website".localize())), b.find(".website").clickExcl(function (b) {
             PlatformShim.openUrlExternal(a.url)
         })) : b.find(".website").append("No Website".localize());

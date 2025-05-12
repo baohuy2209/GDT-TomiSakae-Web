@@ -4190,3 +4190,16 @@ p.errorMessage .span {
 	font-weight: bold;
 	margin: 0 2px;
 }
+
+.modDependencies {
+	font-size: 12px;
+	color: #4E7E8E;
+	font-style: italic;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: #f5f5f5;
+	padding: 4px 8px;
+	border-radius: 4px;
+	border-left: 3px solid #4E7E8E;
+	display: inline-block;
+}
