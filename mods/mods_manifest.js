@@ -14,23 +14,26 @@ var GDT_MOD_MANIFEST = [
     {
         "id": "UltimateLib",
         "name": "UltimateLib",
-        "version": "1.3.3",
+        "version": "1.4.0",
         "author": "Francesco Abbattista và Chad Keating",
         "url": "http://forum.greenheartgames.com/t/wip-tools-ultimatesuite-ultimatelib-1-2-0-and-ume-0-2-4-24/9855/",
-        "description": "Một thư viện nền tảng mà các mod khác có thể xây dựng dựa trên. Một số module sẽ yêu cầu thư viện này.",
+        "description": "Thư viện cốt lõi của UltimateSuite, một bộ công cụ giúp việc phát triển mod trở nên dễ dàng. \nBạn sẽ cần thư viện này nếu các mod khác phụ thuộc vào nó. \n\nUltimateLib Phiên bản 1.4.0 \nUltimateModEditor Phiên bản 0.4.5 \n\nĐược viết và phát triển bởi \nFrancesco Abbattista (alphabit) \nChad Keating (Sir Everard)",
         "main": "UltimateLib.js",
-        "image": "img/logo.png",
-        "folder": "./mods/UltimateLib"
+        "image": "UltimateLib-Thumbnail.png",
+        "folder": "./mods/UltimateLib",
+        "dependencies": {
+            "gdt-modAPI": "0.1.x"
+        }
     },
     {
-        "id": "CheatMod",
-        "name": "CheatMod bởi kristof1104",
-        "version": "1.0.5",
+        "id": "CheatMod-kristof1104",
+        "name": "CheatMod",
+        "version": "1.0.6",
         "author": "kristof1104",
         "url": "https://github.com/kristof1104/CheatMod",
-        "description": "Một Mod cho Game Dev Tycoon cung cấp cho người dùng tất cả các loại cheat.",
+        "description": "Phiên bản 1.0.5c\n\nCheatMod bởi Kristof1104\t\n\nĐây là một mod cho Game Dev Tycoon, cho phép người dùng sử dụng các cheat thông qua menu trong game.\nSử dụng mod này là phương pháp an toàn hơn so với việc thay đổi trực tiếp file lưu bằng trình chỉnh sửa.",
         "main": "CheatMod.js",
-        "image": "cheat_mod.jpg",
+        "image": "cheatmod_pic-Thumbnail.png",
         "folder": "./mods/CheatMod"
     },
     {
