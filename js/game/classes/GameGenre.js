@@ -28,13 +28,17 @@ var GameGenre = {
         id: "Casual",
         name: "Casual".localize("genre") // "Casual" là một thể loại game
     },
+    VisualNovel: {
+        id: "VisualNovel",
+        name: "Visual Novel".localize("genre") // Thêm thể loại Visual Novel
+    },
 
     /**
      * Trả về một mảng chứa tất cả các đối tượng thể loại game đã định nghĩa.
      * @returns {Array<Object>} Mảng các đối tượng thể loại.
      */
     getAll: function () {
-        return [this.Action, this.Adventure, this.RPG, this.Simulation, this.Strategy, this.Casual];
+        return [this.Action, this.Adventure, this.RPG, this.Simulation, this.Strategy, this.Casual, this.VisualNovel];
     },
 
     /**
@@ -59,6 +63,7 @@ var GameGenre = {
         if (primaryGenre === GameGenre.Simulation) return 1.6;
         if (primaryGenre === GameGenre.Strategy) return 1.4;
         if (primaryGenre === GameGenre.Casual) return 0.5;
+        if (primaryGenre === GameGenre.VisualNovel) return 0.3; // Thêm tỷ lệ vàng cho Visual Novel (thiên về design)
         // Ném lỗi nếu thể loại không được hỗ trợ.
         throw "unknown genre: " + primaryGenre;
     },
@@ -82,12 +87,13 @@ var GameGenre = {
         }
 
         // Trả về hệ số phù hợp từ mảng dựa trên thể loại chính.
-        if (primaryGenre === GameGenre.Action) return genreWeightingsArray[0];
-        if (primaryGenre === GameGenre.Adventure) return genreWeightingsArray[1];
-        if (primaryGenre === GameGenre.RPG) return genreWeightingsArray[2];
-        if (primaryGenre === GameGenre.Simulation) return genreWeightingsArray[3];
-        if (primaryGenre === GameGenre.Strategy) return genreWeightingsArray[4];
-        if (primaryGenre === GameGenre.Casual) return genreWeightingsArray[5];
+        if (primaryGenre === GameGenre.Action) return genreWeightingsArray[0] || 0.7;
+        if (primaryGenre === GameGenre.Adventure) return genreWeightingsArray[1] || 0.7;
+        if (primaryGenre === GameGenre.RPG) return genreWeightingsArray[2] || 0.7;
+        if (primaryGenre === GameGenre.Simulation) return genreWeightingsArray[3] || 0.7;
+        if (primaryGenre === GameGenre.Strategy) return genreWeightingsArray[4] || 0.7;
+        if (primaryGenre === GameGenre.Casual) return genreWeightingsArray[5] || 0.7;
+        if (primaryGenre === GameGenre.VisualNovel) return genreWeightingsArray[6] || 0.7; // Thêm hệ số cho Visual Novel
         // Ném lỗi nếu thể loại không được hỗ trợ.
         throw "unknown genre: " + primaryGenre;
     },

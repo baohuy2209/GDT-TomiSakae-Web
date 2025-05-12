@@ -21,19 +21,23 @@ var Platforms = {}; // Khởi tạo namespace Platforms
 
     // Hàm tính toán trọng số thể loại chuẩn hóa cho một nền tảng, có thể xét một hoặc hai thể loại.
     // Nếu có thể loại phụ, trọng số cuối cùng là trung bình có trọng số (2:1 cho thể loại chính).
-    Platforms.getNormGenreWeighting = function (platformGenreWeightings, primaryGenre, secondaryGenre) {
-        if (void 0 === platformGenreWeightings) return 1; // Nếu không có trọng số nền tảng, trả về 1 (mặc định)
-        // Nếu có thể loại phụ, tính trọng số trung bình có trọng số (thể loại chính gấp đôi thể loại phụ)
-        if (secondaryGenre) return (Platforms.getNormGenreWeighting(platformGenreWeightings, secondaryGenre) + 2 * Platforms.getNormGenreWeighting(platformGenreWeightings, primaryGenre)) / 3;
+    Platforms.getNormGenreWeighting = function (weightArray, genre, fallback) {
+        if (typeof weightArray === "undefined") return 1;
 
-        // Trả về trọng số chuẩn hóa dựa trên thể loại chính
-        if (primaryGenre === GameGenre.Action) return Platforms.getNormalizedGenreWeighting(platformGenreWeightings[0]);
-        if (primaryGenre === GameGenre.Adventure) return Platforms.getNormalizedGenreWeighting(platformGenreWeightings[1]);
-        if (primaryGenre === GameGenre.RPG) return Platforms.getNormalizedGenreWeighting(platformGenreWeightings[2]);
-        if (primaryGenre === GameGenre.Simulation) return Platforms.getNormalizedGenreWeighting(platformGenreWeightings[3]);
-        if (primaryGenre === GameGenre.Strategy) return Platforms.getNormalizedGenreWeighting(platformGenreWeightings[4]);
-        if (primaryGenre === GameGenre.Casual) return Platforms.getNormalizedGenreWeighting(platformGenreWeightings[5]);
-        throw "unknown genre: " + primaryGenre; // Ném lỗi nếu thể loại không xác định
+        if (fallback) {
+            // Tính trung bình có trọng số giữa thể loại chính và thể loại phụ
+            return (Platforms.getNormGenreWeighting(weightArray, fallback) + 2 * Platforms.getNormGenreWeighting(weightArray, genre)) / 3;
+        }
+
+        if (genre === GameGenre.Action) return Platforms.getNormalizedGenreWeighting(weightArray[0]);
+        if (genre === GameGenre.Adventure) return Platforms.getNormalizedGenreWeighting(weightArray[1]);
+        if (genre === GameGenre.RPG) return Platforms.getNormalizedGenreWeighting(weightArray[2]);
+        if (genre === GameGenre.Simulation) return Platforms.getNormalizedGenreWeighting(weightArray[3]);
+        if (genre === GameGenre.Strategy) return Platforms.getNormalizedGenreWeighting(weightArray[4]);
+        if (genre === GameGenre.Casual) return Platforms.getNormalizedGenreWeighting(weightArray[5]);
+        if (genre === GameGenre.VisualNovel) return Platforms.getNormalizedGenreWeighting(weightArray[6]); // Thêm hỗ trợ cho Visual Novel
+
+        throw "unknown genre: " + genre;
     };
 
     // Mảng chứa dữ liệu ban đầu của các nền tảng được định nghĩa trước
@@ -75,7 +79,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
         published: "1/1/1", // Ngày phát hành
         platformRetireDate: "260/12/4", // Ngày ngừng hỗ trợ (260 là một số rất lớn, nghĩa là "không bao giờ")
         developmentCosts: 5E3, // Chi phí phát triển cơ bản
-        genreWeightings: [0.9, 1, 0.9, 1, 1, 0.6], // Trọng số cho từng thể loại (Action, Adventure, RPG, Sim, Strategy, Casual)
+        genreWeightings: [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9], // Thêm 0.9 cho Visual Novel (PC phù hợp)
         audienceWeightings: [0.8, 0.9, 1], // Trọng số cho đối tượng (Young, Everyone, Mature)
         // techLevel không được định nghĩa cho PC, có thể được xác định động hoặc là một giá trị cơ sở.
     }, {
@@ -93,7 +97,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
         published: "1/1/1",
         platformRetireDate: "4/6/2",
         developmentCosts: 2E4,
-        genreWeightings: [0.9, 1, 0.9, 0.9, 1, 0.7],
+        genreWeightings: [1, 0.8, 0.8, 1, 0.8, 0.8, 0.6], // Thêm 0.6 cho Visual Novel (console ít phù hợp)
         audienceWeightings: [0.8, 0.9, 1],
         techLevel: 1 // Cấp độ công nghệ của nền tảng
     },
@@ -117,7 +121,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
         published: "2/1/2",
         platformRetireDate: "6/6/2",
         developmentCosts: 3E4,
-        genreWeightings: [0.8, 0.7, 0.8, 0.8, 0.7, 1],
+        genreWeightings: [1, 0.8, 0.8, 0.9, 0.8, 0.7, 0.6], // Thêm 0.6 cho Visual Novel
         audienceWeightings: [1, 0.9, 0.6],
         techLevel: 2
     },
@@ -138,7 +142,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
         published: "3/2/3",
         platformRetireDate: "11/3/4",
         developmentCosts: 3E4,
-        genreWeightings: [0.9, 0.7, 0.8, 0.8, 0.7, 1],
+        genreWeightings: [1, 0.8, 0.8, 0.9, 0.7, 0.7, 0.6], // Thêm 0.6 cho Visual Novel
         audienceWeightings: [0.9, 1, 0.7],
         techLevel: 2
     },
@@ -152,7 +156,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
         published: "3/9/2",
         platformRetireDate: "14/4/2",
         developmentCosts: 3E4,
-        genreWeightings: [0.8, 0.7, 0.9, 0.9, 0.6, 1],
+        genreWeightings: [0.9, 0.9, 0.9, 0.9, 0.8, 1, 0.6], // Thêm 0.6 cho Visual Novel (handheld ít phù hợp)
         audienceWeightings: [1, 0.9, 0.6],
         techLevel: 2
     }
@@ -172,7 +176,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "4/2/4",
             platformRetireDate: "8/4/1",
             developmentCosts: 3E4,
-            genreWeightings: [0.9, 0.8, 0.8, 0.9, 0.6, 1],
+            genreWeightings: [1, 0.9, 0.9, 0.9, 0.8, 1, 0.7], // Thêm 0.7 cho Visual Novel
             audienceWeightings: [0.9, 1, 0.8],
             techLevel: 3
         },
@@ -186,7 +190,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "5/2/4",
             platformRetireDate: "10/11/1",
             developmentCosts: 5E4,
-            genreWeightings: [1, 0.8, 0.8, 0.9, 0.6, 0.7],
+            genreWeightings: [1, 0.9, 0.9, 0.9, 0.8, 0.9, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.8, 1, 0.9],
             techLevel: 3
         }, {
@@ -206,7 +210,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "5/12/4",
             platformRetireDate: "9/8/1",
             developmentCosts: 6E4,
-            genreWeightings: [0.9, 0.9, 0.9, 1, 0.7, 0.9],
+            genreWeightings: [1, 0.8, 0.8, 0.9, 0.8, 0.8, 0.7], // Thêm 0.7 cho Visual Novel (console đời sau phù hợp hơn)
             audienceWeightings: [1, 0.9, 0.7],
             techLevel: 3
         }, {
@@ -219,7 +223,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "7/7/1",
             platformRetireDate: "12/11/3",
             developmentCosts: 6E4,
-            genreWeightings: [1, 0.8, 1, 0.9, 0.7, 0.6],
+            genreWeightings: [1, 0.9, 0.8, 0.9, 0.8, 0.9, 0.7], // Thêm 0.7 cho Visual Novel
             audienceWeightings: [0.8, 1, 0.9],
             techLevel: 3
         }, {
@@ -236,7 +240,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "9/2/1",
             platformRetireDate: "13/5/4",
             developmentCosts: 6E4,
-            genreWeightings: [0.9, 0.8, 0.7, 0.8, 0.7, 0.9],
+            genreWeightings: [1, 0.8, 0.8, 0.9, 0.8, 0.8, 0.7], // Thêm 0.7 cho Visual Novel
             audienceWeightings: [1, 0.9, 0.9],
             techLevel: 3
         },
@@ -254,7 +258,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "10/8/3",
             platformRetireDate: "14/1/4",
             developmentCosts: 6E4,
-            genreWeightings: [1, 0.7, 0.8, 1, 0.7, 0.7],
+            genreWeightings: [1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.7, 1, 1],
             techLevel: 4
         }, {
@@ -267,7 +271,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "11/5/2",
             platformRetireDate: "18/6/3",
             developmentCosts: 7E4,
-            genreWeightings: [1, 0.8, 1, 0.9, 0.7, 0.9],
+            genreWeightings: [1, 0.9, 0.9, 0.9, 0.8, 0.9, 0.7], // Thêm 0.7 cho Visual Novel
             audienceWeightings: [0.9,
                 1, 0.8
             ],
@@ -289,7 +293,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "11/12/4",
             platformRetireDate: "17/2/3",
             developmentCosts: 7E4,
-            genreWeightings: [1, 0.8, 0.9, 0.9, 0.7, 0.7],
+            genreWeightings: [1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8], // Thêm 0.8 cho Visual Novel (console hiện đại phù hợp)
             audienceWeightings: [0.8, 1, 0.9],
             techLevel: 4
         }, {
@@ -303,7 +307,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "12/12/1",
             platformRetireDate: "17/2/3",
             developmentCosts: 9E4,
-            genreWeightings: [0.8, 0.8, 0.7, 0.8, 0.7, 1],
+            genreWeightings: [0.8, 0.8, 0.7, 0.8, 0.7, 1, 0.7], // Thêm 0.7 cho Visual Novel
             audienceWeightings: [0.9, 0.9, 0.8],
             techLevel: 3
         }, {
@@ -320,7 +324,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "260/12/4",
             developmentCosts: 5E4,
-            genreWeightings: [0.9, 0.9, 1, 0.9, 0.9, 1],
+            genreWeightings: [1, 0.8, 0.8, 0.9, 0.9, 0.9, 0.8], // Thêm 0.8 cho Visual Novel (console hiện đại phù hợp hơn)
             audienceWeightings: [1, 0.9, 0.8],
             techLevel: 3
         }, {
@@ -337,7 +341,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "260/12/4",
             developmentCosts: 5E4,
-            genreWeightings: [1, 0.7, 1, 0.8, 0.8, 0.8],
+            genreWeightings: [1, 0.7, 1, 0.8, 0.8, 0.8, 0.7], // Thêm 0.7 cho Visual Novel
             audienceWeightings: [0.8, 0.9, 1],
             techLevel: 4
         }, {
@@ -350,7 +354,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "16/8/4",
             platformRetireDate: "24/2/3",
             developmentCosts: 8E4,
-            genreWeightings: [1, 0.9, 1, 0.9, 0.7, 0.9],
+            genreWeightings: [1, 0.9, 1, 0.9, 0.9, 0.9, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.8, 0.9, 1],
             techLevel: 5
         }, {
@@ -363,7 +367,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "17/4/4",
             platformRetireDate: "21/6/3",
             developmentCosts: 8E4,
-            genreWeightings: [0.8, 0.6, 0.7, 1, 0.7, 1],
+            genreWeightings: [0.8, 0.6, 0.7, 1, 0.7, 1, 0.7], // Thêm 0.7 cho Visual Novel
             audienceWeightings: [1, 1, 0.7],
             techLevel: 4
         }, {
@@ -376,7 +380,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "17/12/4",
             platformRetireDate: "24/9/3",
             developmentCosts: 8E4,
-            genreWeightings: [1, 0.9, 0.9, 1, 0.7, 0.8],
+            genreWeightings: [1, 0.9, 0.9, 1, 0.7, 0.8, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.8, 1, 0.9],
             techLevel: 5
         }, {
@@ -393,7 +397,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "260/12/4",
             developmentCosts: 8E4,
-            genreWeightings: [0.8, 0.8, 0.7, 0.9, 0.7, 1],
+            genreWeightings: [0.8, 0.8, 0.7, 0.9, 0.7, 1, 0.8], // Thêm 0.8 cho Visual Novel (thiết bị di động hiện đại phù hợp)
             audienceWeightings: [0.9, 1, 0.6],
             techLevel: 4
         }, {
@@ -410,7 +414,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "260/12/4",
             developmentCosts: 8E4,
-            genreWeightings: [0.8, 0.9, 0.7, 0.9, 0.9, 1],
+            genreWeightings: [0.8, 0.9, 0.7, 0.9, 0.9, 1, 0.9], // Thêm 0.9 cho Visual Novel (tablet phù hợp cao)
             audienceWeightings: [0.9, 1, 0.6],
             techLevel: 4
         }, {
@@ -427,7 +431,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "260/12/4",
             developmentCosts: 8E4,
-            genreWeightings: [0.7, 0.9, 0.8, 0.9, 0.7, 0.9],
+            genreWeightings: [0.7, 0.9, 0.8, 0.9, 0.7, 0.9, 0.9], // Thêm 0.9 cho Visual Novel (tablet phù hợp cao)
             audienceWeightings: [0.7, 0.9, 0.8],
             techLevel: 4
         }, {
@@ -444,9 +448,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "26/5/2",
             developmentCosts: 8E4,
-            genreWeightings: [0.9,
-                0.7, 0.8, 1, 0.7, 1
-            ],
+            genreWeightings: [0.9, 0.7, 0.8, 1, 0.7, 1, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.9, 1, 0.7],
             techLevel: 5
         }, {
@@ -463,7 +465,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "260/12/4",
             developmentCosts: 4E4,
-            genreWeightings: [0.9, 0.7, 0.8, 0.9, 0.8, 1],
+            genreWeightings: [0.9, 0.7, 0.8, 0.9, 0.8, 1, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.8, 1, 0.9],
             techLevel: 4
         }, {
@@ -483,7 +485,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "23/8/4",
             platformRetireDate: "29/12/4",
             developmentCosts: 1E5,
-            genreWeightings: [1, 0.8, 0.9, 0.9, 0.7, 0.9],
+            genreWeightings: [1, 0.8, 0.9, 0.9, 0.7, 0.9, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.7, 1, 0.8],
             techLevel: 6
         }, {
@@ -500,7 +502,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "29/4/4",
             developmentCosts: 1E5,
-            genreWeightings: [1, 0.8, 1, 0.9, 0.7, 0.9],
+            genreWeightings: [1, 0.8, 1, 0.9, 0.7, 0.9, 0.8], // Thêm 0.8 cho Visual Novel
             audienceWeightings: [0.8, 1, 0.9],
             techLevel: 6
         }, {
@@ -517,7 +519,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             }],
             platformRetireDate: "260/12/4",
             developmentCosts: 8E4,
-            genreWeightings: [0.9, 0.8, 1, 0.8, 0.7, 1],
+            genreWeightings: [0.9, 0.8, 1, 0.8, 0.7, 1, 0.9], // Thêm 0.9 cho Visual Novel (hybrid phù hợp cao)
             audienceWeightings: [0.9, 1, 0.8],
             techLevel: 6
         }, {
@@ -537,9 +539,7 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             published: "27/8/4",
             platformRetireDate: "260/12/4",
             developmentCosts: 2E5,
-            genreWeightings: [0.9, 0.9, 0.9, 0.8,
-                0.7, 1
-            ],
+            genreWeightings: [0.9, 0.9, 0.9, 0.8, 0.7, 1, 0.9], // Thêm 0.9 cho Visual Novel (console mới nhất phù hợp cao)
             audienceWeightings: [0.9, 1, 0.8],
             techLevel: 7
         },
@@ -552,9 +552,9 @@ var Platforms = {}; // Khởi tạo namespace Platforms
             licencePrize: 15E5,
             published: "27/10/4",
             marketKeyPoints: [{ date: "29/12/4", amount: 6.4 }],
-            platformRetireDate: "260/12/4", // Vòng đời rất dài
+            platformRetireDate: "260/12/4",
             developmentCosts: 2E5,
-            genreWeightings: [1, 0.7, 0.9, 1, 0.7, 0.9],
+            genreWeightings: [1, 0.7, 0.9, 1, 0.7, 0.9, 0.9], // Thêm 0.9 cho Visual Novel (console mới nhất phù hợp cao)
             audienceWeightings: [0.8, 1, 0.9],
             techLevel: 7
         }

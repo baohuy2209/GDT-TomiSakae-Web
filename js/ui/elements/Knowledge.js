@@ -328,7 +328,7 @@ var Knowledge = {};
             platformEntry = { id: platform.id };
             platformKnowledgeArray.push(platformEntry);
         }
-        platformEntry.genreWeightings || (platformEntry.genreWeightings = [0, 0, 0, 0, 0, 0]); // Khởi tạo nếu chưa có
+        platformEntry.genreWeightings || (platformEntry.genreWeightings = [0, 0, 0, 0, 0, 0, 0]); // Khởi tạo nếu chưa có
 
         var genreIndex = GameGenre.getIndexOf(genre);
         // GameGenre.getGenreWeighting(platform.genreWeightings, genre); // Dòng này có vẻ không cần thiết, chỉ lấy weighting
@@ -656,7 +656,7 @@ var Knowledge = {};
                         if (void 0 == localPlatform.genreWeightings) {
                             localPlatform.genreWeightings = cloudPlatform.genreWeightings;
                         } else if (void 0 != cloudPlatform.genreWeightings) {
-                            for (var i = 0; i < 6; i++) { // Giả sử có 6 genre
+                            for (var i = 0; i < 7; i++) { // Giả sử có 7 genre
                                 if (0 == localPlatform.genreWeightings[i]) { // Chỉ cập nhật nếu local chưa có (bằng 0)
                                     localPlatform.genreWeightings[i] = cloudPlatform.genreWeightings[i];
                                 }

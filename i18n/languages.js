@@ -2902,7 +2902,13 @@
 			"value": "Casual",
 			"comment": "genre",
 			"translation": "Phổ thông"
-		}, {
+		},
+		{
+			"value": "Visual Novel",
+			"comment": "genre",
+			"translation": "Visual Novel"
+		},
+		{
 			"value": "Take off market",
 			"comment": "menu item",
 			"translation": "Ngừng bán"
