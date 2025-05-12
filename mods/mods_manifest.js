@@ -67,7 +67,7 @@ var GDT_MOD_MANIFEST = [
         "author": "Half Dragon",
         "url": "https://discord.gg/dd4fMpY",
         "description": "Mod Half Dragon chính thức. v0.1.0\nMod này thêm rất nhiều tùy chọn nghiên cứu.\n\n\nEngine:\n\n>Hỗ trợ 8bit\n>Hỗ trợ 16bit\n>Hỗ trợ 32bit\n>Hỗ trợ 64bit\n>Độ phân giải 720p\n>Độ phân giải 1080p\n>Độ phân giải 2K\n>Độ phân giải 4K\n>Lượt-Chiến\n>FOV Điều chỉnh được\n>Menu Tạm dừng\n>Hỗ trợ Màn hình chia đôi\n>Lựa chọn Lớp nhân vật\n>Lựa chọn Chủng tộc\n>Đầu vào Tùy chỉnh\n>Ragdoll Cơ bản\n>Ragdoll Nâng cao\n>Hợp tác\n>Lưu Tự động\n>Occlusion Culling\n>Ánh sáng Baked\n>Skybox\n>Xử lý Hậu kỳ\n>Hệ thống Hạt\n>Hiệu ứng Ánh sáng\n>Shader PBR\n>Console\n>Nhóm LOD\n>Vật lý Vải\n>Ray Tracing Baked Cơ bản\n>Ray Tracing Baked Nâng cao\n>Ambient Occlusion\n\nGameplay:\n\n>Kho đồ\n>Cây Năng lực\n>Cơ chế Né\n>Cơ chế Sóng\n>Quản lý Quân đội\n>Quản lý Thành phố\n>Cơ chế Khối\n>Hướng dẫn Tương tác\n\nHội thoại:\n\n>Hội thoại Nhập vai\n>Hội thoại Tính cách\n>Hội thoại Hài hước\n\nAI:\n\n>PathFinding Cơ bản\n>PathFinding Nâng cao\n>AI Học mềm\n>AI Điều khiển Hàng loạt\n>AI Hợp tác\n\nThiết kế Thế giới:\n\n>Thế giới Có thể phá hủy\n>Đối tượng Thu thập\n>Thế giới Sống động\n>Nhiều Thế giới\n>Thế giới Thủ tục\n\nÂm thanh:\n\n>Hiệu ứng Âm thanh\n>Trộn Âm thanh",
-        "main": "./modAPI.js",
+        "main": "modAPI.js",
         "folder": "./mods/More Research Mod. Alot More",
         "image": "icon-full-Thumbnail.png"
     },
@@ -78,7 +78,7 @@ var GDT_MOD_MANIFEST = [
         "author": "Acuru",
         "url": "",
         "description": "[h1]Mod này làm gì?[/h1]\nHầu hết các tùy chọn mod có sẵn thông qua menu \"click\" -> Ngân hàng.\n\n[b]Tài khoản Ngân hàng[/b]\nBạn có thể gửi tiền và nhận lãi hàng tháng.\n\nLãi suất sẽ giảm dần theo thời gian - bắt đầu khoảng 15% (hàng năm), và giảm xuống khoảng",
-        "main": "./main.js",
+        "main": "main.js",
         "folder": "./mods/AbyssFinanceMod_0_2_1",
         "image": "aflogo-Thumbnail.png",
         "dependencies": {
@@ -92,7 +92,7 @@ var GDT_MOD_MANIFEST = [
         "author": "UME",
         "url": "",
         "description": "[h1][img]https://i.imgur.com/JNDFKWd.png[/img][/h1]\n[i]Hình ảnh All The Consoles gốc[/i]\n\n\n[b]Thêm 100+ Máy Console vào Game Dev Tycoon![/b]\n\nMuốn thêm đa dạng trong trò chơi của bạn? Mod này mở rộng trải nghiệm của bạn bằng cách thêm 100 máy console (thậm chí còn nhiều hơn với Phần 2 của mod!).\n\n[h2]Yêu cầu, Khuyến nghị & Tương thích:[/h2]\n\n[list]\n[*] Yêu cầu UltimateLib  \n[*] Do giới hạn của GDT, mod này được chia thành hai phần. Đăng ký Phần 2 để mở khóa thêm 75 máy console!  \n[*] TAG mod cải tiến toàn bộ giao diện và làm cho trò chơi trông hiện đại hơn! Hãy thử nó!  \n[*] Nó tương thích với hầu hết mọi mod, nhưng tôi không khuyên bạn thêm một mod khác cũng thêm nhiều máy console... hoặc sử dụng một mod 10 năm tuổi.  \n[/list]\n\n[h2]📜 Nhật ký Cập nhật:[/h2]\n(2025-03-15)  \n- Làm lại Đơn vị bán ra (Lần nữa) tăng thị phần của hầu hết các máy console\n- Đã xóa DS lite\n- Đã thêm Dendy \n- Sửa hình ảnh tốt hơn cho một số máy console\n- Các sửa lỗi nhỏ khác\n\n(2025-03-13) \n- Cơ bản làm lại toàn bộ mod và trang mod.\n- Điều chỉnh kích thước tất cả hình ảnh để vừa vặn.  \n- Sửa số lượng đơn vị bán ra để phù hợp với logic của GDT (không hợp lý).  \n- Sửa tên của Virtual boy.\n\n(2025-03-12)  \n- Cập nhật tất cả ngày phát hành & ngừng sản xuất máy console để phù hợp với định dạng không quy ước của GDT.  \n\n👉 Lịch sử cập nhật đầy đủ trong Changelog tích hợp của Steam!\n\n[h2]📜 Danh sách Console đầy đủ:[/h2]  \nMuốn xem tất cả 100+ máy console có trong cả hai mod? Xem danh sách đầy đủ tại đây:  \n👉 [url=https://docs.google.com/document/d/11zj14A9beMTxvGt5jojbzfZ2XIVKVrXMj981eDLM0eQ/edit?usp=sharing]Danh sách[/url]\n\n[h2]🛠️ Cách cài đặt:[/h2]\n1️⃣ Đăng ký mod này.  \n2️⃣ Đăng ký All The Consoles Mod [Phần 2].  \n3️⃣ Đăng ký UltimateLib.  \n4️⃣ Bật tất cả các mod trong menu mod bằng cách nhấp vào chúng (Cả mod API tích hợp).\n5️⃣ Khởi động lại trò chơi để kích hoạt các mod và tận hưởng!  \n\n[h2]📊 Những gì cần thiết để tạo Mod này[/h2]\nBiểu đồ này thể hiện [b]sự điên rồ thuần túy[/b] mà tôi đã trải qua để đảm bảo mọi máy console đều có [b]ngày phát hành chính xác và số lượng bán ra để phù hợp với các máy console gốc[/b].\n\nTôi có cần làm điều này không? Có lẽ không.  \nTôi có làm điều đó không? Tất nhiên... Bây giờ tôi có thể ngủ Zzzz\n\n[i]Hình đầu tiên: Tính toán doanh số thực tế để phù hợp với doanh số trong trò chơi. Hình thứ hai: Tính toán cách ngày thực tế so với ngày trong trò chơi.[/i]\n[img]https://i.imgur.com/17HT3aF.png[/img]\n[img]https://i.imgur.com/pliXyFc.png[/img]\n\n[h2]💬 Hỗ trợ & Phản hồi:[/h2]  \nTìm thấy lỗi hoặc biết một máy console khác nên được thêm vào? Để lại bình luận bên dưới!  \n\n[h2]⭐ Thích Mod? Hãy Ủng hộ! ⭐[/h2]  \nHãy cho nó một cái thích & yêu thích!\nTôi đã dành hơn 100 giờ làm việc trên mod này, vì vậy tôi sẽ rất cảm kích!  \nNó cũng giúp nhiều người tìm thấy nó và tiếp tục có các bản cập nhật! 🚀  \n\n\n[quote=Yoda]Làm hoặc không làm, không có thử[/quote]",
-        "main": "./main.js",
+        "main": "main.js",
         "folder": "./mods/allconsoles935",
         "image": "allconsoles2025 kvadrat-Thumbnail.png",
         "dependencies": {
@@ -107,12 +107,26 @@ var GDT_MOD_MANIFEST = [
         "author": "UME",
         "url": "",
         "description": "Phần 2 của All The Consoles Mod! Thêm 75+ máy console vào Game Dev Tycoon!",
-        "main": "./main.js",
+        "main": "main.js",
         "folder": "./mods/AllconsolesII65",
         "image": "allconsoles2025 part 2 kvadrat-Thumbnail.png",
         "dependencies": {
             "gdt-modAPI": "0.1.x",
             "UltimateLib": "1.x.x"
+        }
+    },
+    {
+        "id": "LearnByDoing",
+        "name": "Học Qua Thực Hành",
+        "version": "0.1",
+        "author": "Boom Blockhead",
+        "url": "",
+        "description": "Nhận Điểm Kỹ Năng từ việc sản xuất Bong bóng, hoàn thành Hợp đồng, xây dựng Game Engine, và nhiều thứ khác. Nếu bạn đang làm điều gì đó, bạn đang học điều gì đó.",
+        "main": "main.js",
+        "folder": "./mods/LearnByDoing",
+        "image": "learnByDoing-Thumbnail.png",
+        "dependencies": {
+            "gdt-modAPI": "0.1.x"
         }
     },
     {
