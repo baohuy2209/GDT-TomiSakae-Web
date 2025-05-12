@@ -1837,82 +1837,82 @@ var CusCom = {};
 		'<div class="dialogScreen1">' +
 		'<div class="dialogScreenPCTitle windowTitle">Máy Tính Tùy Chỉnh</div>' +
 		'<div class="dialogScreen1ContentContainer">' +
-		'<input class="computerName" type="text" value="" maxlength="30" style="font-size: 22pt" required />' +
-		'<div class="computerSliderContainer"></div>' +
-		'<div class="centeredButtonWrapper" style="margin- +top: 20px">' +
+		'<input class="computerName" type="text" value="" maxlength="30" style="font-size: 22pt; margin-right: 20%;" required />' +
+		'<div class="computerSliderContainer" style="width: 100%;"></div>' +
+		'<div class="centeredButtonWrapper" style="margin-top: 20px; width: 100%;">' +
 		'<h2>Ngân Sách Đảm Bảo Chất Lượng</h2>' +
-		'<div class="computerQASlider"></div>' +
+		'<div class="computerQASlider" style="width: 100%;"></div>' +
 		'</div>' +
 		'</div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
 		'<div class="dialogScreen2">' +
 		'<div onClick="prevPage()"  class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle">Hệ Điều Hành</div>' +
-		'<div class="featureSelectionContainer2" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">Hệ Điều Hành</div>' +
+		'<div class="featureSelectionContainer2" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen3" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen3" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()"  class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">CPU</div>' +
-		'<div class="featureSelectionContainer3" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">CPU</div>' +
+		'<div class="featureSelectionContainer3" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen4" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen4" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">Bo Mạch Chủ</div>' +
-		'<div class="featureSelectionContainer4" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">Bo Mạch Chủ</div>' +
+		'<div class="featureSelectionContainer4" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen5" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen5" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">GPU</div>' +
-		'<div class="featureSelectionContainer5" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">GPU</div>' +
+		'<div class="featureSelectionContainer5" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen6" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen6" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">RAM</div>' +
-		'<div class="featureSelectionContainer6" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">RAM</div>' +
+		'<div class="featureSelectionContainer6" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen7" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen7" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">Lưu Trữ</div>' +
-		'<div class="featureSelectionContainer7" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">Lưu Trữ</div>' +
+		'<div class="featureSelectionContainer7" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen8" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen8" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">Nguồn Điện</div>' +
-		'<div class="featureSelectionContainer8" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">Nguồn Điện</div>' +
+		'<div class="featureSelectionContainer8" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen9" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen9" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">Bàn Phím</div>' +
-		'<div class="featureSelectionContainer9" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">Bàn Phím</div>' +
+		'<div class="featureSelectionContainer9" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen10" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen10" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">Chuột</div>' +
-		'<div class="featureSelectionContainer10" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton">Tiếp Theo</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">Chuột</div>' +
+		'<div class="featureSelectionContainer10" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div onClick="nextPage()" class="dialogNextButton baseButton disabledButton" style="width: auto;">Tiếp Theo</div>' +
 		'</div>' +
-		'<div class="dialogScreen11" style="margin-left: 100%;height: 100%;position: absolute;top: 0px">' +
+		'<div class="dialogScreen11" style="margin-left: 100%;height: 100%;position: absolute;top: 0px; width: 100%;">' +
 		'<div onClick="prevPage()" class="dialogBackButton fontCharacterButton icon-arrow-left"></div>' +
-		'<div class="dialogScreenPCTitle windowTitle" style="width: 500px">Tai Nghe</div>' +
-		'<div class="featureSelectionContainer11" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto;"></div>' +
-		'<div class="centeredButtonWrapper">' +
-		'<div onClick="UI.createConsoleClick()" class="okButton selectorButton windowMainActionButton orangeButton windowLargeOkButton">Bắt Đầu Phát Triển</div>' +
+		'<div class="dialogScreenPCTitle windowTitle" style="width: 100%;">Tai Nghe</div>' +
+		'<div class="featureSelectionContainer11" style="margin: 40px 20px 20px 20px; padding-right: 20px; height: 430px; overflow: scroll; overflow-x: hidden; overflow-y: auto; width: calc(100% - 40px);"></div>' +
+		'<div class="centeredButtonWrapper" style="width: 100%;">' +
+		'<div onClick="UI.createConsoleClick()" class="okButton selectorButton windowMainActionButton orangeButton windowLargeOkButton" style="width: auto;">Bắt Đầu Phát Triển</div>' +
 		'</div>' +
 		'</div>' +
 		'</div>' +
 
 		'<div class="selectionOverlayContainer">' +
 		'<div class="overlayTitle windowTitle smallerWindowTitle"></div>' +
-		'<div class="listContainer"></div>' +
+		'<div class="listContainer" style="width: 100%;"></div>' +
 		'</div>';
 
 	UI.showDevelopComputerMenu = function (notification, callback) {
