@@ -32,13 +32,30 @@ var GameGenre = {
         id: "VisualNovel",
         name: "Visual Novel".localize("genre") // Thêm thể loại Visual Novel
     },
+    Sandbox: {
+        id: "Sandbox",
+        name: "Sandbox".localize("genre") // Thêm thể loại Sandbox
+    },
+    MOBA: {
+        id: "MOBA",
+        name: "MOBA".localize("genre") // Thêm thể loại MOBA
+    },
+    BattleRoyale: {
+        id: "BattleRoyale",
+        name: "Battle Royale".localize("genre") // Thêm thể loại Battle Royale
+    },
+    Racing: {
+        id: "Racing",
+        name: "Racing".localize("genre") // Thêm thể loại Đua Xe
+    },
 
     /**
      * Trả về một mảng chứa tất cả các đối tượng thể loại game đã định nghĩa.
      * @returns {Array<Object>} Mảng các đối tượng thể loại.
      */
     getAll: function () {
-        return [this.Action, this.Adventure, this.RPG, this.Simulation, this.Strategy, this.Casual, this.VisualNovel];
+        return [this.Action, this.Adventure, this.RPG, this.Simulation, this.Strategy, this.Casual, this.VisualNovel,
+        this.Sandbox, this.MOBA, this.BattleRoyale, this.Racing];
     },
 
     /**
@@ -64,6 +81,10 @@ var GameGenre = {
         if (primaryGenre === GameGenre.Strategy) return 1.4;
         if (primaryGenre === GameGenre.Casual) return 0.5;
         if (primaryGenre === GameGenre.VisualNovel) return 0.3; // Thêm tỷ lệ vàng cho Visual Novel (thiên về design)
+        if (primaryGenre === GameGenre.Sandbox) return 1.3; // Thêm tỷ lệ vàng cho Sandbox (thiên về technology)
+        if (primaryGenre === GameGenre.MOBA) return 1.5; // Thêm tỷ lệ vàng cho MOBA (thiên về technology)
+        if (primaryGenre === GameGenre.BattleRoyale) return 1.4; // Thêm tỷ lệ vàng cho Battle Royale (thiên về technology)
+        if (primaryGenre === GameGenre.Racing) return 1.7; // Thêm tỷ lệ vàng cho Racing (thiên về technology)
         // Ném lỗi nếu thể loại không được hỗ trợ.
         throw "unknown genre: " + primaryGenre;
     },
@@ -94,6 +115,10 @@ var GameGenre = {
         if (primaryGenre === GameGenre.Strategy) return genreWeightingsArray[4] || 0.7;
         if (primaryGenre === GameGenre.Casual) return genreWeightingsArray[5] || 0.7;
         if (primaryGenre === GameGenre.VisualNovel) return genreWeightingsArray[6] || 0.7; // Thêm hệ số cho Visual Novel
+        if (primaryGenre === GameGenre.Sandbox) return genreWeightingsArray[7] || 0.7; // Thêm hệ số cho Sandbox
+        if (primaryGenre === GameGenre.MOBA) return genreWeightingsArray[8] || 0.7; // Thêm hệ số cho MOBA
+        if (primaryGenre === GameGenre.BattleRoyale) return genreWeightingsArray[9] || 0.7; // Thêm hệ số cho Battle Royale
+        if (primaryGenre === GameGenre.Racing) return genreWeightingsArray[10] || 0.7; // Thêm hệ số cho Racing
         // Ném lỗi nếu thể loại không được hỗ trợ.
         throw "unknown genre: " + primaryGenre;
     },

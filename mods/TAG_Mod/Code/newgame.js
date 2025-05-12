@@ -5,7 +5,18 @@ $(function () {
 
     function C() {
         var o = null;
-        0 < GameManager.company.gameLog.length && (o = GameManager.company.gameLog[GameManager.company.gameLog.length - 1].genre, $(".pickTopicListButton").parent().parent().append('<div class="tm-genre-last-used">{0}: <span class="tm-genre-last-used-value">{1}</span></div>'.format("Thể loại đã dùng gần đây".localize(), o.name))), $(".pickTopicListButton").addClass("tm-btn-genre"), $(".pickTopicListButton").each(function () {
+        0 < GameManager.company.gameLog.length && (o = GameManager.company.gameLog[GameManager.company.gameLog.length - 1].genre);
+
+        // Thêm thông tin thể loại đã dùng gần đây vào header panel
+        if (o) {
+            // Xóa thông tin cũ nếu đã tồn tại
+            $(".tm-genre-last-used-header").remove();
+
+            // Thêm thông tin vào các tiêu đề
+            $(".overlayTitle, .windowTitle, .smallerWindowTitle").append(' <span class="tm-genre-last-used-header">({0}: {1})</span>'.format("Thể loại đã dùng gần đây".localize(), o.name));
+        }
+
+        $(".pickTopicListButton").addClass("tm-btn-genre"), $(".pickTopicListButton").each(function () {
             var t = $(this),
                 e = t.find(".topicIcon"),
                 a = e.attr("src"),

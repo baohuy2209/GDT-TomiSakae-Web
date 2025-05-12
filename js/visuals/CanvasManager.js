@@ -377,12 +377,16 @@ var CanvasManager = {};
         else if (genre === GameGenre.Strategy) genreWeightingsArray[4] += weightToAdd;
         else if (genre === GameGenre.Casual) genreWeightingsArray[5] += weightToAdd;
         else if (genre === GameGenre.VisualNovel) genreWeightingsArray[6] += weightToAdd;
+        else if (genre === GameGenre.Sandbox) genreWeightingsArray[7] += weightToAdd;
+        else if (genre === GameGenre.MOBA) genreWeightingsArray[8] += weightToAdd;
+        else if (genre === GameGenre.BattleRoyale) genreWeightingsArray[9] += weightToAdd;
+        else if (genre === GameGenre.Racing) genreWeightingsArray[10] += weightToAdd;
     };
 
     // Tính toán trọng số thể loại cho platform tùy chỉnh, dựa trên lịch sử game của công ty
     gameManagerInstance.getCalculatedPlatformGenreWeightings = function () {
-        var targetWeightings = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]; // Trọng số mặc định
-        var genreCounts = [0, 0, 0, 0, 0, 0, 0]; // Số lần mỗi thể loại được sử dụng
+        var targetWeightings = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]; // Trọng số mặc định
+        var genreCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Số lần mỗi thể loại được sử dụng
         var gameLog = gameManagerInstance.company.gameLog;
 
         // Đếm số lần mỗi thể loại xuất hiện trong lịch sử game

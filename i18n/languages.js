@@ -2909,6 +2909,26 @@
 			"translation": "Visual Novel"
 		},
 		{
+			"value": "Sandbox",
+			"comment": "genre",
+			"translation": "Thế giới mở"
+		},
+		{
+			"value": "MOBA",
+			"comment": "genre",
+			"translation": "MOBA"
+		},
+		{
+			"value": "Battle Royale",
+			"comment": "genre",
+			"translation": "Battle Royale"
+		},
+		{
+			"value": "Racing",
+			"comment": "genre",
+			"translation": "Đua xe"
+		},
+		{
 			"value": "Take off market",
 			"comment": "menu item",
 			"translation": "Ngừng bán"

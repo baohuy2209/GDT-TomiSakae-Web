@@ -182,7 +182,7 @@ var Missions = {
         description: "Improves the game engine.",
         technologyFactor: 0.8, // Hệ số đóng góp vào điểm Technology
         designFactor: 0.2,     // Hệ số đóng góp vào điểm Design
-        genreWeightings: [1, 0.7, 0.7, 0.9, 0.9, 0.6, 0.6], // Trọng số cho từng thể loại [Action, Adventure, RPG, Simulation, Strategy, Casual, Visual Novel]
+        genreWeightings: [1, 0.7, 0.7, 0.9, 0.9, 0.6, 0.6, 1.0, 0.9, 0.9, 1.0], // Trọng số cho từng thể loại [Action, Adventure, RPG, Simulation, Strategy, Casual, Visual Novel, Sandbox, MOBA, Battle Royale, Racing]
         percentage: 100 / 3    // Tỷ lệ phần trăm đóng góp vào giai đoạn (nếu có 3 nhiệm vụ thì mỗi cái 33.33%)
     }, {
         id: "Gameplay",
@@ -190,7 +190,7 @@ var Missions = {
         description: "Improves the gameplay.",
         technologyFactor: 0.2,
         designFactor: 0.8,
-        genreWeightings: [0.9, 0.8, 0.9, 1, 1, 1, 0.7],
+        genreWeightings: [0.9, 0.8, 0.9, 1, 1, 1, 0.7, 0.9, 1.0, 1.0, 0.9],
         percentage: 100 / 3
     }, {
         id: "Story/Quests",
@@ -198,7 +198,7 @@ var Missions = {
         description: "Work on the story and quests.",
         technologyFactor: 0.2,
         designFactor: 0.8,
-        genreWeightings: [0.8, 1, 1, 0.7, 0.8, 0.8, 1.0],
+        genreWeightings: [0.8, 1, 1, 0.7, 0.8, 0.8, 1.0, 0.8, 0.7, 0.7, 0.6],
         percentage: 100 / 3
     }];
 
@@ -208,7 +208,7 @@ var Missions = {
         description: "Write dialogs and user interface text.",
         technologyFactor: 0.1,
         designFactor: 0.9,
-        genreWeightings: [0.8, 1, 1, 0.7, 0.8, 0.8, 1.0],
+        genreWeightings: [0.8, 1, 1, 0.7, 0.8, 0.8, 1.0, 0.7, 0.7, 0.7, 0.6],
         percentage: 100 / 3
     }, {
         id: "Level Design",
@@ -216,7 +216,7 @@ var Missions = {
         description: "Focus on level design and the structure of the game.",
         technologyFactor: 0.5,
         designFactor: 0.5,
-        genreWeightings: [1, 1, 1, 0.8, 1, 0.9, 0.8],
+        genreWeightings: [1, 1, 1, 0.8, 1, 0.9, 0.8, 1.0, 0.9, 0.9, 1.0],
         percentage: 100 / 3
     }, {
         id: "AI",
@@ -224,7 +224,7 @@ var Missions = {
         description: "Improves the artificial intelligence.",
         technologyFactor: 0.8,
         designFactor: 0.2,
-        genreWeightings: [1, 0.7, 0.8, 1, 1, 0.7, 0.5],
+        genreWeightings: [1, 0.7, 0.8, 1, 1, 0.7, 0.5, 0.8, 1.0, 1.0, 0.9],
         percentage: 100 / 3
     }];
 
@@ -234,7 +234,7 @@ var Missions = {
         description: "Focus on the game world and the creation of an atmosphere.",
         technologyFactor: 0.3,
         designFactor: 0.7,
-        genreWeightings: [0.9, 1, 1, 0.9, 0.8, 0.9, 1.0],
+        genreWeightings: [0.9, 1, 1, 0.9, 0.8, 0.9, 1.0, 1.0, 0.8, 0.9, 0.8],
         percentage: 100 / 3
     }, {
         id: "Graphic",
@@ -242,7 +242,7 @@ var Missions = {
         description: "Improves the graphics and the art style.",
         technologyFactor: 0.4,
         designFactor: 0.6,
-        genreWeightings: [1, 1, 0.9, 1, 0.9, 1, 1.0],
+        genreWeightings: [1, 1, 0.9, 1, 0.9, 1, 1.0, 0.9, 0.9, 0.9, 1.0],
         percentage: 100 / 3
     }, {
         id: "Sound",
@@ -250,7 +250,7 @@ var Missions = {
         description: "Improves the sound design (music/voice/sound effects).",
         technologyFactor: 0.5,
         designFactor: 0.5,
-        genreWeightings: [1, 1, 0.9, 0.8, 0.8, 1, 1.0],
+        genreWeightings: [1, 1, 0.9, 0.8, 0.8, 1, 1.0, 0.8, 0.8, 0.9, 1.0],
         percentage: 100 / 3
     }];
 

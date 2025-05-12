@@ -222,19 +222,16 @@ var SavegameConverter = {};
             // Khởi tạo mảng weights và isInit
             mobileWeightingsObject.weights = [];
             mobileWeightingsObject.isInit = [];
-
-            // Số thể loại mặc định (Action, Adventure, RPG, Simulation, Strategy, Casual, Visual Novel)
-            var expectedGenreCount = 7;
-
+            // Số thể loại mặc định (Action, Adventure, RPG, Simulation, Strategy, Casual, Visual Novel, Sandbox, MOBA, Battle Royale, Racing)
+            var expectedGenreCount = 11;
             // Copy các giá trị từ mảng gốc
             weightingsArray.forEach(function (weightValue, index, array) {
                 mobileWeightingsObject.weights.push(weightValue);
                 mobileWeightingsObject.isInit.push(true); // Mặc định là đã khởi tạo
             });
-
-            // Đảm bảo mảng có đủ 7 phần tử cho tất cả các thể loại
+            // Đảm bảo mảng có đủ 11 phần tử cho tất cả các thể loại
             while (mobileWeightingsObject.weights.length < expectedGenreCount) {
-                mobileWeightingsObject.weights.push(0.7); // Giá trị mặc định cho Visual Novel
+                mobileWeightingsObject.weights.push(0.7); // Giá trị mặc định cho các thể loại mới
                 mobileWeightingsObject.isInit.push(true);
             }
         }
@@ -513,19 +510,17 @@ var SavegameConverter = {};
     var convertMobileWeightingsToDesktopFormat = function (mobileWeightingsObject) {
         var desktopWeightingsArray = [];
         if (mobileWeightingsObject && mobileWeightingsObject.weights && mobileWeightingsObject.isInit) {
-            // Số thể loại mặc định (Action, Adventure, RPG, Simulation, Strategy, Casual, Visual Novel)
-            var expectedGenreCount = 7;
-
+            // Số thể loại mặc định (Action, Adventure, RPG, Simulation, Strategy, Casual, Visual Novel, Sandbox, MOBA, Battle Royale, Racing)
+            var expectedGenreCount = 11;
             // Copy các giá trị từ mảng gốc nếu isInit là true
             mobileWeightingsObject.weights.forEach(function (weightValue, index, array) {
                 if (index < mobileWeightingsObject.isInit.length && mobileWeightingsObject.isInit[index]) {
                     desktopWeightingsArray.push(weightValue);
                 }
             });
-
-            // Đảm bảo mảng có đủ 7 phần tử cho tất cả các thể loại
+            // Đảm bảo mảng có đủ 11 phần tử cho tất cả các thể loại
             while (desktopWeightingsArray.length < expectedGenreCount) {
-                desktopWeightingsArray.push(0.7); // Giá trị mặc định cho Visual Novel
+                desktopWeightingsArray.push(0.7); // Giá trị mặc định cho các thể loại mới
             }
         }
         return desktopWeightingsArray;
