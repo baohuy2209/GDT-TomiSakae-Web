@@ -123,6 +123,93 @@
     <!-- Liên kết đến sitemap -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
+    <!-- Script xử lý chế độ toàn màn hình -->
+    <script>
+        function toggleFullscreen() {
+            if (!document.fullscreenElement &&
+                !document.mozFullScreenElement &&
+                !document.webkitFullscreenElement &&
+                !document.msFullscreenElement) {
+                // Vào chế độ toàn màn hình
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+                document.querySelector('#fullscreenButton span').className = 'icon-resize-small';
+            } else {
+                // Thoát chế độ toàn màn hình
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+                document.querySelector('#fullscreenButton span').className = 'icon-resize-full';
+            }
+        }
+
+        // Thêm sự kiện lắng nghe thay đổi trạng thái toàn màn hình
+        document.addEventListener('fullscreenchange', updateFullscreenButtonIcon);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenButtonIcon);
+        document.addEventListener('mozfullscreenchange', updateFullscreenButtonIcon);
+        document.addEventListener('MSFullscreenChange', updateFullscreenButtonIcon);
+
+        function updateFullscreenButtonIcon() {
+            const iconElement = document.querySelector('#fullscreenButton span');
+            if (document.fullscreenElement ||
+                document.webkitFullscreenElement ||
+                document.mozFullScreenElement ||
+                document.msFullscreenElement) {
+                iconElement.className = 'icon-resize-small';
+            } else {
+                iconElement.className = 'icon-resize-full';
+            }
+        }
+
+        // Thêm phím tắt F11 để chuyển đổi chế độ toàn màn hình
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F11' || (e.ctrlKey && e.key === 'f')) {
+                e.preventDefault();
+                toggleFullscreen();
+            }
+        });
+
+        // Ẩn nút toàn màn hình nếu trình duyệt không hỗ trợ
+        document.addEventListener('DOMContentLoaded', function () {
+            const fullscreenSupported = document.fullscreenEnabled ||
+                document.webkitFullscreenEnabled ||
+                document.mozFullScreenEnabled ||
+                document.msFullscreenEnabled;
+
+            if (!fullscreenSupported) {
+                const fullscreenButton = document.getElementById('fullscreenButton');
+                if (fullscreenButton) {
+                    fullscreenButton.style.display = 'none';
+                }
+
+                // Cũng ẩn nút trong phần cài đặt
+                const settingsFullscreenButton = document.getElementById('toggleFullscreenButton');
+                if (settingsFullscreenButton) {
+                    settingsFullscreenButton.style.display = 'none';
+                }
+            }
+
+            // Đảm bảo nút toàn màn hình hiển thị khi trang đã tải
+            const fullscreenButton = document.getElementById('fullscreenButton');
+            if (fullscreenButton && fullscreenButton.classList.contains('hideState')) {
+                fullscreenButton.classList.remove('hideState');
+            }
+        });
+    </script>
+
     <script src="./i18n/languages.js"></script>
     <!-- Core -->
     <script src="./js/core/GameFlags.js"></script>
@@ -364,6 +451,11 @@
         </div>
 
         <div id="mainMenuButton" class="menuButtonLeftBottom icon-reorder" onclick="UI.toggleMainMenu();">
+        </div>
+        <div id="fullscreenButton"
+            class="fixed bottom-[60px] left-[20px] w-[30px] h-[30px] bg-black/50 text-white rounded-full cursor-pointer flex justify-center items-center z-[999999] shadow-md transition-all duration-300 ease-in-out hover:bg-black/80 hover:scale-110"
+            onclick="toggleFullscreen()" title="Nhấn để chuyển đổi chế độ toàn màn hình (F11)">
+            <span class="icon-resize-full text-[15px]"></span>
         </div>
         <div id="gamePreviewLabel" class="selectorButton" onclick="UI.showgameTrialDialog()">
             (replaced in code behind)
@@ -2051,7 +2143,8 @@
                                 <div>
                                     <div class="centeredButtonWrapper">
                                         <div id="toggleFullscreenButton"
-                                            class="selectorButton windowMainActionButton orangeButton windowLargeOkButton">
+                                            class="selectorButton windowMainActionButton orangeButton windowLargeOkButton"
+                                            onclick="toggleFullscreen()">
                                             ll:{Toggle Fullscreen}</div>
                                     </div>
                                 </div>

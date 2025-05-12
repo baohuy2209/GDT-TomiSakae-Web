@@ -3,6 +3,7 @@
 :root, :host {
   --color-red-500: oklch(63.7% 0.237 25.331);
   --color-blue-500: oklch(62.3% 0.214 259.815);
+  --color-black: #000;
   --color-white: #fff;
   --spacing: 0.25rem;
   --text-base: 1rem;
@@ -43,8 +44,17 @@
 .bottom-5 {
   bottom: calc(var(--spacing) * 5);
 }
+.bottom-\[60px\] {
+  bottom: 60px;
+}
+.left-\[20px\] {
+  left: 20px;
+}
 .z-\[9999\] {
   z-index: 9999;
+}
+.z-\[999999\] {
+  z-index: 999999;
 }
 .float-left {
   float: left;
@@ -112,14 +122,26 @@
 .h-10 {
   height: calc(var(--spacing) * 10);
 }
+.h-\[30px\] {
+  height: 30px;
+}
 .w-10 {
   width: calc(var(--spacing) * 10);
 }
 .w-32 {
   width: calc(var(--spacing) * 32);
 }
+.w-\[30px\] {
+  width: 30px;
+}
+.flex-shrink {
+  flex-shrink: 1;
+}
 .shrink {
   flex-shrink: 1;
+}
+.flex-grow {
+  flex-grow: 1;
 }
 .grow {
   flex-grow: 1;
@@ -132,6 +154,9 @@
 }
 .resize {
   resize: both;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 .items-center {
   align-items: center;
@@ -157,6 +182,15 @@
   border-style: var(--tw-border-style);
   border-width: 1px;
 }
+.bg-black {
+  background-color: var(--color-black);
+}
+.bg-black\/50 {
+  background-color: color-mix(in srgb, #000 50%, transparent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-black) 50%, transparent);
+  }
+}
 .bg-blue-500 {
   background-color: var(--color-blue-500);
 }
@@ -175,6 +209,9 @@
 .text-base {
   font-size: var(--text-base);
   line-height: var(--tw-leading, var(--text-base--line-height));
+}
+.text-\[15px\] {
+  font-size: 15px;
 }
 .leading-relaxed {
   --tw-leading: var(--leading-relaxed);
@@ -241,6 +278,10 @@
   --tw-duration: 200ms;
   transition-duration: 200ms;
 }
+.duration-300 {
+  --tw-duration: 300ms;
+  transition-duration: 300ms;
+}
 .ease-in {
   --tw-ease: var(--ease-in);
   transition-timing-function: var(--ease-in);
@@ -255,6 +296,26 @@
 }
 .\[pause\:500\] {
   pause: 500;
+}
+.hover\:scale-110 {
+  &:hover {
+    @media (hover: hover) {
+      --tw-scale-x: 110%;
+      --tw-scale-y: 110%;
+      --tw-scale-z: 110%;
+      scale: var(--tw-scale-x) var(--tw-scale-y);
+    }
+  }
+}
+.hover\:bg-black\/80 {
+  &:hover {
+    @media (hover: hover) {
+      background-color: color-mix(in srgb, #000 80%, transparent);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-black) 80%, transparent);
+      }
+    }
+  }
 }
 .md\:w-40 {
   @media (width >= 48rem) {
@@ -430,6 +491,21 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -471,6 +547,9 @@
       --tw-drop-shadow-size: initial;
       --tw-duration: initial;
       --tw-ease: initial;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
     }
   }
 }
