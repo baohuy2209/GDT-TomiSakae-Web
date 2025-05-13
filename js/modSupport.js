@@ -7,28 +7,89 @@ ModSupport.currentMods = []; // Sẽ chứa ID của các mod được kích ho�
 
 // Hàm khởi tạo DataStore cho mod nếu chưa có
 ModSupport.initModStore = function () {
-	if (!window.localStorage.getItem('enabledMods')) {
-		window.localStorage.setItem('enabledMods', JSON.stringify([]));
+	// Chỉ lưu trạng thái của CheatMod
+	if (!window.localStorage.getItem('enabledCheatMod')) {
+		window.localStorage.setItem('enabledCheatMod', 'false');
 	}
-	return JSON.parse(window.localStorage.getItem('enabledMods') || '[]');
+
+	// Lấy danh sách tất cả mod ngoại trừ CheatMod
+	var allModsExceptCheat = ModSupport.availableMods
+		.filter(function (mod) {
+			return mod.id !== "CheatMod-kristof1104";
+		})
+		.map(function (mod) {
+			return mod.id;
+		});
+
+	// Kiểm tra xem CheatMod có được bật không
+	var isCheatModEnabled = window.localStorage.getItem('enabledCheatMod') === 'true';
+
+	// Nếu CheatMod được bật, thêm vào danh sách
+	if (isCheatModEnabled) {
+		var cheatMod = ModSupport.availableMods.find(function (mod) {
+			return mod.id === "CheatMod-kristof1104";
+		});
+
+		if (cheatMod) {
+			allModsExceptCheat.push("CheatMod-kristof1104");
+		}
+	}
+
+	return allModsExceptCheat;
 };
 
-// Hàm lưu danh sách mod được kích hoạt vào localStorage
-ModSupport.saveEnabledMods = function (enabledMods) {
-	window.localStorage.setItem('enabledMods', JSON.stringify(enabledMods));
+// Hàm lưu trạng thái của CheatMod vào localStorage
+ModSupport.saveCheatModState = function (isEnabled) {
+	window.localStorage.setItem('enabledCheatMod', isEnabled.toString());
+};
+
+// Cập nhật danh sách mod hiện tại
+ModSupport.updateCurrentMods = function () {
+	// Tất cả mod ngoại trừ CheatMod luôn được bật
+	var enabledMods = ModSupport.availableMods
+		.filter(function (mod) {
+			return mod.id !== "CheatMod-kristof1104";
+		})
+		.map(function (mod) {
+			return mod.id;
+		});
+
+	// Kiểm tra xem CheatMod có được bật không
+	var isCheatModEnabled = window.localStorage.getItem('enabledCheatMod') === 'true';
+
+	// Nếu CheatMod được bật, thêm vào danh sách
+	if (isCheatModEnabled) {
+		var cheatMod = ModSupport.availableMods.find(function (mod) {
+			return mod.id === "CheatMod-kristof1104";
+		});
+
+		if (cheatMod) {
+			enabledMods.push("CheatMod-kristof1104");
+		}
+	}
+
 	ModSupport.currentMods = enabledMods;
+	return enabledMods;
 };
 
 ModSupport.loadMods = function () {
-	// Lấy danh sách mod được kích hoạt từ LocalStorage
+	// Lấy danh sách mod được kích hoạt
 	var enabledMods = ModSupport.initModStore();
 	ModSupport.currentMods = enabledMods;
+
+	// Tất cả mod ngoại trừ CheatMod sẽ luôn được đánh dấu là active
+	ModSupport.availableMods.forEach(function (mod) {
+		if (mod.id !== "CheatMod-kristof1104") {
+			mod.active = true;
+		} else {
+			mod.active = enabledMods.includes(mod.id);
+		}
+	});
 
 	// Chỉ tải những mod đã được kích hoạt
 	var modsToLoad = ModSupport.availableMods.filter(function (mod) {
 		return enabledMods.includes(mod.id);
 	}).map(function (mod) {
-		mod.active = true;
 		return mod.id;
 	});
 
@@ -93,237 +154,75 @@ ModSupport.loadMod = function (modsToLoadIDs, i) {
 	}
 };
 
+// Đơn giản hóa, bỏ qua sắp xếp phức tạp dựa trên dependencies
 ModSupport.sortMods = function () {
-	// Lấy danh sách mod đã được kích hoạt
-	var enabledMods = ModSupport.initModStore();
-
-	// Logic sắp xếp dựa trên dependencies
-	var modsChecked = [];
-	var sortedMods = [];
-
-	// Đánh dấu tất cả các mod đã được kích hoạt
+	// Đơn giản hóa, không cần sắp xếp phức tạp dựa trên dependencies
 	ModSupport.availableMods.forEach(function (mod) {
-		mod.active = enabledMods.includes(mod.id);
-		mod.unresolvedDependency = false; // Reset cờ này
-	});
-
-	// Xử lý dependencies
-	var checkDependencies = function () {
-		var hasChanges = false;
-
-		ModSupport.availableMods.forEach(function (mod) {
-			if (modsChecked.includes(mod.id)) return;
-
-			if (mod.dependencies && Object.keys(mod.dependencies).length > 0) {
-				var allDependenciesChecked = true;
-				var hasMissingDependency = false;
-
-				for (var key in mod.dependencies) {
-					if (!mod.dependencies.hasOwnProperty(key)) continue;
-
-					// Nếu dependency chưa được xử lý
-					if (!modsChecked.includes(key)) {
-						allDependenciesChecked = false;
-						break;
-					}
-
-					// Nếu dependency không tồn tại trong availableMods
-					var dependencyMod = ModSupport.availableMods.find(function (m) { return m.id === key; });
-					if (!dependencyMod) {
-						hasMissingDependency = true;
-						mod.unresolvedDependency = true;
-						console.error("Mod '" + mod.name + "' có dependency không giải quyết được: " + key);
-						break;
-					}
-				}
-
-				if (allDependenciesChecked && !hasMissingDependency) {
-					modsChecked.push(mod.id);
-					sortedMods.push(mod);
-					hasChanges = true;
-				}
-			} else {
-				// Không có dependencies
-				modsChecked.push(mod.id);
-				sortedMods.push(mod);
-				hasChanges = true;
-			}
-		});
-
-		return hasChanges;
-	};
-
-	// Lặp cho đến khi không còn thay đổi nào
-	while (checkDependencies()) { }
-
-	// Thêm các mod còn lại (có thể là dependency vòng tròn hoặc không giải quyết được)
-	ModSupport.availableMods.forEach(function (mod) {
-		if (!sortedMods.includes(mod)) {
-			mod.unresolvedDependency = true; // Đánh dấu là không giải quyết được
-			sortedMods.push(mod);
+		if (mod.id !== "CheatMod-kristof1104") {
+			mod.active = true;
+		} else {
+			mod.active = window.localStorage.getItem('enabledCheatMod') === 'true';
 		}
+		mod.unresolvedDependency = false; // Không quan tâm đến ràng buộc
 	});
-
-	// Cập nhật lại danh sách mods
-	ModSupport.availableMods = sortedMods;
-
-	// Tự động vô hiệu hóa mod có dependency không giải quyết được
-	var modsToDisable = [];
-	ModSupport.availableMods.forEach(function (mod) {
-		if (mod.unresolvedDependency && mod.active) {
-			modsToDisable.push(mod.id);
-		}
-	});
-
-	if (modsToDisable.length > 0) {
-		modsToDisable.forEach(function (modId) {
-			enabledMods = enabledMods.filter(function (id) { return id !== modId; });
-		});
-
-		ModSupport.saveEnabledMods(enabledMods);
-		console.warn("Đã vô hiệu hóa " + modsToDisable.length + " mod do thiếu dependencies.");
-	}
 };
 
+// Chỉ cho phép vô hiệu hóa CheatMod
 ModSupport.disableMod = function (mod) {
 	if (!mod) return false;
 
-	var enabledMods = ModSupport.initModStore();
-	var index = enabledMods.indexOf(mod.id);
-	if (index !== -1) {
-		// Vô hiệu hóa mod chính trước
-		enabledMods.splice(index, 1);
-		mod.active = false;
-
-		// Danh sách các mod đã vô hiệu hóa (để tránh đệ quy vô hạn)
-		var disabledMods = [mod.id];
-
-		// Hàm tìm tất cả các mod phụ thuộc (trực tiếp và gián tiếp)
-		var findAllDependentMods = function () {
-			var foundNewDeps = false;
-
-			// Duyệt qua tất cả các mod
-			ModSupport.availableMods.forEach(function (m) {
-				// Bỏ qua nếu mod không active hoặc đã được xử lý
-				if (!m.active || disabledMods.includes(m.id)) return;
-
-				// Kiểm tra xem mod có phụ thuộc vào bất kỳ mod nào trong danh sách đã bị vô hiệu hóa
-				if (m.dependencies) {
-					for (var key in m.dependencies) {
-						if (disabledMods.includes(key)) {
-							console.log("Tự động vô hiệu hóa mod phụ thuộc: " + m.name);
-
-							// Vô hiệu hóa mod này
-							var idx = enabledMods.indexOf(m.id);
-							if (idx !== -1) {
-								enabledMods.splice(idx, 1);
-							}
-
-							m.active = false;
-							disabledMods.push(m.id);
-							foundNewDeps = true;
-							break;
-						}
-					}
-				}
-			});
-
-			// Nếu tìm thấy các mod phụ thuộc mới, tiếp tục tìm kiếm
-			return foundNewDeps;
-		};
-
-		// Tìm tất cả các mod phụ thuộc cho đến khi không còn mod nào phụ thuộc
-		while (findAllDependentMods()) { }
-
-		// Lưu danh sách mod đã được kích hoạt
-		ModSupport.saveEnabledMods(enabledMods);
-
-		// Hiển thị thông báo nếu đã vô hiệu hóa các mod khác
-		if (disabledMods.length > 1) {
-			var disabledModNames = disabledMods.map(function (id) {
-				var foundMod = ModSupport.availableMods.find(function (m) { return m.id === id; });
-				return foundMod ? foundMod.name : id;
-			});
-
-			var message = "Đã vô hiệu hóa " + (disabledMods.length - 1) + " mod phụ thuộc: " +
-				disabledModNames.slice(1).join(", ");
-
-			console.warn(message);
-
-			// Hiển thị thông báo trực quan cho người dùng nếu có nhiều hơn 1 mod bị vô hiệu hóa
-			if (disabledMods.length > 1) {
-				var notificationDiv = $("<div class='modDisableNotification' style='position: fixed; bottom: 20px; right: 20px; background-color: #ffcc00; padding: 15px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 9999; max-width: 400px;'></div>");
-				notificationDiv.html("<b>Vô hiệu hóa cả mod phụ thuộc:</b><br>" + disabledModNames.slice(1).join("<br>"));
-				$("body").append(notificationDiv);
-
-				// Tự động ẩn thông báo sau 5 giây
-				setTimeout(function () {
-					notificationDiv.fadeOut(500, function () {
-						$(this).remove();
-					});
-				}, 5000);
-			}
-		}
-
-		// Cập nhật số lượng mod trong UI
-		if (typeof UI !== 'undefined' && UI.populateModsPanel) {
-			var totalMods = ModSupport.availableMods.length;
-			var activeMods = ModSupport.availableMods.filter(function (mod) { return mod.active; }).length;
-			var inactiveMods = totalMods - activeMods;
-
-			$("#modsTotalCount").text(totalMods);
-			$("#modsActiveCount").text(activeMods);
-			$("#modsInactiveCount").text(inactiveMods);
-		}
-
-		return true;
+	// Nếu không phải CheatMod, không cho phép vô hiệu hóa
+	if (mod.id !== "CheatMod-kristof1104") {
+		console.log("Chỉ có thể vô hiệu hóa CheatMod!");
+		return false;
 	}
 
-	return false;
+	// Vô hiệu hóa CheatMod
+	mod.active = false;
+	ModSupport.saveCheatModState(false);
+	ModSupport.updateCurrentMods();
+
+	// Cập nhật số lượng mod trong UI nếu cần
+	if (typeof UI !== 'undefined' && UI.populateModsPanel) {
+		var totalMods = ModSupport.availableMods.length;
+		var activeMods = ModSupport.availableMods.filter(function (mod) { return mod.active; }).length;
+		var inactiveMods = totalMods - activeMods;
+
+		$("#modsTotalCount").text(totalMods);
+		$("#modsActiveCount").text(activeMods);
+		$("#modsInactiveCount").text(inactiveMods);
+	}
+
+	return true;
 };
 
+// Chỉ cho phép kích hoạt CheatMod
 ModSupport.enableMod = function (mod) {
-	if (!mod || mod.unresolvedDependency) return false;
+	if (!mod) return false;
 
-	// Kiểm tra và kích hoạt tất cả các dependencies của mod này trước
-	if (mod.dependencies) {
-		for (var key in mod.dependencies) {
-			if (!mod.dependencies.hasOwnProperty(key)) continue;
-
-			// Tìm mod dependency
-			var dependencyMod = ModSupport.availableMods.find(function (m) {
-				return m.id === key;
-			});
-
-			// Nếu tìm thấy dependency và nó chưa được kích hoạt thì kích hoạt nó
-			if (dependencyMod && !dependencyMod.active) {
-				console.log("Tự động kích hoạt dependency: " + dependencyMod.name + " cho mod: " + mod.name);
-				ModSupport.enableMod(dependencyMod); // Gọi đệ quy để kích hoạt dependency
-			}
-		}
+	// Nếu không phải CheatMod, không cần kích hoạt (vì đã luôn được kích hoạt)
+	if (mod.id !== "CheatMod-kristof1104") {
+		console.log("Không cần kích hoạt " + mod.name + ", nó luôn được bật!");
+		return false;
 	}
 
-	// Sau khi kích hoạt tất cả dependencies, kích hoạt mod này
-	var enabledMods = ModSupport.initModStore();
-	if (!enabledMods.includes(mod.id)) {
-		enabledMods.push(mod.id);
-		mod.active = true;
-		ModSupport.saveEnabledMods(enabledMods);
+	// Kích hoạt CheatMod
+	mod.active = true;
+	ModSupport.saveCheatModState(true);
+	ModSupport.updateCurrentMods();
 
-		// Cập nhật số lượng mod trong UI
-		if (typeof UI !== 'undefined' && UI.populateModsPanel) {
-			var totalMods = ModSupport.availableMods.length;
-			var activeMods = ModSupport.availableMods.filter(function (mod) { return mod.active; }).length;
-			var inactiveMods = totalMods - activeMods;
+	// Cập nhật số lượng mod trong UI nếu cần
+	if (typeof UI !== 'undefined' && UI.populateModsPanel) {
+		var totalMods = ModSupport.availableMods.length;
+		var activeMods = ModSupport.availableMods.filter(function (mod) { return mod.active; }).length;
+		var inactiveMods = totalMods - activeMods;
 
-			$("#modsTotalCount").text(totalMods);
-			$("#modsActiveCount").text(activeMods);
-			$("#modsInactiveCount").text(inactiveMods);
-		}
-
-		return true;
+		$("#modsTotalCount").text(totalMods);
+		$("#modsActiveCount").text(activeMods);
+		$("#modsInactiveCount").text(inactiveMods);
 	}
-	return false;
+
+	return true;
 };
 
 ModSupport.checkAdditionalMods = function (companyMods, activeMods) {
@@ -368,51 +267,41 @@ ModSupport.init = function (callback) {
 				folder: modData.folder,
 				image: imagePath, // Đường dẫn hình ảnh đã được xử lý
 				dependencies: modData.dependencies || {},
-				active: false, // Mặc định không active
-				unresolvedDependency: false // Khởi tạo
+				active: modData.id !== "CheatMod-kristof1104", // Tất cả mod trừ CheatMod luôn active
+				unresolvedDependency: false // Không quan tâm đến ràng buộc
 			};
 		});
 
-		// Khởi tạo mod đã kích hoạt
-		var enabledMods = ModSupport.initModStore();
-		ModSupport.currentMods = enabledMods;
-
-		// Nếu chưa có mod nào được kích hoạt, mặc định kích hoạt tất cả mod ngoại trừ CheatMod
-		if (enabledMods.length === 0) {
-			ModSupport.availableMods.forEach(function (mod) {
-				// Kích hoạt tất cả mod ngoại trừ CheatMod
-				if (mod.id !== "CheatMod-kristof1104") {
-					enabledMods.push(mod.id);
-				}
-			});
-
-			// Lưu danh sách mod được kích hoạt
-			ModSupport.saveEnabledMods(enabledMods);
-			console.log("Mặc định kích hoạt tất cả mod ngoại trừ CheatMod.");
+		// Khởi tạo trạng thái CheatMod nếu chưa có
+		if (!window.localStorage.getItem('enabledCheatMod')) {
+			window.localStorage.setItem('enabledCheatMod', 'false');
 		}
+
+		// Kiểm tra CheatMod và cập nhật trạng thái active
+		var cheatMod = ModSupport.availableMods.find(function (mod) {
+			return mod.id === "CheatMod-kristof1104";
+		});
+
+		if (cheatMod) {
+			cheatMod.active = window.localStorage.getItem('enabledCheatMod') === 'true';
+		}
+
+		// Cập nhật danh sách mod hiện tại
+		ModSupport.updateCurrentMods();
 	} else {
 		console.error("Không tìm thấy GDT_MOD_MANIFEST. Hãy đảm bảo file mods_manifest.js đã được tải.");
 		ModSupport.availableMods = [];
 		ModSupport.currentMods = [];
 	}
 
-	// Sắp xếp các mod dựa trên dependencies 
-	ModSupport.sortMods();
-
-	// Cập nhật trạng thái active cho mỗi mod
-	var enabledMods = ModSupport.initModStore();
-	ModSupport.availableMods.forEach(function (mod) {
-		mod.active = enabledMods.includes(mod.id);
-	});
-
-	// Tải các mod đã được kích hoạt
+	// Tải các mod được kích hoạt
 	ModSupport.loadMods();
 
 	// Lưu thông tin mod vào company khi save game
 	var setActiveModsInfo = function (s) {
 		GameManager.company.mods = [];
 		ModSupport.availableMods.forEach(function (mod) {
-			if (mod.active && !mod.unresolvedDependency) {
+			if (mod.active) {
 				GameManager.company.mods.push({
 					id: mod.id,
 					name: mod.name,
