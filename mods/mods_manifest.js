@@ -119,20 +119,6 @@ var GDT_MOD_MANIFEST = [
         }
     },
     {
-        "id": "LearnByDoing",
-        "name": "Học Qua Thực Hành",
-        "version": "0.1",
-        "author": "Boom Blockhead",
-        "url": "",
-        "description": "Nhận Điểm Kỹ Năng từ việc sản xuất Bong bóng, hoàn thành Hợp đồng, xây dựng Game Engine, và nhiều thứ khác. Nếu bạn đang làm điều gì đó, bạn đang học điều gì đó.",
-        "main": "main.js",
-        "folder": "./mods/LearnByDoing",
-        "image": "learnByDoing-Thumbnail.png",
-        "dependencies": {
-            "gdt-modAPI": "0.1.x"
-        }
-    },
-    {
         "id": "TAG_Mod",
         "name": "TAG Mod",
         "version": "1.2.7",
