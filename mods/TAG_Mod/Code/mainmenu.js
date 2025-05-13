@@ -50,7 +50,7 @@ $(function () {
             encoding: "UTF-8"
         })).version
     } catch (e) { }
-    $("#gameContainerWrapper").append('<div id="tagModVersion"><span class="tm-version-muted">TomiSakae betaV0.2' + '</span> <a href="https://github.com/NguyenHuynhPhuVinh-TomiSakae/GDT-TomiSakae-Web" target="_blank" class="tm-version-link">Mã Nguồn</a></a>');
+    $("#gameContainerWrapper").append('<div id="tagModVersion"><span class="tm-version-muted">TomiSakae betaV0.3' + '</span> <a href="https://github.com/NguyenHuynhPhuVinh-TomiSakae/GDT-TomiSakae-Web" target="_blank" class="tm-version-link">Mã Nguồn</a></a>');
     var i = !1;
     UI.toggleMainMenu = function () {
         if (!UI.isMainMenuDisabled())
