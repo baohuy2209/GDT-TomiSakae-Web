@@ -1469,16 +1469,8 @@ var GameManager = {
             // Nếu là Windows 8, tải trực tiếp
             if (PlatformShim.ISWIN8) loadGameData(parsedSaveData, onSuccessCallback, onErrorCallback);
             else { // Nếu không phải Windows 8 (ví dụ: desktop/Steam)
-                var savedMods = parsedSaveData.company.mods; // Lấy danh sách mod đã lưu
-                var currentActiveMods = ModSupport.currentMods; // Lấy danh sách mod đang hoạt động
-                // Nếu có sự khác biệt về mod, hiển thị dialog thông báo
-                if (savedMods && currentActiveMods) {
-                    UI.showModMismatchDialog(function () { loadGameData(parsedSaveData, onSuccessCallback, onErrorCallback); }, // Callback nếu người dùng chọn tiếp tục
-                        ModSupport.checkMissingMods(savedMods, currentActiveMods), // Kiểm tra mod bị thiếu
-                        ModSupport.checkAdditionalMods(savedMods, currentActiveMods)); // Kiểm tra mod thừa
-                } else {
-                    loadGameData(parsedSaveData, onSuccessCallback, onErrorCallback); // Tải nếu không có vấn đề về mod
-                }
+                // Bỏ qua việc kiểm tra mod mismatch và luôn tải game trực tiếp
+                loadGameData(parsedSaveData, onSuccessCallback, onErrorCallback);
             }
         }, function (error) { // Xử lý lỗi khi tải từ DataStore
             Logger.LogError("Could not load game", error, "Could not load game".localize());

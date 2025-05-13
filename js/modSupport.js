@@ -326,19 +326,6 @@ ModSupport.enableMod = function (mod) {
 	return false;
 };
 
-ModSupport.checkMissingMods = function (companyMods, activeMods) {
-	var missingMods = [];
-
-	if (!companyMods || companyMods.length === 0) return missingMods;
-	if (companyMods.length === 1 && companyMods[0].id === "gdt-modAPI") return missingMods;
-
-	missingMods = companyMods.filter(function (element) {
-		return !activeMods.includes(element.id);
-	});
-
-	return missingMods;
-};
-
 ModSupport.checkAdditionalMods = function (companyMods, activeMods) {
 	var additionalMods = [];
 

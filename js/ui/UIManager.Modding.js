@@ -25,33 +25,6 @@
         0 < f.length && 0 < b.length && d.find("#modMismatchTextMissingMods").after("<br/>");
         return d
     }
-    UI.showModMismatchDialog = function (a, f, d) {
-        if (1 > f.length && 1 > d.length) return a();
-        var k = b(f, d);
-        k.gdDialog({
-            close: !1,
-            zIndex: 8E3,
-            onOpen: function () {
-                UI.disableMainMenu();
-                k.find(".confirmActionButton").clickExclOnce(function () {
-                    Sound.click();
-                    a();
-                    k.dialog("close");
-                    k.dialog("destroy").remove()
-                });
-                k.find(".cancelActionButton").clickExclOnce(function () {
-                    Sound.click();
-                    SplashScreen.reshow();
-                    k.dialog("close");
-                    k.dialog("destroy").remove()
-                })
-            },
-            onClose: function () {
-                UI.enableMainMenu();
-                k.dialog("destroy").remove()
-            }
-        })
-    }
 })();
 (function () {
     UI._prepareGreenworks = function () {

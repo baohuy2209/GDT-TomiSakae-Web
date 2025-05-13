@@ -183,27 +183,6 @@
         0 > a.cash ? f.addClass("red") : f.addClass("green");
         void 0 != a.fans && c.find(".fans").text(UI.getShortNumberString(a.fans) + " fans".localize());
         void 0 != d && c.find(".week").text("Y{0} M{1} W{2}".localize("date display").format(d.year, d.month, d.week));
-        if (!PlatformShim.ISWIN8)
-            if (a.mods && 0 < a.mods.length) {
-                var g = ModSupport.currentMods,
-                    k = a.mods.length,
-                    l = c.find(".mods");
-                l.find(".listTitle").html("Mods: ".localize());
-                a.mods.forEach(function (a, b) {
-                    if ("gdt-modAPI" != a.id) {
-                        var c = $("<span>").clone(),
-                            d = "{0} - {1}({2}) {3}".format(a.name, a.author, a.id, "Version: ".localize() + a.version),
-                            f = g.first(function (b) {
-                                return b === a.id
-                            }) ? "green" : "red";
-                        c.addClass(f);
-                        c.append(a.name);
-                        c.attr("title", d);
-                        l.append(c);
-                        k == b + 1 ? l.append(".") : l.append(", ")
-                    }
-                })
-            } else c.find(".mods").hide();
         return c
     };
     UI.closeAllLoadSaveViews = function () {
