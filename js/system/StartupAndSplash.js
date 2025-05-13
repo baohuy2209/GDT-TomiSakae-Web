@@ -286,6 +286,11 @@ var Startup = {};
     // Biến lưu kích thước cửa sổ trước đó để phát hiện resize.
     var lastWindowWidth, lastWindowHeight;
 
+    // Hàm kiểm tra xem có dialog hoặc popup nào đang mở không
+    var isAnyDialogOpen = function () {
+        return UI && typeof UI.isModalContentOpen === 'function' && UI.isModalContentOpen();
+    };
+
     // Hàm xử lý sự kiện resize cửa sổ.
     var handleWindowResize = function () {
         var currentWindowWidth = $(window).width();
@@ -295,16 +300,61 @@ var Startup = {};
         if (currentWindowWidth != lastWindowWidth || currentWindowHeight != lastWindowHeight) {
             lastWindowWidth = currentWindowWidth;
             lastWindowHeight = currentWindowHeight;
+
             // Nếu màn hình chờ đang hiển thị, cập nhật lại vị trí của nó.
             if ($("#splashScreen").is(":visible")) {
                 updateSplashPositionStyleFunction && updateSplashPositionStyleFunction();
             } else {
-                // Nếu không, tạm dừng game, tự động lưu và tải lại game (để UI điều chỉnh theo kích thước mới).
-                GameManager.pause(!0);
-                GameManager.autoSave(function () {
-                    GameManager.reload("auto", void 0, void 0, !0);
-                });
+                // Kiểm tra xem có dialog nào đang mở không
+                if (isAnyDialogOpen()) {
+                    // Nếu có dialog đang mở, chỉ cần cập nhật kích thước canvas và cân chỉnh lại dialog
+                    // mà không cần reload game
+                    updateCanvasRender();
+
+                    // Căn chỉnh lại vị trí các dialog đang mở
+                    if (UI && typeof UI.realignOpenDialogs === 'function') {
+                        UI.realignOpenDialogs();
+                    }
+
+                    console.log("Đã cập nhật vị trí dialog khi resize cửa sổ");
+                } else {
+                    // Nếu không có dialog nào đang mở, tạm dừng game, tự động lưu và tải lại game.
+                    if (GameManager && typeof GameManager.pause === 'function') {
+                        GameManager.pause(!0);
+
+                        // Kiểm tra xem GameManager.autoSave có tồn tại không
+                        if (typeof GameManager.autoSave === 'function') {
+                            GameManager.autoSave(function () {
+                                // Kiểm tra xem GameManager.reload có tồn tại không
+                                if (typeof GameManager.reload === 'function') {
+                                    GameManager.reload("auto", void 0, void 0, !0);
+                                }
+                            });
+                        }
+                    }
+                }
             }
+        }
+    };
+
+    // Hàm fallback xử lý canvas cho thiết bị di động khi CanvasManager không có sẵn
+    var mobileCanvasFallback = function (width, height) {
+        try {
+            // Đặt kích thước các container canvas nếu chúng tồn tại
+            $("#canvasContainer").width(width).height(height);
+            $("#canvasContainerLeft").width(width).height(height);
+            $("#canvasContainerRight").width(width).height(height);
+
+            // Tìm tất cả các canvas trong các container và đặt kích thước cho chúng
+            $(".canvasContainer canvas").each(function () {
+                $(this).attr('width', width);
+                $(this).attr('height', height);
+            });
+
+            // Thông báo đã xử lý
+            console.log("Thiết bị di động: Đã điều chỉnh canvas theo kích thước màn hình", width, height);
+        } catch (error) {
+            console.error("Lỗi khi xử lý canvas trên thiết bị di động:", error);
         }
     };
 
@@ -313,8 +363,21 @@ var Startup = {};
         var currentWindowWidth = $(window).width();
         var currentWindowHeight = $(window).height();
         $(document.body).width(currentWindowWidth).height(currentWindowHeight);
-        CanvasManager.updateCanvasSizes(currentWindowWidth, currentWindowHeight);
-        CanvasManager.update();
+
+        // Kiểm tra xem CanvasManager có hàm updateCanvasSizes không trước khi gọi
+        if (CanvasManager && typeof CanvasManager.updateCanvasSizes === 'function') {
+            CanvasManager.updateCanvasSizes(currentWindowWidth, currentWindowHeight);
+        } else {
+            // Fallback cho thiết bị di động hoặc trường hợp hàm không tồn tại
+            console.log("Warning: CanvasManager.updateCanvasSizes không khả dụng.");
+            // Gọi hàm fallback cho thiết bị di động
+            mobileCanvasFallback(currentWindowWidth, currentWindowHeight);
+        }
+
+        // Cập nhật canvas chỉ khi hàm update tồn tại
+        if (CanvasManager && typeof CanvasManager.update === 'function') {
+            CanvasManager.update();
+        }
     };
 
     // Biến lưu ID của timeout cho sự kiện resize (để debounce).
